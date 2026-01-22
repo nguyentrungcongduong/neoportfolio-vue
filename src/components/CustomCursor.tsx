@@ -76,9 +76,9 @@ const CustomCursor = () => {
 
   return (
     <>
-      {/* Main cursor - Bold square */}
+      {/* Main cursor - Cute Carrot */}
       <motion.div
-        className="fixed top-0 left-0 pointer-events-none z-[9999] mix-blend-difference"
+        className="fixed top-0 left-0 pointer-events-none z-[9999]"
         style={{
           x: cursorXSpring,
           y: cursorYSpring,
@@ -87,32 +87,58 @@ const CustomCursor = () => {
         <motion.div
           className="relative -translate-x-1/2 -translate-y-1/2"
           animate={{
-            scale: isClicking ? 0.8 : isHovering ? 1.5 : 1,
-            rotate: isHovering ? 45 : 0,
+            scale: isClicking ? 0.7 : isHovering ? 1.3 : 1,
+            rotate: isClicking ? -20 : isHovering ? 15 : -10,
           }}
-          transition={{ type: 'spring', damping: 20, stiffness: 300 }}
+          transition={{ type: 'spring', damping: 15, stiffness: 300 }}
         >
-          {/* Outer ring */}
-          <motion.div
-            className="absolute -translate-x-1/2 -translate-y-1/2 border-[3px] border-white bg-transparent"
+          {/* Carrot emoji */}
+          <motion.span
+            className="text-3xl select-none drop-shadow-lg"
             animate={{
-              width: isHovering ? 50 : 30,
-              height: isHovering ? 50 : 30,
-              borderRadius: isHovering ? '4px' : '0px',
+              rotate: isHovering ? [0, -10, 10, -10, 0] : 0,
             }}
-            transition={{ type: 'spring', damping: 20, stiffness: 300 }}
-          />
+            transition={{ 
+              duration: 0.5, 
+              repeat: isHovering ? Infinity : 0,
+              repeatDelay: 0.3 
+            }}
+          >
+            🥕
+          </motion.span>
           
-          {/* Inner dot */}
-          <motion.div
-            className="absolute -translate-x-1/2 -translate-y-1/2 bg-white"
-            animate={{
-              width: isClicking ? 12 : isHovering ? 8 : 6,
-              height: isClicking ? 12 : isHovering ? 8 : 6,
-              borderRadius: isHovering ? '0px' : '50%',
-            }}
-            transition={{ type: 'spring', damping: 20, stiffness: 300 }}
-          />
+          {/* Sparkles when hovering */}
+          {isHovering && (
+            <>
+              <motion.span
+                className="absolute -top-2 -left-2 text-sm"
+                initial={{ opacity: 0, scale: 0 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.1 }}
+              >
+                ✨
+              </motion.span>
+              <motion.span
+                className="absolute -top-1 -right-3 text-xs"
+                initial={{ opacity: 0, scale: 0 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.2 }}
+              >
+                💫
+              </motion.span>
+            </>
+          )}
+          
+          {/* Bite mark when clicking */}
+          {isClicking && (
+            <motion.span
+              className="absolute -bottom-1 right-0 text-xs"
+              initial={{ opacity: 0, scale: 0 }}
+              animate={{ opacity: 1, scale: 1.2 }}
+            >
+              😋
+            </motion.span>
+          )}
         </motion.div>
 
         {/* Cursor text label */}
@@ -121,14 +147,14 @@ const CustomCursor = () => {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}
-            className="absolute left-6 top-6 px-3 py-1 bg-black text-white text-xs font-bold uppercase tracking-wider border-2 border-white whitespace-nowrap"
+            className="absolute left-8 top-8 px-3 py-1 bg-neo-yellow text-black text-xs font-bold uppercase tracking-wider border-3 border-black shadow-neo whitespace-nowrap"
           >
             {cursorText}
           </motion.div>
         )}
       </motion.div>
 
-      {/* Trailing shapes */}
+      {/* Trailing cute elements */}
       <CursorTrail cursorX={cursorXSpring} cursorY={cursorYSpring} isHovering={isHovering} />
 
       {/* Hide default cursor */}
@@ -141,7 +167,7 @@ const CustomCursor = () => {
   );
 };
 
-// Trailing geometric shapes
+// Trailing cute elements
 const CursorTrail = ({ 
   cursorX, 
   cursorY, 
@@ -151,41 +177,39 @@ const CursorTrail = ({
   cursorY: any; 
   isHovering: boolean;
 }) => {
-  const shapes = [
-    { delay: 0.05, size: 12, color: 'bg-neo-pink' },
-    { delay: 0.1, size: 10, color: 'bg-neo-blue' },
-    { delay: 0.15, size: 8, color: 'bg-neo-yellow' },
+  const items = [
+    { emoji: '🌱', size: 16 },
+    { emoji: '🍃', size: 14 },
+    { emoji: '💚', size: 12 },
   ];
 
-  const springConfig = { damping: 30, stiffness: 200 };
+  const springConfig = { damping: 35, stiffness: 180 };
 
   return (
     <>
-      {shapes.map((shape, i) => {
-        const delayedX = useSpring(cursorX, { ...springConfig, damping: springConfig.damping - i * 5 });
-        const delayedY = useSpring(cursorY, { ...springConfig, damping: springConfig.damping - i * 5 });
+      {items.map((item, i) => {
+        const delayedX = useSpring(cursorX, { ...springConfig, damping: springConfig.damping - i * 8 });
+        const delayedY = useSpring(cursorY, { ...springConfig, damping: springConfig.damping - i * 8 });
 
         return (
           <motion.div
             key={i}
-            className={`fixed top-0 left-0 pointer-events-none z-[9998] ${shape.color} border-2 border-black`}
+            className="fixed top-0 left-0 pointer-events-none z-[9998] select-none"
             style={{
               x: delayedX,
               y: delayedY,
-              width: shape.size,
-              height: shape.size,
+              fontSize: item.size,
             }}
             animate={{
-              rotate: isHovering ? 180 + i * 45 : i * 30,
-              scale: isHovering ? 1.2 : 1,
-              opacity: isHovering ? 1 : 0.7,
+              rotate: isHovering ? 360 : i * 20,
+              scale: isHovering ? 1.3 : 0.9,
+              opacity: isHovering ? 1 : 0.6,
             }}
             transition={{ type: 'spring', damping: 20 }}
           >
-            <div 
-              className="w-full h-full -translate-x-1/2 -translate-y-1/2"
-              style={{ marginLeft: -shape.size / 2, marginTop: -shape.size / 2 }}
-            />
+            <span className="-translate-x-1/2 -translate-y-1/2 block drop-shadow-sm">
+              {item.emoji}
+            </span>
           </motion.div>
         );
       })}
