@@ -4,6 +4,7 @@ import NeoCard from "./NeoCard";
 import NeoBadge from "./NeoBadge";
 import NeoButton from "./NeoButton";
 import { Calendar, Clock, ArrowRight, BookOpen } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const blogPosts = [
   {
@@ -215,9 +216,11 @@ const BlogSection = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            <NeoButton variant="secondary" size="lg" className="hover-jello">
-              Xem tất cả bài viết 📚
-            </NeoButton>
+            <Link to="/blog">
+              <NeoButton variant="secondary" size="lg" className="hover-jello">
+                Xem tất cả bài viết 📚
+              </NeoButton>
+            </Link>
           </motion.div>
         </motion.div>
       </div>

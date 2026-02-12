@@ -5,6 +5,7 @@ import NeoCard from "./NeoCard";
 import NeoBadge from "./NeoBadge";
 import NeoButton from "./NeoButton";
 import { ExternalLink, Github, Rocket, ShoppingCart, CheckSquare, Cloud, Layers } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const ProjectsSection = () => {
   const ref = useRef(null);
@@ -214,9 +215,11 @@ const ProjectsSection = () => {
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
           >
-            <NeoButton variant="accent" size="lg" className="hover-jello">
-              View All Projects 🚀
-            </NeoButton>
+            <Link to="/projects">
+              <NeoButton variant="accent" size="lg" className="hover-jello">
+                View All Projects 🚀
+              </NeoButton>
+            </Link>
           </motion.div>
         </motion.div>
       </motion.div>
