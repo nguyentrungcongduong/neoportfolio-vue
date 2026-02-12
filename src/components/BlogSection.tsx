@@ -1,54 +1,13 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import { Link } from "react-router-dom";
 import NeoCard from "./NeoCard";
 import NeoBadge from "./NeoBadge";
 import NeoButton from "./NeoButton";
 import { Calendar, Clock, ArrowRight, BookOpen } from "lucide-react";
-import { Link } from "react-router-dom";
+import { blogPosts } from "@/data/blogData";
 
-const blogPosts = [
-  {
-    id: 1,
-    title: "Tối ưu Performance React với useMemo và useCallback",
-    excerpt: "Hướng dẫn chi tiết cách sử dụng useMemo và useCallback để tránh re-render không cần thiết trong React applications.",
-    category: "React",
-    date: "15 Jan 2024",
-    readTime: "5 min",
-    emoji: "⚡",
-    gradient: "from-yellow-400 to-orange-500",
-  },
-  {
-    id: 2,
-    title: "TypeScript Advanced Types: Generics và Utility Types",
-    excerpt: "Khám phá sức mạnh của Generics và các Utility Types trong TypeScript để viết code type-safe và flexible hơn.",
-    category: "TypeScript",
-    date: "10 Jan 2024",
-    readTime: "8 min",
-    emoji: "🔷",
-    gradient: "from-blue-400 to-indigo-500",
-  },
-  {
-    id: 3,
-    title: "Tailwind CSS Tips & Tricks cho Developer",
-    excerpt: "Những tips và tricks hữu ích khi làm việc với Tailwind CSS giúp tăng tốc workflow và tạo UI đẹp mắt.",
-    category: "CSS",
-    date: "5 Jan 2024",
-    readTime: "4 min",
-    emoji: "🎨",
-    gradient: "from-cyan-400 to-teal-500",
-  },
-  {
-    id: 4,
-    title: "Framer Motion: Tạo Animations Đẹp Mắt",
-    excerpt: "Học cách sử dụng Framer Motion để tạo các animations mượt mà và chuyên nghiệp cho React applications.",
-    category: "Animation",
-    date: "1 Jan 2024",
-    readTime: "6 min",
-    emoji: "✨",
-    gradient: "from-purple-400 to-pink-500",
-  },
-];
-
+const displayPosts = blogPosts.slice(0, 4);
 const BlogSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
@@ -124,13 +83,14 @@ const BlogSection = () => {
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
         >
-          {blogPosts.map((post, index) => (
+          {displayPosts.map((post, index) => (
             <motion.div
               key={post.id}
               variants={itemVariants}
               whileHover={{ y: -8, rotate: index % 2 === 0 ? 1 : -1 }}
               transition={{ type: "spring" as const, stiffness: 300 }}
             >
+              <Link to={`/blog/${post.id}`}>
               <NeoCard className="h-full overflow-hidden group cursor-pointer">
                 {/* Thumbnail */}
                 <div className={`h-48 bg-gradient-to-br ${post.gradient} flex items-center justify-center relative overflow-hidden`}>
@@ -201,6 +161,7 @@ const BlogSection = () => {
                   </motion.div>
                 </div>
               </NeoCard>
+              </Link>
             </motion.div>
           ))}
         </motion.div>
