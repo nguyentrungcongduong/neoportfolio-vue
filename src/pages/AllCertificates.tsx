@@ -1,10 +1,8 @@
 import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
-import { useRef } from "react";
+import NeoCard from "@/components/NeoCard";
+import NeoBadge from "@/components/NeoBadge";
+import { Award, ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
-import NeoCard from "./NeoCard";
-import NeoBadge from "./NeoBadge";
-import { Award, ExternalLink } from "lucide-react";
 
 const certificates = [
   {
@@ -57,65 +55,57 @@ const certificates = [
   },
 ];
 
-const INITIAL_DISPLAY = 3;
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.1 },
+  },
+};
 
-const CertificatesSection = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+const itemVariants = {
+  hidden: { opacity: 0, y: 40, scale: 0.95 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { type: "spring" as const, stiffness: 120, damping: 12 },
+  },
+};
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.12 },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 50, scale: 0.9 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: { type: "spring" as const, stiffness: 120, damping: 12 },
-    },
-  };
-
+const AllCertificates = () => {
   return (
-    <section id="certificates" className="py-20 px-4 overflow-hidden" ref={ref}>
+    <div className="min-h-screen bg-background py-20 px-4">
       <motion.div
         className="max-w-6xl mx-auto"
         variants={containerVariants}
         initial="hidden"
-        animate={isInView ? "visible" : "hidden"}
+        animate="visible"
       >
-        <motion.div className="text-center mb-16" variants={itemVariants}>
-          <motion.h2
-            className="text-4xl md:text-6xl font-bold mb-4"
-            initial={{ opacity: 0, y: -50 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ type: "spring", stiffness: 100 }}
+        <motion.div variants={itemVariants} className="mb-8">
+          <Link
+            to="/"
+            className="inline-flex items-center gap-2 font-bold text-lg hover:underline"
           >
-            Chứng chỉ{" "}
-            <motion.span
-              className="bg-secondary px-2 inline-block text-shadow-neo"
-              whileHover={{ rotate: 5, scale: 1.1 }}
-              animate={isInView ? { rotate: [0, -5, 5, 0] } : {}}
-              transition={{ delay: 0.5, duration: 0.5 }}
-            >
-              🏆
-            </motion.span>
-          </motion.h2>
-          <motion.p
-            className="text-xl text-muted-foreground max-w-2xl mx-auto"
-            variants={itemVariants}
-          >
-            Những chứng chỉ mình đã đạt được trên hành trình học hỏi và phát triển
-          </motion.p>
+            <ArrowLeft size={20} /> Quay lại
+          </Link>
         </motion.div>
 
+        <motion.h1
+          className="text-4xl md:text-6xl font-bold mb-4"
+          variants={itemVariants}
+        >
+          Tất cả chứng chỉ 🏆
+        </motion.h1>
+        <motion.p
+          className="text-xl text-muted-foreground mb-12"
+          variants={itemVariants}
+        >
+          Tổng cộng {certificates.length} chứng chỉ đã đạt được
+        </motion.p>
+
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {certificates.slice(0, INITIAL_DISPLAY).map((cert, index) => (
+          {certificates.map((cert, index) => (
             <motion.div
               key={cert.name}
               variants={itemVariants}
@@ -130,7 +120,7 @@ const CertificatesSection = () => {
                 <div className="flex items-start justify-between">
                   <motion.span
                     className="text-4xl"
-                    animate={isInView ? { rotate: [0, -10, 10, 0] } : {}}
+                    animate={{ rotate: [0, -10, 10, 0] }}
                     transition={{ delay: 0.3 + index * 0.1, duration: 0.5 }}
                   >
                     {cert.emoji}
@@ -146,23 +136,9 @@ const CertificatesSection = () => {
             </motion.div>
           ))}
         </div>
-
-        {certificates.length > INITIAL_DISPLAY && (
-          <motion.div className="text-center mt-10" variants={itemVariants}>
-            <Link to="/certificates">
-              <motion.button
-                className="px-8 py-3 bg-foreground text-background font-bold text-lg border-3 border-foreground rounded-xl shadow-neo hover:shadow-none transition-all"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                Xem tất cả ({certificates.length}) →
-              </motion.button>
-            </Link>
-          </motion.div>
-        )}
       </motion.div>
-    </section>
+    </div>
   );
 };
 
-export default CertificatesSection;
+export default AllCertificates;
