@@ -57,7 +57,7 @@ const HeroSection = () => {
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.3 }}
             >
-              Hi, I'm{" "}
+              Xin chào, mình là{" "}
               <motion.span
                 className="bg-primary px-2 inline-block text-shadow-neo"
                 initial={{ opacity: 0, scale: 0 }}
@@ -65,7 +65,7 @@ const HeroSection = () => {
                 transition={{ delay: 0.5 }}
                 whileHover={{ scale: 1.05, rotate: 3 }}
               >
-                Alex Nguyen
+                Công Dưỡng
               </motion.span>
             </motion.h1>
 

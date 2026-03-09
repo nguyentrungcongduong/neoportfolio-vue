@@ -16,7 +16,7 @@ const Footer = () => {
             viewport={{ once: true }}
           >
             <Sparkles className="w-6 h-6 text-primary" />
-            Alex<span className="text-primary">.</span>dev
+            Công Dưỡng<span className="text-primary">.</span>dev
           </motion.div>
 
           {/* Social Links */}
@@ -61,7 +61,7 @@ const Footer = () => {
             in Vietnam 🇻🇳
           </p>
           <p className="text-background/60 mt-2">
-            © {currentYear} Alex Nguyen. All rights reserved.
+            © {currentYear} Nguyễn Trung Công Dưỡng. All rights reserved.
           </p>
         </motion.div>
       </div>
