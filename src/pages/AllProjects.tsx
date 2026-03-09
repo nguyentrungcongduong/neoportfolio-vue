@@ -8,16 +8,89 @@ import { ExternalLink, Github, ShoppingCart, CheckSquare, Cloud, Layers, ArrowLe
 import CustomCursor from "@/components/CustomCursor";
 import FloatingPet from "@/components/FloatingPet";
 import { cn } from "@/lib/utils";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+
+// Import project images
+import ecommerce1 from "@/assets/projects/ecommerce-1.png";
+import ecommerce2 from "@/assets/projects/ecommerce-2.png";
+import task1 from "@/assets/projects/task-1.png";
+import task2 from "@/assets/projects/task-2.png";
+import weather1 from "@/assets/projects/weather-1.png";
+import weather2 from "@/assets/projects/weather-2.png";
+import portfolio1 from "@/assets/projects/portfolio-1.png";
+import portfolio2 from "@/assets/projects/portfolio-2.png";
 
 const allProjects = [
-  { title: "E-Commerce Platform", description: "A full-featured online store with cart, checkout, and payment integration.", tags: ["React", "Node.js", "Stripe"], color: "bg-primary", icon: ShoppingCart },
-  { title: "Task Management App", description: "Kanban-style project management tool with real-time collaboration.", tags: ["Next.js", "TypeScript", "Socket.io"], color: "bg-secondary", icon: CheckSquare },
-  { title: "Weather Dashboard", description: "Beautiful weather app with forecasts, maps, and location-based alerts.", tags: ["React", "API", "Charts"], color: "bg-accent", icon: Cloud },
-  { title: "Portfolio Generator", description: "Create stunning portfolios with drag-and-drop builder and templates.", tags: ["Vue.js", "Firebase", "Tailwind"], color: "bg-info", icon: Layers },
-  { title: "Retro Game Hub", description: "Collection of classic arcade games rebuilt with modern web technologies.", tags: ["Canvas", "TypeScript", "WebGL"], color: "bg-primary", icon: Gamepad2 },
-  { title: "Photo Editor Pro", description: "Browser-based photo editor with filters, layers, and AI-powered enhancements.", tags: ["React", "WebAssembly", "AI"], color: "bg-secondary", icon: Camera },
-  { title: "Music Streaming App", description: "Spotify-inspired music player with playlist management and audio visualizer.", tags: ["React", "Web Audio", "Node.js"], color: "bg-accent", icon: Music },
-  { title: "AI Chat Assistant", description: "Intelligent chatbot powered by GPT with memory and context awareness.", tags: ["Python", "OpenAI", "React"], color: "bg-info", icon: Brain },
+  { 
+    title: "E-Commerce Platform", 
+    description: "A full-featured online store with cart, checkout, and payment integration.", 
+    tags: ["React", "Node.js", "Stripe"], 
+    color: "bg-primary", 
+    icon: ShoppingCart,
+    images: [ecommerce1, ecommerce2]
+  },
+  { 
+    title: "Task Management App", 
+    description: "Kanban-style project management tool with real-time collaboration.", 
+    tags: ["Next.js", "TypeScript", "Socket.io"], 
+    color: "bg-secondary", 
+    icon: CheckSquare,
+    images: [task1, task2]
+  },
+  { 
+    title: "Weather Dashboard", 
+    description: "Beautiful weather app with forecasts, maps, and location-based alerts.", 
+    tags: ["React", "API", "Charts"], 
+    color: "bg-accent", 
+    icon: Cloud,
+    images: [weather1, weather2]
+  },
+  { 
+    title: "Portfolio Generator", 
+    description: "Create stunning portfolios with drag-and-drop builder and templates.", 
+    tags: ["Vue.js", "Firebase", "Tailwind"], 
+    color: "bg-info", 
+    icon: Layers,
+    images: [portfolio1, portfolio2]
+  },
+  { 
+    title: "Retro Game Hub", 
+    description: "Collection of classic arcade games rebuilt with modern web technologies.", 
+    tags: ["Canvas", "TypeScript", "WebGL"], 
+    color: "bg-primary", 
+    icon: Gamepad2,
+    images: [ecommerce1, ecommerce2] // Placeholder - reusing images
+  },
+  { 
+    title: "Photo Editor Pro", 
+    description: "Browser-based photo editor with filters, layers, and AI-powered enhancements.", 
+    tags: ["React", "WebAssembly", "AI"], 
+    color: "bg-secondary", 
+    icon: Camera,
+    images: [task1, task2] // Placeholder - reusing images
+  },
+  { 
+    title: "Music Streaming App", 
+    description: "Spotify-inspired music player with playlist management and audio visualizer.", 
+    tags: ["React", "Web Audio", "Node.js"], 
+    color: "bg-accent", 
+    icon: Music,
+    images: [weather1, weather2] // Placeholder - reusing images
+  },
+  { 
+    title: "AI Chat Assistant", 
+    description: "Intelligent chatbot powered by GPT with memory and context awareness.", 
+    tags: ["Python", "OpenAI", "React"], 
+    color: "bg-info", 
+    icon: Brain,
+    images: [portfolio1, portfolio2] // Placeholder - reusing images
+  },
 ];
 
 const AllProjects = () => {
@@ -148,20 +221,30 @@ const AllProjects = () => {
                 whileHover={{ y: -10, scale: 1.02 }}
               >
               <NeoCard className="group overflow-hidden">
-                <motion.div
-                  className={`${project.color} h-48 border-b-[3px] border-foreground -m-6 mb-4 flex items-center justify-center relative overflow-hidden`}
-                  whileHover={{ scale: 1.05 }}
-                >
-                  <motion.div
-                    className="absolute inset-0 opacity-20"
-                    style={{
-                      backgroundImage: "repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 20px)",
-                    }}
-                  />
-                  <motion.div whileHover={{ scale: 1.2, rotate: 10 }}>
-                    <project.icon size={80} strokeWidth={1.5} />
-                  </motion.div>
-                </motion.div>
+                {/* Carousel for project images */}
+                <div className="-m-6 mb-4 border-b-[3px] border-foreground">
+                  <Carousel className="w-full">
+                    <CarouselContent>
+                      {project.images.map((image, imgIndex) => (
+                        <CarouselItem key={imgIndex}>
+                          <motion.div
+                            className="relative h-64 overflow-hidden"
+                            whileHover={{ scale: 1.02 }}
+                          >
+                            <img
+                              src={image}
+                              alt={`${project.title} screenshot ${imgIndex + 1}`}
+                              className="w-full h-full object-cover"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-background/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                          </motion.div>
+                        </CarouselItem>
+                      ))}
+                    </CarouselContent>
+                    <CarouselPrevious className="left-2" />
+                    <CarouselNext className="right-2" />
+                  </Carousel>
+                </div>
 
                 <div className="space-y-4 pt-2">
                   <h3 className="text-2xl font-bold">{project.title}</h3>
