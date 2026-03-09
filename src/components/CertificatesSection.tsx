@@ -4,58 +4,8 @@ import { useRef } from "react";
 import { Link } from "react-router-dom";
 import NeoCard from "./NeoCard";
 import NeoBadge from "./NeoBadge";
-import { Award, ExternalLink } from "lucide-react";
-
-const certificates = [
-  {
-    name: "Google AI for K12 Educators",
-    org: "Google",
-    date: "01/2026",
-    emoji: "🤖",
-    variant: "primary" as const,
-    badgeVariant: "primary" as const,
-  },
-  {
-    name: "Google Cloud Computing Foundations Certificate",
-    org: "Google Cloud",
-    date: "01/2026",
-    emoji: "☁️",
-    variant: "info" as const,
-    badgeVariant: "info" as const,
-  },
-  {
-    name: "Build a Secure Google Cloud Network Skill Badge",
-    org: "Google Cloud",
-    date: "01/2026",
-    emoji: "🔒",
-    variant: "accent" as const,
-    badgeVariant: "accent" as const,
-  },
-  {
-    name: "Implement Load Balancing on Compute Engine Skill Badge",
-    org: "Google Cloud",
-    date: "01/2026",
-    emoji: "⚖️",
-    variant: "secondary" as const,
-    badgeVariant: "secondary" as const,
-  },
-  {
-    name: "Prepare Data for ML APIs on Google Cloud Skill Badge",
-    org: "Google Cloud",
-    date: "01/2026",
-    emoji: "📊",
-    variant: "primary" as const,
-    badgeVariant: "primary" as const,
-  },
-  {
-    name: "Set Up an App Dev Environment on Google Cloud Skill Badge",
-    org: "Google Cloud",
-    date: "01/2026",
-    emoji: "🛠️",
-    variant: "info" as const,
-    badgeVariant: "info" as const,
-  },
-];
+import { Award } from "lucide-react";
+import { certificates } from "@/data/certificatesData";
 
 const INITIAL_DISPLAY = 3;
 
@@ -126,19 +76,23 @@ const CertificatesSection = () => {
               }}
               whileTap={{ scale: 0.97 }}
             >
-              <NeoCard className="h-full flex flex-col gap-3 cursor-pointer group">
-                <div className="flex items-start justify-between">
-                  <motion.span
-                    className="text-4xl"
-                    animate={isInView ? { rotate: [0, -10, 10, 0] } : {}}
+              <NeoCard className="h-full flex flex-col gap-4 cursor-pointer group">
+                <div className="flex items-start justify-between gap-3">
+                  <motion.div
+                    className="flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden bg-background border-3 border-foreground shadow-neo"
+                    animate={isInView ? { scale: [1, 1.05, 1] } : {}}
                     transition={{ delay: 0.3 + index * 0.1, duration: 0.5 }}
                   >
-                    {cert.emoji}
-                  </motion.span>
+                    <img 
+                      src={cert.imageUrl} 
+                      alt={cert.name}
+                      className="w-full h-full object-cover"
+                    />
+                  </motion.div>
                   <NeoBadge variant={cert.badgeVariant}>{cert.date}</NeoBadge>
                 </div>
                 <h3 className="text-lg font-bold leading-snug">{cert.name}</h3>
-                <div className="flex items-center gap-2 text-muted-foreground">
+                <div className="flex items-center gap-2 text-muted-foreground mt-auto">
                   <Award size={16} />
                   <span className="text-sm font-medium">{cert.org}</span>
                 </div>
