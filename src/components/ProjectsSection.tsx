@@ -136,31 +136,21 @@ const ProjectsSection = () => {
               }}
             >
               <NeoCard className="group overflow-hidden">
-                {/* Project Image Placeholder */}
-                <motion.div
-                  className={`${project.color} h-48 border-b-[3px] border-foreground -m-6 mb-4 flex items-center justify-center relative overflow-hidden`}
-                  whileHover={{ scale: 1.05 }}
-                >
-                  <motion.div
-                    className="absolute inset-0 opacity-20"
-                    animate={{
-                      backgroundPosition: ["0% 0%", "100% 100%"],
-                    }}
-                    transition={{ duration: 3, repeat: Infinity, repeatType: "reverse" }}
-                    style={{
-                      backgroundImage: "repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 20px)",
-                      backgroundSize: "200% 200%",
-                    }}
-                  />
-                  <motion.div
-                    initial={{ scale: 0, rotate: -180 }}
-                    animate={isInView ? { scale: 1, rotate: 0 } : {}}
-                    transition={{ delay: 0.3 + index * 0.15, type: "spring" }}
-                    whileHover={{ scale: 1.2, rotate: 10 }}
-                  >
-                    <project.icon size={80} strokeWidth={1.5} />
-                  </motion.div>
-                </motion.div>
+                <div className="-m-6 mb-4 border-b-[3px] border-foreground">
+                  <Carousel className="w-full" plugins={[Autoplay({ delay: 5000, stopOnInteraction: true })]}>
+                    <CarouselContent>
+                      {project.images.map((image, imgIndex) => (
+                        <CarouselItem key={imgIndex}>
+                          <div className="relative h-48 overflow-hidden">
+                            <img src={image} alt={`${project.title} screenshot ${imgIndex + 1}`} className="w-full h-full object-cover" />
+                          </div>
+                        </CarouselItem>
+                      ))}
+                    </CarouselContent>
+                    <CarouselPrevious className="left-2" />
+                    <CarouselNext className="right-2" />
+                  </Carousel>
+                </div>
 
                 <div className="space-y-4 pt-2">
                   <motion.h3
