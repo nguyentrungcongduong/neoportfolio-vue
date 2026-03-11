@@ -8,6 +8,7 @@ import { ExternalLink, Github, ShoppingCart, CheckSquare, Cloud, Layers, ArrowLe
 import CustomCursor from "@/components/CustomCursor";
 import FloatingPet from "@/components/FloatingPet";
 import { cn } from "@/lib/utils";
+import Autoplay from "embla-carousel-autoplay";
 import {
   Carousel,
   CarouselContent,
