@@ -26,6 +26,14 @@ import weather1 from "@/assets/projects/weather-1.png";
 import weather2 from "@/assets/projects/weather-2.png";
 import portfolio1 from "@/assets/projects/portfolio-1.png";
 import portfolio2 from "@/assets/projects/portfolio-2.png";
+import game1 from "@/assets/projects/game-1.png";
+import game2 from "@/assets/projects/game-2.png";
+import photo1 from "@/assets/projects/photo-1.png";
+import photo2 from "@/assets/projects/photo-2.png";
+import music1 from "@/assets/projects/music-1.png";
+import music2 from "@/assets/projects/music-2.png";
+import aichat1 from "@/assets/projects/aichat-1.png";
+import aichat2 from "@/assets/projects/aichat-2.png";
 
 const allProjects = [
   { 
@@ -66,7 +74,7 @@ const allProjects = [
     tags: ["Canvas", "TypeScript", "WebGL"], 
     color: "bg-primary", 
     icon: Gamepad2,
-    images: [ecommerce1, ecommerce2] // Placeholder - reusing images
+    images: [game1, game2],
   },
   { 
     title: "Photo Editor Pro", 
@@ -74,7 +82,7 @@ const allProjects = [
     tags: ["React", "WebAssembly", "AI"], 
     color: "bg-secondary", 
     icon: Camera,
-    images: [task1, task2] // Placeholder - reusing images
+    images: [photo1, photo2],
   },
   { 
     title: "Music Streaming App", 
@@ -82,7 +90,7 @@ const allProjects = [
     tags: ["React", "Web Audio", "Node.js"], 
     color: "bg-accent", 
     icon: Music,
-    images: [weather1, weather2] // Placeholder - reusing images
+    images: [music1, music2],
   },
   { 
     title: "AI Chat Assistant", 
@@ -90,7 +98,7 @@ const allProjects = [
     tags: ["Python", "OpenAI", "React"], 
     color: "bg-info", 
     icon: Brain,
-    images: [portfolio1, portfolio2] // Placeholder - reusing images
+    images: [aichat1, aichat2],
   },
 ];
 
