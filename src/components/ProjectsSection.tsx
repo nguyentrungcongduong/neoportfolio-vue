@@ -4,9 +4,19 @@ import { useRef } from "react";
 import NeoCard from "./NeoCard";
 import NeoBadge from "./NeoBadge";
 import NeoButton from "./NeoButton";
-import { ExternalLink, Github, Rocket, ShoppingCart, CheckSquare, Cloud, Layers } from "lucide-react";
+import { ExternalLink, Github, Rocket } from "lucide-react";
 import { Link } from "react-router-dom";
+import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from "@/components/ui/carousel";
+import Autoplay from "embla-carousel-autoplay";
 
+import ecommerce1 from "@/assets/projects/ecommerce-1.png";
+import ecommerce2 from "@/assets/projects/ecommerce-2.png";
+import task1 from "@/assets/projects/task-1.png";
+import task2 from "@/assets/projects/task-2.png";
+import weather1 from "@/assets/projects/weather-1.png";
+import weather2 from "@/assets/projects/weather-2.png";
+import portfolio1 from "@/assets/projects/portfolio-1.png";
+import portfolio2 from "@/assets/projects/portfolio-2.png";
 const ProjectsSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
