@@ -4,9 +4,19 @@ import { useRef } from "react";
 import NeoCard from "./NeoCard";
 import NeoBadge from "./NeoBadge";
 import NeoButton from "./NeoButton";
-import { ExternalLink, Github, Rocket, ShoppingCart, CheckSquare, Cloud, Layers } from "lucide-react";
+import { ExternalLink, Github, Rocket } from "lucide-react";
 import { Link } from "react-router-dom";
+import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from "@/components/ui/carousel";
+import Autoplay from "embla-carousel-autoplay";
 
+import ecommerce1 from "@/assets/projects/ecommerce-1.png";
+import ecommerce2 from "@/assets/projects/ecommerce-2.png";
+import task1 from "@/assets/projects/task-1.png";
+import task2 from "@/assets/projects/task-2.png";
+import weather1 from "@/assets/projects/weather-1.png";
+import weather2 from "@/assets/projects/weather-2.png";
+import portfolio1 from "@/assets/projects/portfolio-1.png";
+import portfolio2 from "@/assets/projects/portfolio-2.png";
 const ProjectsSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
@@ -16,8 +26,7 @@ const ProjectsSection = () => {
       title: "E-Commerce Platform",
       description: "A full-featured online store with cart, checkout, and payment integration.",
       tags: ["React", "Node.js", "Stripe"],
-      color: "bg-primary",
-      icon: ShoppingCart,
+      images: [ecommerce1, ecommerce2],
       link: "#",
       github: "#",
     },
@@ -25,8 +34,7 @@ const ProjectsSection = () => {
       title: "Task Management App",
       description: "Kanban-style project management tool with real-time collaboration.",
       tags: ["Next.js", "TypeScript", "Socket.io"],
-      color: "bg-secondary",
-      icon: CheckSquare,
+      images: [task1, task2],
       link: "#",
       github: "#",
     },
@@ -34,8 +42,7 @@ const ProjectsSection = () => {
       title: "Weather Dashboard",
       description: "Beautiful weather app with forecasts, maps, and location-based alerts.",
       tags: ["React", "API", "Charts"],
-      color: "bg-accent",
-      icon: Cloud,
+      images: [weather1, weather2],
       link: "#",
       github: "#",
     },
@@ -43,8 +50,7 @@ const ProjectsSection = () => {
       title: "Portfolio Generator",
       description: "Create stunning portfolios with drag-and-drop builder and templates.",
       tags: ["Vue.js", "Firebase", "Tailwind"],
-      color: "bg-info",
-      icon: Layers,
+      images: [portfolio1, portfolio2],
       link: "#",
       github: "#",
     },
@@ -130,31 +136,21 @@ const ProjectsSection = () => {
               }}
             >
               <NeoCard className="group overflow-hidden">
-                {/* Project Image Placeholder */}
-                <motion.div
-                  className={`${project.color} h-48 border-b-[3px] border-foreground -m-6 mb-4 flex items-center justify-center relative overflow-hidden`}
-                  whileHover={{ scale: 1.05 }}
-                >
-                  <motion.div
-                    className="absolute inset-0 opacity-20"
-                    animate={{
-                      backgroundPosition: ["0% 0%", "100% 100%"],
-                    }}
-                    transition={{ duration: 3, repeat: Infinity, repeatType: "reverse" }}
-                    style={{
-                      backgroundImage: "repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 20px)",
-                      backgroundSize: "200% 200%",
-                    }}
-                  />
-                  <motion.div
-                    initial={{ scale: 0, rotate: -180 }}
-                    animate={isInView ? { scale: 1, rotate: 0 } : {}}
-                    transition={{ delay: 0.3 + index * 0.15, type: "spring" }}
-                    whileHover={{ scale: 1.2, rotate: 10 }}
-                  >
-                    <project.icon size={80} strokeWidth={1.5} />
-                  </motion.div>
-                </motion.div>
+                <div className="-m-6 mb-4 border-b-[3px] border-foreground">
+                  <Carousel className="w-full" plugins={[Autoplay({ delay: 5000, stopOnInteraction: true })]}>
+                    <CarouselContent>
+                      {project.images.map((image, imgIndex) => (
+                        <CarouselItem key={imgIndex}>
+                          <div className="relative h-48 overflow-hidden">
+                            <img src={image} alt={`${project.title} screenshot ${imgIndex + 1}`} className="w-full h-full object-cover" />
+                          </div>
+                        </CarouselItem>
+                      ))}
+                    </CarouselContent>
+                    <CarouselPrevious className="left-2" />
+                    <CarouselNext className="right-2" />
+                  </Carousel>
+                </div>
 
                 <div className="space-y-4 pt-2">
                   <motion.h3
