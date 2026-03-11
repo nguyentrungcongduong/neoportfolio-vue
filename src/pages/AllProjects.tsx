@@ -82,7 +82,7 @@ const allProjects = [
     tags: ["React", "WebAssembly", "AI"], 
     color: "bg-secondary", 
     icon: Camera,
-    images: [task1, task2] // Placeholder - reusing images
+    images: [photo1, photo2],
   },
   { 
     title: "Music Streaming App", 
