@@ -224,7 +224,7 @@ const AllProjects = () => {
               <NeoCard className="group overflow-hidden">
                 {/* Carousel for project images */}
                 <div className="-m-6 mb-4 border-b-[3px] border-foreground">
-                  <Carousel className="w-full">
+                  <Carousel className="w-full" plugins={[Autoplay({ delay: 5000, stopOnInteraction: true })]}>
                     <CarouselContent>
                       {project.images.map((image, imgIndex) => (
                         <CarouselItem key={imgIndex}>
