@@ -74,7 +74,7 @@ const allProjects = [
     tags: ["Canvas", "TypeScript", "WebGL"], 
     color: "bg-primary", 
     icon: Gamepad2,
-    images: [ecommerce1, ecommerce2] // Placeholder - reusing images
+    images: [game1, game2],
   },
   { 
     title: "Photo Editor Pro", 
