@@ -98,7 +98,7 @@ const allProjects = [
     tags: ["Python", "OpenAI", "React"], 
     color: "bg-info", 
     icon: Brain,
-    images: [portfolio1, portfolio2] // Placeholder - reusing images
+    images: [aichat1, aichat2],
   },
 ];
 
