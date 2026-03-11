@@ -90,7 +90,7 @@ const allProjects = [
     tags: ["React", "Web Audio", "Node.js"], 
     color: "bg-accent", 
     icon: Music,
-    images: [weather1, weather2] // Placeholder - reusing images
+    images: [music1, music2],
   },
   { 
     title: "AI Chat Assistant", 
