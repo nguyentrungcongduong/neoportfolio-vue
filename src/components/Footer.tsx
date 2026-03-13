@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Github, Linkedin, Twitter, Heart, Sparkles } from "lucide-react";
+import { Github, Facebook, Twitter, Heart, Sparkles } from "lucide-react";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -22,13 +22,15 @@ const Footer = () => {
           {/* Social Links */}
           <div className="flex gap-4">
             {[
-              { icon: Github, hoverColor: "hover:bg-primary" },
-              { icon: Linkedin, hoverColor: "hover:bg-info" },
-              { icon: Twitter, hoverColor: "hover:bg-secondary" },
+              { icon: Github, hoverColor: "hover:bg-primary", href: "https://github.com/nguyentrungcongduong" },
+              { icon: Facebook, hoverColor: "hover:bg-blue-600", href: "https://www.facebook.com/congduong.nguyentrung.3?locale=vi_VN" },
+              { icon: Twitter, hoverColor: "hover:bg-secondary", href: "#" },
             ].map((social, index) => (
               <motion.a 
                 key={index}
-                href="#" 
+                href={social.href}
+                target={social.href.startsWith("http") ? "_blank" : undefined}
+                rel={social.href.startsWith("http") ? "noopener noreferrer" : undefined}
                 className={`p-3 bg-background text-foreground border-[3px] border-background ${social.hoverColor} transition-colors`}
                 aria-label={social.icon.name}
                 initial={{ opacity: 0, y: 20 }}

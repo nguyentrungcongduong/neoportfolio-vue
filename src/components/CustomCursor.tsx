@@ -24,7 +24,7 @@ const CustomCursor = () => {
 
     const handleMouseOver = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
-      
+
       // Check for interactive elements
       if (
         target.tagName === 'A' ||
@@ -35,10 +35,10 @@ const CustomCursor = () => {
         target.closest('.cursor-pointer')
       ) {
         setIsHovering(true);
-        
+
         // Check for specific cursor text
-        const cursorLabel = target.getAttribute('data-cursor') || 
-                           target.closest('[data-cursor]')?.getAttribute('data-cursor');
+        const cursorLabel = target.getAttribute('data-cursor') ||
+          target.closest('[data-cursor]')?.getAttribute('data-cursor');
         if (cursorLabel) {
           setCursorText(cursorLabel);
         }
@@ -67,7 +67,7 @@ const CustomCursor = () => {
 
   // Hide on touch devices
   const [isTouchDevice, setIsTouchDevice] = useState(false);
-  
+
   useEffect(() => {
     setIsTouchDevice('ontouchstart' in window || navigator.maxTouchPoints > 0);
   }, []);
@@ -82,6 +82,7 @@ const CustomCursor = () => {
         style={{
           x: cursorXSpring,
           y: cursorYSpring,
+          willChange: "transform"
         }}
       >
         <motion.div
@@ -90,7 +91,8 @@ const CustomCursor = () => {
             scale: isClicking ? 0.7 : isHovering ? 1.3 : 1,
             rotate: isClicking ? -20 : isHovering ? 15 : -10,
           }}
-          transition={{ type: 'spring', damping: 15, stiffness: 300 }}
+          transition={{ type: 'spring', damping: 20, stiffness: 350 }}
+          style={{ willChange: "transform" }}
         >
           {/* Carrot emoji */}
           <motion.span
@@ -98,15 +100,15 @@ const CustomCursor = () => {
             animate={{
               rotate: isHovering ? [0, -10, 10, -10, 0] : 0,
             }}
-            transition={{ 
-              duration: 0.5, 
+            transition={{
+              duration: 0.5,
               repeat: isHovering ? Infinity : 0,
-              repeatDelay: 0.3 
+              repeatDelay: 0.3
             }}
           >
             🥕
           </motion.span>
-          
+
           {/* Sparkles when hovering */}
           {isHovering && (
             <>
@@ -115,6 +117,7 @@ const CustomCursor = () => {
                 initial={{ opacity: 0, scale: 0 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.1 }}
+                style={{ willChange: "transform, opacity" }}
               >
                 ✨
               </motion.span>
@@ -123,18 +126,20 @@ const CustomCursor = () => {
                 initial={{ opacity: 0, scale: 0 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.2 }}
+                style={{ willChange: "transform, opacity" }}
               >
                 💫
               </motion.span>
             </>
           )}
-          
+
           {/* Bite mark when clicking */}
           {isClicking && (
             <motion.span
               className="absolute -bottom-1 right-0 text-xs"
               initial={{ opacity: 0, scale: 0 }}
               animate={{ opacity: 1, scale: 1.2 }}
+              style={{ willChange: "transform, opacity" }}
             >
               😋
             </motion.span>
@@ -148,6 +153,7 @@ const CustomCursor = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}
             className="absolute left-8 top-8 px-3 py-1 bg-neo-yellow text-black text-xs font-bold uppercase tracking-wider border-3 border-black shadow-neo whitespace-nowrap"
+            style={{ willChange: "transform, opacity" }}
           >
             {cursorText}
           </motion.div>
@@ -168,13 +174,13 @@ const CustomCursor = () => {
 };
 
 // Trailing cute elements
-const CursorTrail = ({ 
-  cursorX, 
-  cursorY, 
-  isHovering 
-}: { 
-  cursorX: any; 
-  cursorY: any; 
+const CursorTrail = ({
+  cursorX,
+  cursorY,
+  isHovering
+}: {
+  cursorX: any;
+  cursorY: any;
   isHovering: boolean;
 }) => {
   const items = [
@@ -183,13 +189,13 @@ const CursorTrail = ({
     { emoji: '💚', size: 12 },
   ];
 
-  const springConfig = { damping: 35, stiffness: 180 };
+  const springConfig = { damping: 40, stiffness: 200 };
 
   return (
     <>
       {items.map((item, i) => {
-        const delayedX = useSpring(cursorX, { ...springConfig, damping: springConfig.damping - i * 8 });
-        const delayedY = useSpring(cursorY, { ...springConfig, damping: springConfig.damping - i * 8 });
+        const delayedX = useSpring(cursorX, { ...springConfig, damping: springConfig.damping - i * 5 });
+        const delayedY = useSpring(cursorY, { ...springConfig, damping: springConfig.damping - i * 5 });
 
         return (
           <motion.div
@@ -199,13 +205,14 @@ const CursorTrail = ({
               x: delayedX,
               y: delayedY,
               fontSize: item.size,
+              willChange: "transform"
             }}
             animate={{
               rotate: isHovering ? 360 : i * 20,
               scale: isHovering ? 1.3 : 0.9,
               opacity: isHovering ? 1 : 0.6,
             }}
-            transition={{ type: 'spring', damping: 20 }}
+            transition={{ type: 'spring', damping: 25 }}
           >
             <span className="-translate-x-1/2 -translate-y-1/2 block drop-shadow-sm">
               {item.emoji}

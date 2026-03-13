@@ -13,7 +13,7 @@ const ContactSection = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const contactInfo = [
-    { icon: Mail, label: "Email", value: "hello@alexnguyen.dev" },
+    { icon: Mail, label: "Email", value: "congduongnguyentrung@gmail.com" },
     { icon: Phone, label: "Phone", value: "+84 123 456 789" },
     { icon: MapPin, label: "Location", value: "Ho Chi Minh City, Vietnam" },
   ];
@@ -190,7 +190,13 @@ const ContactSection = () => {
                   </motion.div>
                   <div>
                     <div className="font-bold uppercase text-sm">{info.label}</div>
-                    <div className="text-lg font-medium">{info.value}</div>
+                    {info.label === "Email" ? (
+                      <a href={`mailto:${info.value}`} className="text-lg font-medium hover:text-primary transition-colors">
+                        {info.value}
+                      </a>
+                    ) : (
+                      <div className="text-lg font-medium">{info.value}</div>
+                    )}
                   </div>
                 </NeoCard>
               </motion.div>

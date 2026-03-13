@@ -39,12 +39,13 @@ const CertificatesSection = () => {
         initial="hidden"
         animate={isInView ? "visible" : "hidden"}
       >
-        <motion.div className="text-center mb-16" variants={itemVariants}>
+        <motion.div className="text-center mb-16" variants={itemVariants} style={{ willChange: "transform, opacity" }}>
           <motion.h2
             className="text-4xl md:text-6xl font-bold mb-4"
             initial={{ opacity: 0, y: -50 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ type: "spring", stiffness: 100 }}
+            style={{ willChange: "transform, opacity" }}
           >
             Chứng chỉ{" "}
             <motion.span
@@ -52,6 +53,7 @@ const CertificatesSection = () => {
               whileHover={{ rotate: 5, scale: 1.1 }}
               animate={isInView ? { rotate: [0, -5, 5, 0] } : {}}
               transition={{ delay: 0.5, duration: 0.5 }}
+              style={{ willChange: "transform" }}
             >
               🏆
             </motion.span>
@@ -75,6 +77,7 @@ const CertificatesSection = () => {
                 transition: { type: "spring", stiffness: 300 },
               }}
               whileTap={{ scale: 0.97 }}
+              style={{ willChange: "transform, opacity" }}
             >
               <NeoCard className="h-full flex flex-col gap-4 cursor-pointer group">
                 <div className="flex items-start justify-between gap-3">
@@ -82,9 +85,10 @@ const CertificatesSection = () => {
                     className="flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden bg-background border-3 border-foreground shadow-neo"
                     animate={isInView ? { scale: [1, 1.05, 1] } : {}}
                     transition={{ delay: 0.3 + index * 0.1, duration: 0.5 }}
+                    style={{ willChange: "transform" }}
                   >
-                    <img 
-                      src={cert.imageUrl} 
+                    <img
+                      src={cert.imageUrl}
                       alt={cert.name}
                       className="w-full h-full object-cover"
                     />
@@ -102,12 +106,13 @@ const CertificatesSection = () => {
         </div>
 
         {certificates.length > INITIAL_DISPLAY && (
-          <motion.div className="text-center mt-10" variants={itemVariants}>
+          <motion.div className="text-center mt-10" variants={itemVariants} style={{ willChange: "transform, opacity" }}>
             <Link to="/certificates">
               <motion.button
                 className="px-8 py-3 bg-foreground text-background font-bold text-lg border-3 border-foreground rounded-xl shadow-neo hover:shadow-none transition-all"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
+                style={{ willChange: "transform" }}
               >
                 Xem tất cả ({certificates.length}) →
               </motion.button>

@@ -7,7 +7,16 @@ import NeoButton from "./NeoButton";
 import { Calendar, Clock, ArrowRight, BookOpen } from "lucide-react";
 import { blogPosts } from "@/data/blogData";
 
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+
 const displayPosts = blogPosts.slice(0, 4);
+
 const BlogSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
@@ -91,28 +100,33 @@ const BlogSection = () => {
               transition={{ type: "spring" as const, stiffness: 300 }}
             >
               <Link to={`/blog/${post.id}`}>
-              <NeoCard className="h-full overflow-hidden group cursor-pointer">
-                {/* Thumbnail */}
-                <div className={`h-48 bg-gradient-to-br ${post.gradient} flex items-center justify-center relative overflow-hidden`}>
-                  <motion.span
-                    className="text-7xl"
-                    whileHover={{ scale: 1.2, rotate: 10 }}
-                    transition={{ type: "spring" as const }}
-                  >
-                    {post.emoji}
-                  </motion.span>
-                  
-                  {/* Decorative shapes */}
-                  <motion.div
-                    className="absolute top-4 right-4 w-16 h-16 border-4 border-foreground/20 rounded-full"
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                  />
-                  <motion.div
-                    className="absolute bottom-4 left-4 w-8 h-8 bg-foreground/10"
-                    animate={{ rotate: -360 }}
-                    transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-                  />
+                <NeoCard className="h-full overflow-hidden group">
+                {/* Thumbnail Carousel */}
+                <div className="h-48 border-b-[3px] border-foreground -m-6 mb-4 relative overflow-hidden">
+                  <Carousel className="w-full h-full">
+                    <CarouselContent className="h-full">
+                      {post.images.map((image, imgIndex) => (
+                        <CarouselItem key={imgIndex} className="h-full">
+                          <motion.div 
+                            className="relative h-full overflow-hidden"
+                            whileHover={{ scale: 1.05 }}
+                          >
+                            <img 
+                              src={image} 
+                              alt={`${post.title} screenshot ${imgIndex + 1}`}
+                              className="w-full h-full object-cover"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                            <div className="absolute top-4 right-4 bg-background/80 backdrop-blur-sm px-2 py-1 border-2 border-foreground font-black shadow-neo-sm">
+                              {post.emoji}
+                            </div>
+                          </motion.div>
+                        </CarouselItem>
+                      ))}
+                    </CarouselContent>
+                    <CarouselPrevious className="left-2" />
+                    <CarouselNext className="right-2" />
+                  </Carousel>
                 </div>
 
                 {/* Content */}

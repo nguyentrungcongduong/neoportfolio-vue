@@ -3,7 +3,7 @@ import { useInView } from "framer-motion";
 import { useRef } from "react";
 import NeoCard from "./NeoCard";
 import NeoBadge from "./NeoBadge";
-import { Code, Palette, Zap, Coffee, Heart } from "lucide-react";
+import { Code, Palette, Zap, Coffee, Heart, Layers, Users } from "lucide-react";
 
 const AboutSection = () => {
   const ref = useRef(null);
@@ -11,20 +11,28 @@ const AboutSection = () => {
 
   const skills = [
     { name: "React", variant: "primary" as const, emoji: "⚛️" },
-    { name: "TypeScript", variant: "info" as const, emoji: "💙" },
-    { name: "Tailwind CSS", variant: "accent" as const, emoji: "🎨" },
+    { name: "TypeScript", variant: "info" as const, emoji: "📘" },
+    { name: "Vuejs", variant: "accent" as const, emoji: "💚" },
+    { name: "React-Native", variant: "info" as const, emoji: "📱" },
     { name: "Next.js", variant: "secondary" as const, emoji: "▲" },
-    { name: "Node.js", variant: "primary" as const, emoji: "🟢" },
-    { name: "Figma", variant: "secondary" as const, emoji: "🎯" },
-    { name: "Git", variant: "info" as const, emoji: "📦" },
-    { name: "REST API", variant: "accent" as const, emoji: "🔗" },
+    { name: "Laravel", variant: "primary" as const, emoji: "🔴" },
+    { name: "Golang-Gin", variant: "info" as const, emoji: "🐹" },
+    { name: "Spring boot", variant: "accent" as const, emoji: "🍃" },
+    { name: "Kotlin", variant: "secondary" as const, emoji: "🟣" },
+    { name: "AWS", variant: "accent" as const, emoji: "☁️" },
+    { name: "Docker", variant: "info" as const, emoji: "🐳" },
+    { name: "MongoDB", variant: "accent" as const, emoji: "🍃" },
+    { name: "Git", variant: "primary" as const, emoji: "🎋" },
+    { name: "Mysql", variant: "info" as const, emoji: "🐬" },
+    { name: "PostgreSQL", variant: "secondary" as const, emoji: "🐘" },
+    { name: "Redis", variant: "accent" as const, emoji: "⚡" },
   ];
 
   const stats = [
-    { icon: Code, label: "Projects", value: "50+", color: "bg-primary" },
-    { icon: Coffee, label: "Cups of Coffee", value: "999+", color: "bg-secondary" },
-    { icon: Palette, label: "Designs", value: "100+", color: "bg-accent" },
+    { icon: Code, label: "Projects Done", value: "50+", color: "bg-primary" },
     { icon: Zap, label: "Years Exp", value: "5+", color: "bg-info" },
+    { icon: Layers, label: "Tech Stack", value: "15+", color: "bg-accent" },
+    { icon: Users, label: "Happy Clients", value: "20+", color: "bg-secondary" },
   ];
 
   const containerVariants = {
@@ -73,12 +81,13 @@ const AboutSection = () => {
         initial="hidden"
         animate={isInView ? "visible" : "hidden"}
       >
-        <motion.div className="text-center mb-16" variants={itemVariants}>
+        <motion.div className="text-center mb-16" variants={itemVariants} style={{ willChange: "transform, opacity" }}>
           <motion.h2
             className="text-4xl md:text-6xl font-bold mb-4"
             initial={{ opacity: 0, y: -50 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ type: "spring", stiffness: 100 }}
+            style={{ willChange: "transform, opacity" }}
           >
             About{" "}
             <motion.span
@@ -86,6 +95,7 @@ const AboutSection = () => {
               whileHover={{ rotate: 5, scale: 1.1 }}
               animate={isInView ? { rotate: [0, -5, 5, 0] } : {}}
               transition={{ delay: 0.5, duration: 0.5 }}
+              style={{ willChange: "transform" }}
             >
               Me
             </motion.span>
@@ -99,6 +109,7 @@ const AboutSection = () => {
               className="inline-block ml-2"
               animate={{ scale: [1, 1.3, 1] }}
               transition={{ duration: 1, repeat: Infinity }}
+              style={{ willChange: "transform" }}
             >
               <Heart className="inline w-5 h-5 text-secondary fill-secondary" />
             </motion.span>
@@ -106,11 +117,12 @@ const AboutSection = () => {
         </motion.div>
 
         <div className="grid md:grid-cols-2 gap-8 mb-16">
-          <motion.div variants={itemVariants}>
+          <motion.div variants={itemVariants} style={{ willChange: "transform, opacity" }}>
             <NeoCard className="space-y-4 h-full">
               <motion.h3
                 className="text-2xl font-bold"
                 whileHover={{ x: 10 }}
+                style={{ willChange: "transform" }}
               >
                 Who I Am 🙋‍♂️
               </motion.h3>
@@ -119,25 +131,30 @@ const AboutSection = () => {
                 <motion.span
                   className="bg-primary px-1 inline-block"
                   whileHover={{ scale: 1.1, rotate: -2 }}
+                  style={{ willChange: "transform" }}
                 >
-                  frontend developer
+                  Full Stack Developer
                 </motion.span>{" "}
-                with a passion for creating engaging user experiences. With over 5 years of
-                experience, I specialize in building modern web applications using React and
-                TypeScript.
+                passionate about building modern web applications and exploring new technologies. I
+                enjoy turning ideas into real products through clean code and thoughtful design.
               </p>
               <p className="text-lg leading-relaxed">
-                When I'm not coding, you can find me exploring new design trends, contributing to
-                open-source projects, or enjoying a good cup of coffee ☕
+                I focus on developing skills in web development, scalable systems, and modern
+                frameworks by building personal projects and experimenting with new tools.
+              </p>
+              <p className="text-lg leading-relaxed">
+                When I'm not coding, you can find me exploring technology trends, design ideas, and
+                open-source projects — sometimes with a good cup of coffee ☕.
               </p>
             </NeoCard>
           </motion.div>
 
-          <motion.div variants={itemVariants}>
+          <motion.div variants={itemVariants} style={{ willChange: "transform, opacity" }}>
             <NeoCard variant="primary" className="space-y-4 h-full">
               <motion.h3
                 className="text-2xl font-bold"
                 whileHover={{ x: 10 }}
+                style={{ willChange: "transform" }}
               >
                 My Skills 🛠️
               </motion.h3>
@@ -155,6 +172,7 @@ const AboutSection = () => {
                       transition: { duration: 0.3 },
                     }}
                     whileTap={{ scale: 0.9 }}
+                    style={{ willChange: "transform" }}
                   >
                     <NeoBadge variant={skill.variant}>
                       {skill.emoji} {skill.name}
@@ -177,12 +195,14 @@ const AboutSection = () => {
                 scale: 1.05,
                 transition: { type: "spring", stiffness: 300 },
               }}
+              style={{ willChange: "transform, opacity" }}
             >
               <NeoCard className={`${stat.color} text-center`}>
                 <motion.div
                   initial={{ rotate: 0 }}
                   animate={isInView ? { rotate: [0, -10, 10, 0] } : {}}
                   transition={{ delay: 0.5 + index * 0.1, duration: 0.5 }}
+                  style={{ willChange: "transform" }}
                 >
                   <stat.icon size={32} className="mx-auto mb-2" />
                 </motion.div>
@@ -191,6 +211,7 @@ const AboutSection = () => {
                   initial={{ opacity: 0, scale: 0 }}
                   animate={isInView ? { opacity: 1, scale: 1 } : {}}
                   transition={{ delay: 0.3 + index * 0.15, type: "spring" }}
+                  style={{ willChange: "transform, opacity" }}
                 >
                   {stat.value}
                 </motion.div>

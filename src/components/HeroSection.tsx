@@ -1,7 +1,8 @@
 import { motion } from "framer-motion";
 import NeoButton from "./NeoButton";
 import NeoBadge from "./NeoBadge";
-import { Github, Linkedin, Mail, ArrowDown, Sparkles } from "lucide-react";
+import { Github, Facebook, Mail, ArrowDown, Sparkles } from "lucide-react";
+import avatarImg from "../assets/projects/porofolio.jpg";
 
 const HeroSection = () => {
   return (
@@ -12,16 +13,19 @@ const HeroSection = () => {
           className="absolute top-20 left-10 w-20 h-20 bg-primary border-[3px] border-foreground"
           animate={{ rotate: 360, scale: [1, 1.2, 1] }}
           transition={{ rotate: { duration: 20, repeat: Infinity, ease: "linear" }, scale: { duration: 2, repeat: Infinity } }}
+          style={{ willChange: "transform" }}
         />
         <motion.div
           className="absolute top-40 right-20 w-16 h-16 bg-secondary border-[3px] border-foreground rounded-full"
           animate={{ y: [0, -30, 0], x: [0, 20, 0] }}
           transition={{ duration: 5, repeat: Infinity }}
+          style={{ willChange: "transform" }}
         />
         <motion.div
           className="absolute bottom-40 left-20 w-24 h-24 bg-accent border-[3px] border-foreground"
           animate={{ rotate: [-10, 10, -10], scale: [1, 0.9, 1] }}
           transition={{ duration: 3, repeat: Infinity }}
+          style={{ willChange: "transform" }}
         />
       </div>
 
@@ -30,24 +34,29 @@ const HeroSection = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
+        style={{ willChange: "opacity" }}
       >
         <div className="grid md:grid-cols-2 gap-12 items-center">
           {/* Left Content */}
           <div className="space-y-6">
-            <motion.div 
+            <motion.div
               className="flex flex-wrap gap-2"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
+              style={{ willChange: "transform, opacity" }}
             >
-              <motion.div whileHover={{ scale: 1.1, rotate: -3 }} whileTap={{ scale: 0.95 }}>
+              <motion.div whileHover={{ scale: 1.1, rotate: -3 }} whileTap={{ scale: 0.95 }} style={{ willChange: "transform" }}>
                 <NeoBadge variant="accent" className="flex items-center gap-1">
                   <Sparkles size={14} className="animate-pulsate" />
-                  Available for work
+                  Backend Developer
                 </NeoBadge>
               </motion.div>
-              <motion.div whileHover={{ scale: 1.1, rotate: 3 }} whileTap={{ scale: 0.95 }}>
+              <motion.div whileHover={{ scale: 1.1, rotate: 3 }} whileTap={{ scale: 0.95 }} style={{ willChange: "transform" }}>
                 <NeoBadge variant="secondary">Frontend Developer</NeoBadge>
+              </motion.div>
+               <motion.div whileHover={{ scale: 1.1, rotate: 3 }} whileTap={{ scale: 0.95 }} style={{ willChange: "transform" }}>
+                <NeoBadge variant="secondary">Mobile Developer</NeoBadge>
               </motion.div>
             </motion.div>
 
@@ -56,64 +65,85 @@ const HeroSection = () => {
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.3 }}
+              style={{ willChange: "transform, opacity" }}
             >
-              Xin chào, mình là{" "}
+              Hello, My name is{" "}
               <motion.span
                 className="bg-primary px-2 inline-block text-shadow-neo"
                 initial={{ opacity: 0, scale: 0 }}
                 animate={{ opacity: 1, scale: 1, rotate: -1 }}
                 transition={{ delay: 0.5 }}
                 whileHover={{ scale: 1.05, rotate: 3 }}
+                style={{ willChange: "transform" }}
               >
                 Công Dưỡng
               </motion.span>
             </motion.h1>
-
+            
             <motion.p
               className="text-xl md:text-2xl font-medium leading-relaxed"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
+              style={{ willChange: "transform, opacity" }}
             >
-              I craft{" "}
-              <motion.span className="bg-secondary px-1 inline-block" whileHover={{ scale: 1.1 }}>bold</motion.span>{" "}
-              and{" "}
-              <motion.span className="bg-accent px-1 inline-block" whileHover={{ scale: 1.1 }}>memorable</motion.span>{" "}
-              digital experiences with clean code and creative design.
+              I’m a{" "}
+              <motion.span
+                className="bg-secondary px-1 inline-block font-bold"
+                whileHover={{ scale: 1.1 }}
+                style={{ willChange: "transform" }}
+              >
+                software developer
+              </motion.span>{" "}
+              passionate about building{" "}
+              <motion.span
+                className="bg-accent px-1 inline-block font-bold"
+                whileHover={{ scale: 1.1 }}
+                style={{ willChange: "transform" }}
+              >
+                modern web applications
+              </motion.span>{" "}
+              with <span className="font-bold">clean code</span> and{" "}
+              <span className="font-bold">scalable architecture</span>.
             </motion.p>
 
-            <motion.div 
+            <motion.div
               className="flex flex-wrap gap-4"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
+              style={{ willChange: "transform, opacity" }}
             >
-              <motion.div whileHover={{ scale: 1.05, y: -5 }} whileTap={{ scale: 0.95 }}>
+              <motion.div whileHover={{ scale: 1.05, y: -5 }} whileTap={{ scale: 0.95 }} style={{ willChange: "transform" }}>
                 <NeoButton variant="primary" size="lg" className="hover-jello">View My Work</NeoButton>
               </motion.div>
-              <motion.div whileHover={{ scale: 1.05, y: -5 }} whileTap={{ scale: 0.95 }}>
+              <motion.div whileHover={{ scale: 1.05, y: -5 }} whileTap={{ scale: 0.95 }} style={{ willChange: "transform" }}>
                 <NeoButton variant="outline" size="lg" className="hover-wobble">Download CV</NeoButton>
               </motion.div>
             </motion.div>
 
-            <motion.div 
+            <motion.div
               className="flex gap-4 pt-4"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}
+              style={{ willChange: "transform, opacity" }}
             >
               {[
-                { icon: Github, color: "bg-foreground text-background", label: "GitHub" },
-                { icon: Linkedin, color: "bg-info", label: "LinkedIn" },
-                { icon: Mail, color: "bg-secondary", label: "Email" },
+                { icon: Github, color: "bg-foreground text-background", label: "GitHub", href: "https://github.com/nguyentrungcongduong" },
+                { icon: Facebook, color: "bg-blue-600", label: "Facebook", href: "https://www.facebook.com/congduong.nguyentrung.3?locale=vi_VN" },
+                { icon: Mail, color: "bg-secondary", label: "Email", href: "mailto:congduongnguyentrung@gmail.com" },
               ].map((social) => (
                 <motion.a
                   key={social.label}
-                  href={social.label === "Email" ? "#contact" : "#"}
+                  href={social.href}
+                  target={social.href.startsWith("http") ? "_blank" : undefined}
+                  rel={social.href.startsWith("http") ? "noopener noreferrer" : undefined}
                   className={`neo-button ${social.color} p-3`}
                   aria-label={social.label}
                   whileHover={{ scale: 1.2, rotate: 10 }}
                   whileTap={{ scale: 0.9 }}
+                  style={{ willChange: "transform" }}
                 >
                   <social.icon size={24} />
                 </motion.a>
@@ -127,6 +157,7 @@ const HeroSection = () => {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.4 }}
+            style={{ willChange: "transform, opacity" }}
           >
             <div className="relative">
               <motion.div
@@ -134,14 +165,14 @@ const HeroSection = () => {
                 animate={{ y: [-10, 10, -10], rotate: [-3, 3, -3] }}
                 transition={{ duration: 4, repeat: Infinity }}
                 whileHover={{ scale: 1.05 }}
+                style={{ willChange: "transform" }}
               >
-                <motion.div
-                  className="text-[200px] font-bold select-none"
-                  animate={{ scale: [1, 1.1, 1] }}
-                  transition={{ duration: 2, repeat: Infinity }}
-                >
-                  👨‍💻
-                </motion.div>
+                <img
+                  src={avatarImg}
+                  alt="Avatar"
+                  className="w-full h-full object-cover select-none pointer-events-none"
+                  style={{ willChange: "transform" }}
+                />
               </motion.div>
 
               {/* Floating badges */}
@@ -150,6 +181,7 @@ const HeroSection = () => {
                 animate={{ scale: [1, 1.1, 1], rotate: [-5, 5, -5] }}
                 transition={{ duration: 2, repeat: Infinity }}
                 whileHover={{ scale: 1.3 }}
+                style={{ willChange: "transform" }}
               >
                 React ⚛️
               </motion.div>
@@ -158,16 +190,18 @@ const HeroSection = () => {
                 animate={{ scale: [1, 1.1, 1], rotate: [0, -5, 0] }}
                 transition={{ duration: 2.5, repeat: Infinity, delay: 0.5 }}
                 whileHover={{ scale: 1.3 }}
+                style={{ willChange: "transform" }}
               >
-                TypeScript 💙
+                Java 💙
               </motion.div>
               <motion.div
                 className="absolute top-1/2 -right-8 neo-badge bg-info"
                 animate={{ y: [0, -10, 0] }}
                 transition={{ duration: 3, repeat: Infinity, delay: 1 }}
                 whileHover={{ scale: 1.3 }}
+                style={{ willChange: "transform" }}
               >
-                Tailwind 🎨
+                Php 🎨
               </motion.div>
             </div>
           </motion.div>

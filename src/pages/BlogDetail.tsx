@@ -8,6 +8,14 @@ import CustomCursor from "@/components/CustomCursor";
 import FloatingPet from "@/components/FloatingPet";
 import { blogPosts } from "@/data/blogData";
 
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+
 const BlogDetail = () => {
   const { id } = useParams();
   const post = blogPosts.find((p) => p.id === Number(id));
@@ -32,30 +40,41 @@ const BlogDetail = () => {
           </Link>
         </motion.div>
 
-        {/* Hero Banner */}
+        {/* Hero Banner Carousel */}
         <motion.div
-          className={`h-64 md:h-80 bg-gradient-to-br ${post.gradient} rounded-2xl border-[3px] border-foreground flex items-center justify-center relative overflow-hidden mb-8`}
+          className="relative mb-8 overflow-hidden rounded-2xl border-[3px] border-foreground shadow-neo"
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ type: "spring", stiffness: 80 }}
         >
-          <motion.span
-            className="text-8xl md:text-9xl"
-            animate={{ y: [0, -10, 0], rotate: [0, 5, -5, 0] }}
-            transition={{ duration: 3, repeat: Infinity }}
-          >
-            {post.emoji}
-          </motion.span>
-          <motion.div
-            className="absolute top-6 right-6 w-20 h-20 border-4 border-foreground/20 rounded-full"
-            animate={{ rotate: 360 }}
-            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-          />
-          <motion.div
-            className="absolute bottom-6 left-6 w-12 h-12 bg-foreground/10"
-            animate={{ rotate: -360 }}
-            transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-          />
+          <Carousel className="w-full">
+            <CarouselContent>
+              {post.images.map((image, imgIndex) => (
+                <CarouselItem key={imgIndex}>
+                  <div className="relative h-64 md:h-80 overflow-hidden">
+                    <img 
+                      src={image} 
+                      alt={`${post.title} screenshot ${imgIndex + 1}`}
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="left-4" />
+            <CarouselNext className="right-4" />
+            
+            {/* Overlay Info */}
+            <div className="absolute bottom-6 right-6 z-10">
+              <motion.div
+                className="bg-background/80 backdrop-blur-md border-[3px] border-foreground p-4 shadow-neo-sm transform -rotate-3"
+                whileHover={{ rotate: 0, scale: 1.1 }}
+              >
+                <span className="text-5xl md:text-6xl">{post.emoji}</span>
+              </motion.div>
+            </div>
+          </Carousel>
         </motion.div>
 
         {/* Meta */}

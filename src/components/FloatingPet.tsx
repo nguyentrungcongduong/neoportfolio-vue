@@ -55,8 +55,11 @@ const FloatingPet = () => {
     const moveY = (dy / distance) * speed.current;
     
     // Update direction for flip
-    if (moveX > 0.1) setDirection(1);
-    if (moveX < -0.1) setDirection(-1);
+    if (moveX > 0.5) {
+      setDirection((prev) => (prev !== 1 ? 1 : prev));
+    } else if (moveX < -0.5) {
+      setDirection((prev) => (prev !== -1 ? -1 : prev));
+    }
     
     x.set(currentX + moveX);
     y.set(currentY + moveY);
@@ -94,7 +97,7 @@ const FloatingPet = () => {
     <motion.div
       ref={containerRef}
       className="fixed z-40 cursor-pointer select-none"
-      style={{ x: springX, y: springY }}
+      style={{ x: springX, y: springY, willChange: "transform" }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onClick={handleClick}
@@ -104,7 +107,7 @@ const FloatingPet = () => {
         className="absolute -top-16 left-1/2 -translate-x-1/2 bg-background border-[3px] border-foreground px-3 py-2 rounded-lg whitespace-nowrap"
         initial={{ opacity: 0, scale: 0, y: 10 }}
         animate={showMessage ? { opacity: 1, scale: 1, y: 0 } : { opacity: 0, scale: 0, y: 10 }}
-        style={{ boxShadow: "3px 3px 0px 0px hsl(0 0% 0%)" }}
+        style={{ boxShadow: "3px 3px 0px 0px hsl(0 0% 0%)", willChange: "transform, opacity" }}
       >
         <span className="text-sm font-bold">{randomMessage}</span>
         {/* Triangle */}
@@ -123,6 +126,7 @@ const FloatingPet = () => {
         }}
         whileHover={{ scale: 1.2 }}
         whileTap={{ scale: 0.9 }}
+        style={{ willChange: "transform" }}
       >
         {/* Shadow */}
         <motion.div
@@ -132,6 +136,7 @@ const FloatingPet = () => {
             opacity: isHovered ? 0.3 : [0.2, 0.1, 0.2],
           }}
           transition={{ duration: 1, repeat: Infinity }}
+          style={{ willChange: "transform, opacity" }}
         />
         
         {/* Pet Emoji */}
@@ -147,6 +152,7 @@ const FloatingPet = () => {
             repeat: Infinity,
             ease: "easeInOut",
           }}
+          style={{ willChange: "transform" }}
         >
           {pets[currentPet].emoji}
         </motion.span>

@@ -4,11 +4,18 @@ import { useRef } from "react";
 import NeoCard from "./NeoCard";
 import NeoBadge from "./NeoBadge";
 import NeoButton from "./NeoButton";
-import { ExternalLink, Github, Rocket } from "lucide-react";
+import { ExternalLink, Github, Rocket, ShoppingCart, CheckSquare, Cloud, Layers } from "lucide-react";
 import { Link } from "react-router-dom";
-import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from "@/components/ui/carousel";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
 
+// Import project images
 import ecommerce1 from "@/assets/projects/ecommerce-1.png";
 import ecommerce2 from "@/assets/projects/ecommerce-2.png";
 import task1 from "@/assets/projects/task-1.png";
@@ -17,6 +24,7 @@ import weather1 from "@/assets/projects/weather-1.png";
 import weather2 from "@/assets/projects/weather-2.png";
 import portfolio1 from "@/assets/projects/portfolio-1.png";
 import portfolio2 from "@/assets/projects/portfolio-2.png";
+
 const ProjectsSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
@@ -26,6 +34,8 @@ const ProjectsSection = () => {
       title: "E-Commerce Platform",
       description: "A full-featured online store with cart, checkout, and payment integration.",
       tags: ["React", "Node.js", "Stripe"],
+      color: "bg-primary",
+      icon: ShoppingCart,
       images: [ecommerce1, ecommerce2],
       link: "#",
       github: "#",
@@ -34,6 +44,8 @@ const ProjectsSection = () => {
       title: "Task Management App",
       description: "Kanban-style project management tool with real-time collaboration.",
       tags: ["Next.js", "TypeScript", "Socket.io"],
+      color: "bg-secondary",
+      icon: CheckSquare,
       images: [task1, task2],
       link: "#",
       github: "#",
@@ -42,6 +54,8 @@ const ProjectsSection = () => {
       title: "Weather Dashboard",
       description: "Beautiful weather app with forecasts, maps, and location-based alerts.",
       tags: ["React", "API", "Charts"],
+      color: "bg-accent",
+      icon: Cloud,
       images: [weather1, weather2],
       link: "#",
       github: "#",
@@ -50,6 +64,8 @@ const ProjectsSection = () => {
       title: "Portfolio Generator",
       description: "Create stunning portfolios with drag-and-drop builder and templates.",
       tags: ["Vue.js", "Firebase", "Tailwind"],
+      color: "bg-info",
+      icon: Layers,
       images: [portfolio1, portfolio2],
       link: "#",
       github: "#",
@@ -93,6 +109,7 @@ const ProjectsSection = () => {
           initial={{ opacity: 0, y: -50 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ type: "spring", stiffness: 100 }}
+          style={{ willChange: "transform, opacity" }}
         >
           <motion.h2
             className="text-4xl md:text-6xl font-bold mb-4"
@@ -103,6 +120,7 @@ const ProjectsSection = () => {
               whileHover={{ rotate: 5, scale: 1.1 }}
               animate={isInView ? { rotate: [0, 5, -5, 0] } : {}}
               transition={{ delay: 0.3, duration: 0.5 }}
+              style={{ willChange: "transform" }}
             >
               Projects
             </motion.span>
@@ -110,6 +128,7 @@ const ProjectsSection = () => {
               className="inline-block ml-2"
               animate={{ rotate: [0, 15, -15, 0] }}
               transition={{ duration: 1, repeat: Infinity }}
+              style={{ willChange: "transform" }}
             >
               <Rocket className="inline w-10 h-10" />
             </motion.span>
@@ -134,16 +153,29 @@ const ProjectsSection = () => {
                 scale: 1.02,
                 transition: { type: "spring", stiffness: 300 },
               }}
+              style={{ willChange: "transform, opacity" }}
             >
               <NeoCard className="group overflow-hidden">
+                {/* Carousel for project images */}
                 <div className="-m-6 mb-4 border-b-[3px] border-foreground">
-                  <Carousel className="w-full" plugins={[Autoplay({ delay: 5000, stopOnInteraction: true })]}>
+                  <Carousel 
+                    className="w-full"
+                    plugins={[Autoplay({ delay: 5000, stopOnInteraction: true })]}
+                  >
                     <CarouselContent>
                       {project.images.map((image, imgIndex) => (
                         <CarouselItem key={imgIndex}>
-                          <div className="relative h-48 overflow-hidden">
-                            <img src={image} alt={`${project.title} screenshot ${imgIndex + 1}`} className="w-full h-full object-cover" />
-                          </div>
+                          <motion.div
+                            className="relative h-64 overflow-hidden"
+                            whileHover={{ scale: 1.02 }}
+                          >
+                            <img
+                              src={image}
+                              alt={`${project.title} screenshot ${imgIndex + 1}`}
+                              className="w-full h-full object-cover"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-background/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                          </motion.div>
                         </CarouselItem>
                       ))}
                     </CarouselContent>
@@ -156,6 +188,7 @@ const ProjectsSection = () => {
                   <motion.h3
                     className="text-2xl font-bold"
                     whileHover={{ x: 10 }}
+                    style={{ willChange: "transform" }}
                   >
                     {project.title}
                   </motion.h3>
@@ -169,6 +202,7 @@ const ProjectsSection = () => {
                         animate={isInView ? { opacity: 1, scale: 1 } : {}}
                         transition={{ delay: 0.5 + index * 0.1 + tagIndex * 0.05 }}
                         whileHover={{ scale: 1.1, rotate: 5 }}
+                        style={{ willChange: "transform, opacity" }}
                       >
                         <NeoBadge variant="outline">{tag}</NeoBadge>
                       </motion.div>
@@ -179,6 +213,7 @@ const ProjectsSection = () => {
                     <motion.div
                       whileHover={{ scale: 1.05, y: -3 }}
                       whileTap={{ scale: 0.95 }}
+                      style={{ willChange: "transform" }}
                     >
                       <NeoButton variant="primary" size="sm">
                         <ExternalLink size={16} className="mr-2" />
@@ -188,6 +223,7 @@ const ProjectsSection = () => {
                     <motion.div
                       whileHover={{ scale: 1.05, y: -3 }}
                       whileTap={{ scale: 0.95 }}
+                      style={{ willChange: "transform" }}
                     >
                       <NeoButton variant="outline" size="sm">
                         <Github size={16} className="mr-2" />
@@ -206,10 +242,12 @@ const ProjectsSection = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.8 }}
+          style={{ willChange: "transform, opacity" }}
         >
           <motion.div
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
+            style={{ willChange: "transform" }}
           >
             <Link to="/projects">
               <NeoButton variant="accent" size="lg" className="hover-jello">

@@ -1,3 +1,13 @@
+// Import placeholder images from projects
+import blog1 from "@/assets/projects/ecommerce-1.png";
+import blog2 from "@/assets/projects/ecommerce-2.png";
+import blog3 from "@/assets/projects/task-1.png";
+import blog4 from "@/assets/projects/task-2.png";
+import blog5 from "@/assets/projects/weather-1.png";
+import blog6 from "@/assets/projects/weather-2.png";
+import blog7 from "@/assets/projects/portfolio-1.png";
+import blog8 from "@/assets/projects/portfolio-2.png";
+
 export interface BlogPost {
   id: number;
   title: string;
@@ -7,6 +17,7 @@ export interface BlogPost {
   readTime: string;
   emoji: string;
   gradient: string;
+  images: string[];
   content: string[];
 }
 
@@ -20,6 +31,7 @@ export const blogPosts: BlogPost[] = [
     readTime: "5 min",
     emoji: "⚡",
     gradient: "from-yellow-400 to-orange-500",
+    images: [blog1, blog2],
     content: [
       "React là một thư viện tuyệt vời cho việc xây dựng UI, nhưng khi ứng dụng trở nên phức tạp, vấn đề performance có thể xuất hiện. Một trong những nguyên nhân phổ biến nhất là re-render không cần thiết.",
       "## useMemo là gì?\n\n`useMemo` là một hook cho phép bạn cache kết quả của một phép tính giữa các lần re-render. Nó chỉ tính toán lại khi dependencies thay đổi.\n\n```tsx\nconst expensiveValue = useMemo(() => {\n  return computeExpensiveValue(a, b);\n}, [a, b]);\n```",
@@ -37,6 +49,7 @@ export const blogPosts: BlogPost[] = [
     readTime: "8 min",
     emoji: "🔷",
     gradient: "from-blue-400 to-indigo-500",
+    images: [blog3, blog4],
     content: [
       "TypeScript cung cấp một hệ thống type mạnh mẽ giúp developer viết code an toàn hơn. Trong bài viết này, chúng ta sẽ khám phá Generics và Utility Types.",
       "## Generics\n\nGenerics cho phép bạn tạo các component có thể làm việc với nhiều types khác nhau mà vẫn giữ được type safety.\n\n```tsx\nfunction identity<T>(arg: T): T {\n  return arg;\n}\n\nconst result = identity<string>('hello');\n```",
@@ -54,6 +67,7 @@ export const blogPosts: BlogPost[] = [
     readTime: "4 min",
     emoji: "🎨",
     gradient: "from-cyan-400 to-teal-500",
+    images: [blog5, blog6],
     content: [
       "Tailwind CSS đã trở thành một trong những framework CSS phổ biến nhất. Dưới đây là một số tips giúp bạn làm việc hiệu quả hơn.",
       "## 1. Sử dụng @apply cho các pattern lặp lại\n\n```css\n.btn-primary {\n  @apply px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600;\n}\n```",
@@ -71,6 +85,7 @@ export const blogPosts: BlogPost[] = [
     readTime: "6 min",
     emoji: "✨",
     gradient: "from-purple-400 to-pink-500",
+    images: [blog7, blog8],
     content: [
       "Framer Motion là thư viện animation phổ biến nhất cho React. Nó cung cấp API declarative đơn giản để tạo các animations phức tạp.",
       "## Basic Animation\n\n```tsx\n<motion.div\n  initial={{ opacity: 0 }}\n  animate={{ opacity: 1 }}\n  transition={{ duration: 0.5 }}\n/>\n```",
@@ -88,6 +103,7 @@ export const blogPosts: BlogPost[] = [
     readTime: "7 min",
     emoji: "🐳",
     gradient: "from-sky-400 to-blue-600",
+    images: [blog1, blog3],
     content: [
       "Docker không chỉ dành cho backend developer. Frontend developer cũng có thể tận dụng Docker để tạo môi trường phát triển nhất quán và deploy dễ dàng hơn.",
       "## Dockerfile cơ bản\n\n```dockerfile\nFROM node:18-alpine\nWORKDIR /app\nCOPY package*.json ./\nRUN npm install\nCOPY . .\nRUN npm run build\nEXPOSE 3000\nCMD [\"npm\", \"start\"]\n```",
@@ -105,6 +121,7 @@ export const blogPosts: BlogPost[] = [
     readTime: "6 min",
     emoji: "🔗",
     gradient: "from-green-400 to-emerald-500",
+    images: [blog2, blog4],
     content: [
       "Việc chọn giữa GraphQL và REST API là một quyết định quan trọng trong kiến trúc ứng dụng. Mỗi cái đều có ưu và nhược điểm riêng.",
       "## REST API\n\n**Ưu điểm:**\n- Đơn giản và dễ hiểu\n- Caching tốt với HTTP caching\n- Mature ecosystem\n\n**Nhược điểm:**\n- Over-fetching / Under-fetching\n- Nhiều endpoints",
@@ -122,6 +139,7 @@ export const blogPosts: BlogPost[] = [
     readTime: "9 min",
     emoji: "🧪",
     gradient: "from-rose-400 to-red-500",
+    images: [blog5, blog7],
     content: [
       "Testing là một phần không thể thiếu trong phát triển phần mềm. Vitest là một test runner nhanh và hiện đại, tương thích hoàn hảo với Vite.",
       "## Setup Vitest\n\n```bash\nnpm install -D vitest @testing-library/react @testing-library/jest-dom\n```\n\n```ts\n// vitest.config.ts\nexport default defineConfig({\n  test: {\n    environment: 'jsdom',\n    globals: true,\n  },\n});\n```",
@@ -139,6 +157,7 @@ export const blogPosts: BlogPost[] = [
     readTime: "5 min",
     emoji: "🏪",
     gradient: "from-amber-400 to-orange-600",
+    images: [blog6, blog8],
     content: [
       "State management là một vấn đề quan trọng trong React applications. Redux và Zustand là hai thư viện phổ biến nhất hiện nay.",
       "## Redux\n\n```tsx\n// Slice\nconst counterSlice = createSlice({\n  name: 'counter',\n  initialState: { value: 0 },\n  reducers: {\n    increment: state => { state.value += 1; },\n  },\n});\n```\n\nRedux có ecosystem lớn, DevTools mạnh mẽ, nhưng boilerplate nhiều.",
