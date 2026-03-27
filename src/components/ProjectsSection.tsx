@@ -59,6 +59,7 @@ const ProjectsSection = () => {
       color: "bg-accent",
       icon: Cloud,
       images: [weather1, weather2],
+      inProcess: true,
       link: "#",
       github: "#",
     },
