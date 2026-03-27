@@ -60,7 +60,8 @@ const allProjects = [
     tags: ["React", "API", "Charts"], 
     color: "bg-accent", 
     icon: Cloud,
-    images: [weather1, weather2]
+    images: [weather1, weather2],
+    inProcess: true,
   },
   { 
     title: "Portfolio Generator", 
@@ -232,11 +233,18 @@ const AllProjects = () => {
                 whileHover={{ y: -10, scale: 1.02 }}
               >
               <NeoCard className="group overflow-hidden relative">
-                {/* VIP Label */}
+                {/* Status Label */}
                 {project.vip && (
                   <div className="absolute -right-8 top-5 z-20 rotate-45 w-32 text-center">
                     <span className="block bg-primary text-primary-foreground font-black text-[10px] tracking-wider py-1 shadow-neo border-y-2 border-foreground">
                       ⭐ VIP
+                    </span>
+                  </div>
+                )}
+                {project.inProcess && (
+                  <div className="absolute -right-8 top-5 z-20 rotate-45 w-32 text-center">
+                    <span className="block bg-accent text-accent-foreground font-black text-[10px] tracking-wider py-1 shadow-neo border-y-2 border-foreground">
+                      🔨 IN PROCESS
                     </span>
                   </div>
                 )}
