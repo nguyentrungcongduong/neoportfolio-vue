@@ -42,7 +42,8 @@ const allProjects = [
     tags: ["React", "Node.js", "Stripe"], 
     color: "bg-primary", 
     icon: ShoppingCart,
-    images: [ecommerce1, ecommerce2]
+    images: [ecommerce1, ecommerce2],
+    vip: true,
   },
   { 
     title: "Task Management App", 
@@ -50,7 +51,8 @@ const allProjects = [
     tags: ["Next.js", "TypeScript", "Socket.io"], 
     color: "bg-secondary", 
     icon: CheckSquare,
-    images: [task1, task2]
+    images: [task1, task2],
+    vip: true,
   },
   { 
     title: "Weather Dashboard", 
