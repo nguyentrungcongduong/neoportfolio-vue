@@ -60,7 +60,8 @@ const allProjects = [
     tags: ["React", "API", "Charts"], 
     color: "bg-accent", 
     icon: Cloud,
-    images: [weather1, weather2]
+    images: [weather1, weather2],
+    inProcess: true,
   },
   { 
     title: "Portfolio Generator", 
