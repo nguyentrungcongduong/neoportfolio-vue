@@ -39,6 +39,7 @@ const ProjectsSection = () => {
       images: [ecommerce1, ecommerce2],
       link: "#",
       github: "#",
+      vip: true,
     },
     {
       title: "Task Management App",
@@ -49,6 +50,7 @@ const ProjectsSection = () => {
       images: [task1, task2],
       link: "#",
       github: "#",
+      vip: true,
     },
     {
       title: "Weather Dashboard",
