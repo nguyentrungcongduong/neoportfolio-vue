@@ -157,7 +157,20 @@ const ProjectsSection = () => {
               }}
               style={{ willChange: "transform, opacity" }}
             >
-              <NeoCard className="group overflow-hidden">
+              <NeoCard className="group overflow-hidden relative">
+                {/* VIP Label */}
+                {project.vip && (
+                  <motion.div
+                    className="absolute top-3 right-3 z-20"
+                    initial={{ scale: 0, rotate: -20 }}
+                    animate={{ scale: 1, rotate: 0 }}
+                    transition={{ type: "spring", stiffness: 200, delay: index * 0.1 }}
+                  >
+                    <span className="neo-badge bg-primary text-primary-foreground font-black text-xs px-3 py-1 shadow-neo">
+                      ⭐ VIP
+                    </span>
+                  </motion.div>
+                )}
                 {/* Carousel for project images */}
                 <div className="-m-6 mb-4 border-b-[3px] border-foreground">
                   <Carousel 
