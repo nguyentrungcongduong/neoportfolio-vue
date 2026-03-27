@@ -42,7 +42,8 @@ const allProjects = [
     tags: ["React", "Node.js", "Stripe"], 
     color: "bg-primary", 
     icon: ShoppingCart,
-    images: [ecommerce1, ecommerce2]
+    images: [ecommerce1, ecommerce2],
+    vip: true,
   },
   { 
     title: "Task Management App", 
@@ -50,7 +51,8 @@ const allProjects = [
     tags: ["Next.js", "TypeScript", "Socket.io"], 
     color: "bg-secondary", 
     icon: CheckSquare,
-    images: [task1, task2]
+    images: [task1, task2],
+    vip: true,
   },
   { 
     title: "Weather Dashboard", 
@@ -229,7 +231,20 @@ const AllProjects = () => {
                 transition={{ delay: index * 0.05, type: "spring", stiffness: 80 }}
                 whileHover={{ y: -10, scale: 1.02 }}
               >
-              <NeoCard className="group overflow-hidden">
+              <NeoCard className="group overflow-hidden relative">
+                {/* VIP Label */}
+                {project.vip && (
+                  <motion.div
+                    className="absolute top-3 right-3 z-20"
+                    initial={{ scale: 0, rotate: -20 }}
+                    animate={{ scale: 1, rotate: 0 }}
+                    transition={{ type: "spring", stiffness: 200, delay: index * 0.1 }}
+                  >
+                    <span className="neo-badge bg-primary text-primary-foreground font-black text-xs px-3 py-1 shadow-neo">
+                      ⭐ VIP
+                    </span>
+                  </motion.div>
+                )}
                 {/* Carousel for project images */}
                 <div className="-m-6 mb-4 border-b-[3px] border-foreground">
                   <Carousel className="w-full" plugins={[Autoplay({ delay: 5000, stopOnInteraction: true })]}>
