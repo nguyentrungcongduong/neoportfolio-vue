@@ -78,7 +78,7 @@ const Navbar = () => {
             >
               <Sparkles className="w-6 h-6 text-primary" />
             </motion.span>
-            Alex<span className="text-primary">.</span>dev
+            Công Dưỡng<span className="text-primary">.</span>dev
           </motion.a>
 
           {/* Desktop Nav */}
@@ -103,9 +103,11 @@ const Navbar = () => {
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
             >
-              <NeoButton variant="primary" size="sm" className="hover-jello">
-                Hire Me 🚀
-              </NeoButton>
+              <div style={{ filter: "drop-shadow(3px 3px 0px #000)" }}>
+                <NeoButton variant="primary" size="sm" className="hover-jello">
+                  Hire Me 🚀
+                </NeoButton>
+              </div>
             </motion.div>
           </div>
 

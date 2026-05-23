@@ -1,226 +1,241 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
-import NeoCard from "./NeoCard";
 import NeoBadge from "./NeoBadge";
-import { Code, Palette, Zap, Coffee, Heart, Layers, Users } from "lucide-react";
+import { Code, Award, Layers, Coffee } from "lucide-react";
+import { allProjects } from "@/data/projects";
+import { certificates } from "@/data/certificatesData";
+
+const highlights = [
+  { icon: "🚀", text: "Building modern web & mobile applications end-to-end" },
+  { icon: "💻", text: "Full Stack dev — comfortable from UI to database layer" },
+  { icon: "🧠", text: "Designing scalable systems with modern frameworks" },
+  { icon: "🌐", text: "Interested in open-source & developer communities" },
+  { icon: "☕", text: "Fueled by coffee, curiosity, and clean code" },
+];
+
+const skillGroups = [
+  {
+    label: "Frontend",
+    emoji: "🎨",
+    color: "bg-primary",
+    skills: [
+      { name: "React", emoji: "⚛️", variant: "primary" as const },
+      { name: "TypeScript", emoji: "📘", variant: "info" as const },
+      { name: "Vue.js", emoji: "💚", variant: "accent" as const },
+      { name: "Next.js", emoji: "▲", variant: "secondary" as const },
+      { name: "React Native", emoji: "📱", variant: "info" as const },
+    ],
+  },
+  {
+    label: "Backend",
+    emoji: "⚙️",
+    color: "bg-secondary",
+    skills: [
+      { name: "Spring Boot", emoji: "🍃", variant: "accent" as const },
+      { name: "Laravel", emoji: "🔴", variant: "primary" as const },
+      { name: "Golang/Gin", emoji: "🐹", variant: "info" as const },
+      { name: "Kotlin", emoji: "🟣", variant: "secondary" as const },
+    ],
+  },
+  {
+    label: "Database & DevOps",
+    emoji: "🛠️",
+    color: "bg-info",
+    skills: [
+      { name: "PostgreSQL", emoji: "🐘", variant: "secondary" as const },
+      { name: "MongoDB", emoji: "🍃", variant: "accent" as const },
+      { name: "Redis", emoji: "⚡", variant: "accent" as const },
+      { name: "Docker", emoji: "🐳", variant: "info" as const },
+      { name: "AWS", emoji: "☁️", variant: "accent" as const },
+      { name: "Git", emoji: "🎋", variant: "primary" as const },
+    ],
+  },
+];
+
+const uniqueTechnologiesCount = new Set(allProjects.flatMap(p => p.tags)).size;
+
+const stats = [
+  { icon: Code,   label: "Projects Done",  value: `${allProjects.length}`, color: "bg-primary"   },
+  { icon: Layers, label: "Tech Stack",     value: `${uniqueTechnologiesCount}`, color: "bg-accent"    },
+  { icon: Award,  label: "Certificates",   value: `${certificates.length}`,  color: "bg-info"      },
+  { icon: Coffee, label: "Cups of Coffee", value: "∞",  color: "bg-secondary" },
+];
+
+const stickers = [
+  { text: "Based in Vietnam 🇻🇳", rotate: -3, style: { top: "14%",  left: "0.3%"  } },
+  { text: "Available for work ✦",  rotate:  2, style: { top: "46%",  left: "0.3%"  } },
+  { text: "Full Stack Dev 💻",     rotate:  4, style: { top: "18%",  right: "0.3%" } },
+  { text: "Open Source ❤️",        rotate: -2, style: { bottom: "20%", right: "0.3%" } },
+];
 
 const AboutSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
-  const skills = [
-    { name: "React", variant: "primary" as const, emoji: "⚛️" },
-    { name: "TypeScript", variant: "info" as const, emoji: "📘" },
-    { name: "Vuejs", variant: "accent" as const, emoji: "💚" },
-    { name: "React-Native", variant: "info" as const, emoji: "📱" },
-    { name: "Next.js", variant: "secondary" as const, emoji: "▲" },
-    { name: "Laravel", variant: "primary" as const, emoji: "🔴" },
-    { name: "Golang-Gin", variant: "info" as const, emoji: "🐹" },
-    { name: "Spring boot", variant: "accent" as const, emoji: "🍃" },
-    { name: "Kotlin", variant: "secondary" as const, emoji: "🟣" },
-    { name: "AWS", variant: "accent" as const, emoji: "☁️" },
-    { name: "Docker", variant: "info" as const, emoji: "🐳" },
-    { name: "MongoDB", variant: "accent" as const, emoji: "🍃" },
-    { name: "Git", variant: "primary" as const, emoji: "🎋" },
-    { name: "Mysql", variant: "info" as const, emoji: "🐬" },
-    { name: "PostgreSQL", variant: "secondary" as const, emoji: "🐘" },
-    { name: "Redis", variant: "accent" as const, emoji: "⚡" },
-  ];
-
-  const stats = [
-    { icon: Code, label: "Projects Done", value: "50+", color: "bg-primary" },
-    { icon: Zap, label: "Years Exp", value: "5+", color: "bg-info" },
-    { icon: Layers, label: "Tech Stack", value: "15+", color: "bg-accent" },
-    { icon: Users, label: "Happy Clients", value: "20+", color: "bg-secondary" },
-  ];
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.15,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 60, scale: 0.9 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: {
-        type: "spring" as const,
-        stiffness: 100,
-        damping: 12,
-      },
-    },
-  };
-
-  const skillVariants = {
-    hidden: { opacity: 0, scale: 0 },
-    visible: (i: number) => ({
-      opacity: 1,
-      scale: 1,
-      transition: {
-        delay: i * 0.1,
-        type: "spring" as const,
-        stiffness: 200,
-        damping: 10,
-      },
-    }),
-  };
-
   return (
-    <section id="about" className="py-20 px-4 overflow-hidden" ref={ref}>
-      <motion.div
-        className="max-w-6xl mx-auto"
-        variants={containerVariants}
-        initial="hidden"
-        animate={isInView ? "visible" : "hidden"}
-      >
-        <motion.div className="text-center mb-16" variants={itemVariants} style={{ willChange: "transform, opacity" }}>
-          <motion.h2
-            className="text-4xl md:text-6xl font-bold mb-4"
-            initial={{ opacity: 0, y: -50 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ type: "spring", stiffness: 100 }}
-            style={{ willChange: "transform, opacity" }}
-          >
+    <section id="about" className="py-20 px-4 overflow-hidden relative" ref={ref}>
+
+      {/* ── Vertical background text ── */}
+      <div
+        className="absolute left-0 top-1/2 -translate-y-1/2 font-black text-[7rem] uppercase text-foreground/[0.04] pointer-events-none select-none hidden lg:block"
+        style={{ writingMode: "vertical-rl", letterSpacing: "0.25em", transform: "translateY(-50%) translateX(-42%)" }}
+      >DEVELOPER</div>
+      <div
+        className="absolute right-0 top-1/2 -translate-y-1/2 font-black text-[7rem] uppercase text-foreground/[0.04] pointer-events-none select-none hidden lg:block"
+        style={{ writingMode: "vertical-rl", letterSpacing: "0.25em", transform: "translateY(-50%) translateX(42%)" }}
+      >CREATIVE</div>
+
+      {/* ── Sticker tags ── */}
+      {stickers.map((s, i) => (
+        <motion.div
+          key={i}
+          className="absolute hidden lg:flex text-[10px] font-black uppercase tracking-widest border-[2px] border-foreground/20 px-2 py-1 bg-primary/15 text-foreground/35 whitespace-nowrap pointer-events-none"
+          style={{ ...s.style }}
+          animate={{ rotate: [s.rotate - 2, s.rotate + 2, s.rotate - 2] }}
+          transition={{ duration: 5 + i * 1.5, repeat: Infinity, ease: "easeInOut" }}
+        >{s.text}</motion.div>
+      ))}
+
+      {/* ── Doodle arrows + stars ── */}
+      <motion.div className="absolute hidden md:block font-black text-foreground/20 text-4xl pointer-events-none select-none"
+        style={{ top: "38%", left: "8%" }}
+        animate={{ x: [0, 8, 0], opacity: [0.15, 0.35, 0.15] }}
+        transition={{ duration: 2.5, repeat: Infinity }}
+      >→</motion.div>
+      <motion.div className="absolute hidden md:block font-black text-foreground/20 text-3xl pointer-events-none select-none"
+        style={{ bottom: "28%", right: "8%" }}
+        animate={{ y: [0, -8, 0], opacity: [0.15, 0.35, 0.15] }}
+        transition={{ duration: 2.8, repeat: Infinity, delay: 0.5 }}
+      >↑</motion.div>
+      {["✦", "✶", "✹"].map((star, i) => (
+        <motion.span key={i}
+          className="absolute hidden md:block text-xl text-foreground/12 pointer-events-none select-none"
+          style={{ top: `${28 + i * 22}%`, right: `${5.5 + (i % 2) * 2}%` }}
+          animate={{ rotate: [0, 360], scale: [1, 1.3, 1] }}
+          transition={{ duration: 7 + i * 2, repeat: Infinity, ease: "linear" }}
+        >{star}</motion.span>
+      ))}
+
+      <div className="max-w-6xl mx-auto relative z-10">
+
+        {/* ── Section heading ── */}
+        <motion.div className="text-center mb-14"
+          initial={{ opacity: 0, y: -40 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ type: "spring", stiffness: 100 }}
+        >
+          <h2 className="text-4xl md:text-6xl font-bold mb-4">
             About{" "}
-            <motion.span
-              className="bg-accent px-2 inline-block text-shadow-neo"
+            <motion.span className="bg-accent px-2 inline-block text-shadow-neo"
               whileHover={{ rotate: 5, scale: 1.1 }}
               animate={isInView ? { rotate: [0, -5, 5, 0] } : {}}
               transition={{ delay: 0.5, duration: 0.5 }}
-              style={{ willChange: "transform" }}
-            >
-              Me
-            </motion.span>
-          </motion.h2>
-          <motion.p
-            className="text-xl text-muted-foreground max-w-2xl mx-auto"
-            variants={itemVariants}
+            >Me</motion.span>
+          </h2>
+          <motion.p className="text-xl text-muted-foreground max-w-2xl mx-auto"
+            initial={{ opacity: 0 }} animate={isInView ? { opacity: 1 } : {}} transition={{ delay: 0.3 }}
           >
-            A passionate developer who loves creating beautiful and functional web applications
-            <motion.span
-              className="inline-block ml-2"
-              animate={{ scale: [1, 1.3, 1] }}
-              transition={{ duration: 1, repeat: Infinity }}
-              style={{ willChange: "transform" }}
-            >
-              <Heart className="inline w-5 h-5 text-secondary fill-secondary" />
-            </motion.span>
+            A passionate developer who loves creating beautiful and functional web applications ❤️
           </motion.p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-8 mb-16">
-          <motion.div variants={itemVariants} style={{ willChange: "transform, opacity" }}>
-            <NeoCard className="space-y-4 h-full">
-              <motion.h3
-                className="text-2xl font-bold"
-                whileHover={{ x: 10 }}
-                style={{ willChange: "transform" }}
-              >
-                Who I Am 🙋‍♂️
-              </motion.h3>
-              <p className="text-lg leading-relaxed">
-                I'm a{" "}
-                <motion.span
-                  className="bg-primary px-1 inline-block"
-                  whileHover={{ scale: 1.1, rotate: -2 }}
-                  style={{ willChange: "transform" }}
-                >
-                  Full Stack Developer
-                </motion.span>{" "}
-                passionate about building modern web applications and exploring new technologies. I
-                enjoy turning ideas into real products through clean code and thoughtful design.
-              </p>
-              <p className="text-lg leading-relaxed">
-                I focus on developing skills in web development, scalable systems, and modern
-                frameworks by building personal projects and experimenting with new tools.
-              </p>
-              <p className="text-lg leading-relaxed">
-                When I'm not coding, you can find me exploring technology trends, design ideas, and
-                open-source projects — sometimes with a good cup of coffee ☕.
-              </p>
-            </NeoCard>
-          </motion.div>
+        {/* ── Asymmetric 60/40 grid ── */}
+        <div className="grid md:grid-cols-5 gap-8 mb-10">
 
-          <motion.div variants={itemVariants} style={{ willChange: "transform, opacity" }}>
-            <NeoCard variant="primary" className="space-y-4 h-full">
-              <motion.h3
-                className="text-2xl font-bold"
-                whileHover={{ x: 10 }}
-                style={{ willChange: "transform" }}
-              >
-                My Skills 🛠️
-              </motion.h3>
-              <div className="flex flex-wrap gap-3">
-                {skills.map((skill, index) => (
-                  <motion.div
-                    key={skill.name}
-                    custom={index}
-                    variants={skillVariants}
-                    initial="hidden"
-                    animate={isInView ? "visible" : "hidden"}
-                    whileHover={{
-                      scale: 1.15,
-                      rotate: [-5, 5, -5, 0],
-                      transition: { duration: 0.3 },
-                    }}
-                    whileTap={{ scale: 0.9 }}
-                    style={{ willChange: "transform" }}
+          {/* Who I Am — 60%, tilted -1deg */}
+          <motion.div className="md:col-span-3"
+            initial={{ opacity: 0, x: -60 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ type: "spring", stiffness: 80, delay: 0.2 }}
+          >
+            <div className="border-[3px] border-foreground p-6 space-y-5 h-full"
+              style={{ boxShadow: "6px 6px 0 #000", transform: "rotate(-1deg)", background: "hsl(60 100% 97%)" }}
+            >
+              <h3 className="text-2xl font-bold">Who I Am 🙋‍♂️</h3>
+
+              {/* Bullet points instead of wall of text */}
+              <ul className="space-y-3">
+                {highlights.map((h, i) => (
+                  <motion.li key={i} className="flex items-start gap-3 text-base leading-snug"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={isInView ? { opacity: 1, x: 0 } : {}}
+                    transition={{ delay: 0.35 + i * 0.09 }}
                   >
-                    <NeoBadge variant={skill.variant}>
-                      {skill.emoji} {skill.name}
-                    </NeoBadge>
-                  </motion.div>
+                    <span className="text-xl shrink-0">{h.icon}</span>
+                    <span>{h.text}</span>
+                  </motion.li>
+                ))}
+              </ul>
+
+              {/* Quick-fact tags */}
+              <div className="flex flex-wrap gap-2 pt-3 border-t-[2px] border-foreground/20">
+                {["Ho Chi Minh City 📍", "Full-time & Freelance 💼", "Open Source ❤️"].map((tag) => (
+                  <span key={tag}
+                    className="text-[10px] font-black uppercase tracking-wide border-[2px] border-foreground/30 px-2 py-0.5 bg-secondary/30"
+                  >{tag}</span>
                 ))}
               </div>
-            </NeoCard>
+            </div>
+          </motion.div>
+
+          {/* Skills grouped — 40%, free-floating categories */}
+          <motion.div className="md:col-span-2 space-y-6"
+            initial={{ opacity: 0, x: 60 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ type: "spring", stiffness: 80, delay: 0.3 }}
+          >
+            {skillGroups.map((group, gi) => (
+              <motion.div key={group.label}
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ delay: 0.4 + gi * 0.15 }}
+                style={{ transform: `rotate(${gi % 2 === 0 ? 0.6 : -0.6}deg)` }}
+              >
+                {/* Category label */}
+                <div className="mb-2">
+                  <span className={`inline-block text-[10px] font-black uppercase tracking-widest ${group.color} border-[2px] border-foreground px-2 py-0.5`}
+                    style={{ boxShadow: "2px 2px 0 #000" }}
+                  >{group.emoji} {group.label}</span>
+                </div>
+                {/* Skills floating freely */}
+                <div className="flex flex-wrap gap-2">
+                  {group.skills.map((skill, si) => (
+                    <motion.div key={skill.name}
+                      initial={{ opacity: 0, scale: 0 }}
+                      animate={isInView ? { opacity: 1, scale: 1 } : {}}
+                      transition={{ delay: 0.5 + gi * 0.1 + si * 0.06, type: "spring", stiffness: 200 }}
+                      whileHover={{ scale: 1.15, rotate: [-3, 3, 0], transition: { duration: 0.3 } }}
+                      whileTap={{ scale: 0.9 }}
+                    >
+                      <NeoBadge variant={skill.variant}>{skill.emoji} {skill.name}</NeoBadge>
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
+            ))}
           </motion.div>
         </div>
 
-        {/* Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {stats.map((stat, index) => (
-            <motion.div
-              key={stat.label}
-              variants={itemVariants}
-              whileHover={{
-                y: -10,
-                scale: 1.05,
-                transition: { type: "spring", stiffness: 300 },
-              }}
-              style={{ willChange: "transform, opacity" }}
+        {/* ── Stats row ── */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-[14px]">
+          {stats.map((stat, i) => (
+            <motion.div key={stat.label}
+              className={`${stat.color} border-[3px] border-foreground p-4 flex flex-col items-center gap-1 cursor-default`}
+              style={{ boxShadow: "4px 4px 0 #000" }}
+              initial={{ opacity: 0, y: 30 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ delay: 0.6 + i * 0.1, type: "spring" }}
+              whileHover={{ y: -8, boxShadow: "8px 8px 0 #000", transition: { type: "spring", stiffness: 300 } }}
             >
-              <NeoCard className={`${stat.color} text-center`}>
-                <motion.div
-                  initial={{ rotate: 0 }}
-                  animate={isInView ? { rotate: [0, -10, 10, 0] } : {}}
-                  transition={{ delay: 0.5 + index * 0.1, duration: 0.5 }}
-                  style={{ willChange: "transform" }}
-                >
-                  <stat.icon size={32} className="mx-auto mb-2" />
-                </motion.div>
-                <motion.div
-                  className="text-3xl font-bold"
-                  initial={{ opacity: 0, scale: 0 }}
-                  animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                  transition={{ delay: 0.3 + index * 0.15, type: "spring" }}
-                  style={{ willChange: "transform, opacity" }}
-                >
-                  {stat.value}
-                </motion.div>
-                <div className="text-sm font-medium uppercase">{stat.label}</div>
-              </NeoCard>
+              <stat.icon size={26} strokeWidth={2.5} />
+              <span className="text-3xl font-black">{stat.value}</span>
+              <span className="text-xs font-black uppercase tracking-widest text-center">{stat.label}</span>
             </motion.div>
           ))}
         </div>
-      </motion.div>
+
+      </div>
     </section>
   );
 };

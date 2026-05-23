@@ -7,10 +7,15 @@ import NeoInput from "./NeoInput";
 import NeoTextarea from "./NeoTextarea";
 import { Mail, MapPin, Phone, Send, Sparkles, CheckCircle, PartyPopper } from "lucide-react";
 
+import emailjs from "@emailjs/browser";
+import { toast } from "sonner";
+
 const ContactSection = () => {
   const ref = useRef(null);
+  const formRef = useRef<HTMLFormElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSending, setIsSending] = useState(false);
 
   const contactInfo = [
     { icon: Mail, label: "Email", value: "congduongnguyentrung@gmail.com" },
@@ -54,10 +59,32 @@ const ContactSection = () => {
     },
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitted(true);
-    setTimeout(() => setIsSubmitted(false), 3000);
+    if (!formRef.current) return;
+
+    setIsSending(true);
+
+    try {
+      // NOTE: You need to replace these with your actual EmailJS credentials
+      // Sign up at https://www.emailjs.com/
+      await emailjs.sendForm(
+        "service_nuwdahy", // Replace with your Service ID
+        "template_vds0b6e", // Replace with your Template ID
+        formRef.current,
+        "-nZMAH2YHY1-RAxar" // Replace with your Public Key
+      );
+
+      setIsSubmitted(true);
+      toast.success("Message sent successfully! 🚀");
+      formRef.current.reset();
+      setTimeout(() => setIsSubmitted(false), 5000);
+    } catch (error) {
+      console.error("EmailJS Error:", error);
+      toast.error("Failed to send message. Please try again later. ❌");
+    } finally {
+      setIsSending(false);
+    }
   };
 
   return (
@@ -112,14 +139,14 @@ const ContactSection = () => {
               >
                 Send a Message 💬
               </motion.h3>
-              <form className="space-y-4" onSubmit={handleSubmit}>
+              <form className="space-y-4" onSubmit={handleSubmit} ref={formRef}>
                 <motion.div
                   initial={{ opacity: 0, x: -30 }}
                   animate={isInView ? { opacity: 1, x: 0 } : {}}
                   transition={{ delay: 0.3 }}
                 >
                   <label className="block font-bold mb-2">Name</label>
-                  <NeoInput placeholder="Your name" />
+                  <NeoInput placeholder="Your name" name="from_name" required />
                 </motion.div>
                 <motion.div
                   initial={{ opacity: 0, x: -30 }}
@@ -127,7 +154,7 @@ const ContactSection = () => {
                   transition={{ delay: 0.4 }}
                 >
                   <label className="block font-bold mb-2">Email</label>
-                  <NeoInput type="email" placeholder="your@email.com" />
+                  <NeoInput type="email" placeholder="your@email.com" name="from_email" required />
                 </motion.div>
                 <motion.div
                   initial={{ opacity: 0, x: -30 }}
@@ -135,7 +162,7 @@ const ContactSection = () => {
                   transition={{ delay: 0.5 }}
                 >
                   <label className="block font-bold mb-2">Message</label>
-                  <NeoTextarea placeholder="Tell me about your project..." />
+                  <NeoTextarea placeholder="Tell me about your project..." name="message" required />
                 </motion.div>
                 <motion.div
                   whileHover={{ scale: 1.02 }}
@@ -146,8 +173,16 @@ const ContactSection = () => {
                     size="lg"
                     className="w-full flex items-center justify-center gap-2 hover-jello"
                     type="submit"
+                    disabled={isSending}
                   >
-                    {isSubmitted ? (
+                    {isSending ? (
+                      <motion.div
+                        animate={{ rotate: 360 }}
+                        transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                      >
+                        <Sparkles size={20} />
+                      </motion.div>
+                    ) : isSubmitted ? (
                       <>
                         <CheckCircle size={20} />
                         Message Sent!

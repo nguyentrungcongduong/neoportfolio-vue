@@ -115,6 +115,8 @@ const BlogSection = () => {
                               src={image} 
                               alt={`${post.title} screenshot ${imgIndex + 1}`}
                               className="w-full h-full object-cover"
+                              loading="lazy"
+                              decoding="async"
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
                             <div className="absolute top-4 right-4 bg-background/80 backdrop-blur-sm px-2 py-1 border-2 border-foreground font-black shadow-neo-sm">

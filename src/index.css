@@ -533,6 +533,8 @@
     text-shadow: 3px 3px 0px hsl(0 0% 0%);
   }
 
+
+
   /* Animista Animation Classes */
   .animate-tracking-in {
     animation: tracking-in-expand 0.7s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
@@ -638,5 +640,89 @@
 
   .hover-pulsate:hover {
     animation: pulsate-fwd 0.5s ease-in-out infinite both;
+  }
+
+  /* Text gradient effect */
+  .text-gradient-neo {
+    background: linear-gradient(135deg, hsl(72 100% 72%), hsl(340 100% 71%));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* 3D Card tilt effect */
+  .neo-card-3d {
+    transform-style: preserve-3d;
+    transition: transform 0.3s ease;
+  }
+  .neo-card-3d:hover {
+    transform: perspective(1000px) rotateX(2deg) rotateY(-2deg) translateZ(10px);
+  }
+}
+
+/* Neo-brutalism Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 14px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(60 100% 97%);
+  border-left: 3px solid hsl(0 0% 0%);
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(72 100% 72%);
+  border: 3px solid hsl(0 0% 0%);
+  box-shadow: 2px 2px 0 hsl(0 0% 0%);
+  transition: background 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(340 100% 71%);
+  box-shadow: 3px 3px 0 hsl(0 0% 0%);
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: hsl(150 100% 50%);
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0 hsl(0 0% 0%);
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: 14px;
+  scrollbar-color: hsl(72 100% 72%) hsl(60 100% 97%);
+}
+
+/* Noise texture overlay - lightweight SVG */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.025;
+  pointer-events: none;
+  z-index: 9998;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
+
+/* Reduced motion support - accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .animate-pulsate,
+  .animate-float,
+  .animate-heartbeat,
+  .animate-vibrate {
+    animation: none !important;
   }
 }

@@ -66,27 +66,43 @@ const AllCertificates = () => {
               }}
               whileTap={{ scale: 0.97 }}
             >
-              <NeoCard className="h-full flex flex-col gap-4 cursor-pointer group">
-                <div className="flex items-start justify-between gap-3">
-                  <motion.div
-                    className="flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden bg-background border-3 border-foreground shadow-neo"
-                    animate={{ scale: [1, 1.05, 1] }}
-                    transition={{ delay: 0.3 + index * 0.1, duration: 0.5 }}
-                  >
-                    <img 
-                      src={cert.imageUrl} 
+              <a 
+                href={cert.link || "#"} 
+                target={cert.link ? "_blank" : "_self"} 
+                rel={cert.link ? "noopener noreferrer" : ""}
+                className="block h-full"
+              >
+                <NeoCard className="h-full flex flex-col cursor-pointer group p-0 overflow-hidden bg-white dark:bg-card">
+                  {/* Image Top Half */}
+                  <div className="relative w-full aspect-[4/3] border-b-3 border-foreground bg-gray-50 flex items-center justify-center p-6 overflow-hidden">
+                    <motion.img
+                      src={cert.imageUrl}
                       alt={cert.name}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-contain drop-shadow-sm"
+                      whileHover={{ scale: 1.08 }}
+                      transition={{ type: "spring", stiffness: 200, damping: 20 }}
+                      loading="lazy"
+                      decoding="async"
                     />
-                  </motion.div>
-                  <NeoBadge variant={cert.badgeVariant}>{cert.date}</NeoBadge>
-                </div>
-                <h3 className="text-lg font-bold leading-snug">{cert.name}</h3>
-                <div className="flex items-center gap-2 text-muted-foreground mt-auto">
-                  <Award size={16} />
-                  <span className="text-sm font-medium">{cert.org}</span>
-                </div>
-              </NeoCard>
+                    <div className="absolute top-3 right-3 z-10 shadow-neo">
+                      <NeoBadge variant={cert.badgeVariant}>{cert.date}</NeoBadge>
+                    </div>
+                    {/* Decorative overlay on hover */}
+                    <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
+                  </div>
+                  
+                  {/* Content Bottom Half */}
+                  <div className="p-5 flex flex-col flex-1 gap-3">
+                    <h3 className="text-lg font-black leading-tight line-clamp-3 group-hover:text-primary transition-colors">{cert.name}</h3>
+                    <div className="flex items-center justify-between mt-auto pt-3 border-t-2 border-dashed border-foreground/20">
+                      <div className="flex items-center gap-2 text-muted-foreground">
+                        <Award size={16} className={`text-${cert.variant}`} />
+                        <span className="text-sm font-bold uppercase tracking-wider">{cert.org}</span>
+                      </div>
+                    </div>
+                  </div>
+                </NeoCard>
+              </a>
             </motion.div>
           ))}
         </div>

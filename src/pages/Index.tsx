@@ -8,12 +8,16 @@ import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 import FloatingPet from "@/components/FloatingPet";
 import CustomCursor from "@/components/CustomCursor";
+import ScrollProgress from "@/components/ScrollProgress";
+import AIChatBot from "@/components/AIChatBot";
 
 const Index = () => {
   return (
     <div className="min-h-screen relative">
+      <ScrollProgress />
       <CustomCursor />
       <FloatingPet />
+      <AIChatBot />
       <Navbar />
       <main className="pt-16">
         <HeroSection />
