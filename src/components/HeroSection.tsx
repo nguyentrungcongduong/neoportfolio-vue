@@ -311,8 +311,8 @@ const HeroSection = () => {
             {/* Static tilt wrapper — gives "scrapbook" energy */}
             <div className="relative" style={{ transform: "rotate(3deg)" }}>
               <motion.div
-                className="w-72 h-72 md:w-80 md:h-80 lg:w-96 lg:h-96 border-[4px] border-dashed border-primary overflow-hidden relative"
-                style={{ boxShadow: "10px 10px 0px 0px #000", willChange: "transform" }}
+                className="w-64 md:w-72 lg:w-80 border-[4px] border-dashed border-primary overflow-hidden relative"
+                style={{ boxShadow: "10px 10px 0px 0px #000", willChange: "transform", aspectRatio: "1/1" }}
                 animate={{ y: [-8, 8, -8] }}
                 transition={{ duration: 4, repeat: Infinity }}
                 whileHover={{ scale: 1.05, rotate: -2 }}
@@ -324,7 +324,7 @@ const HeroSection = () => {
                   className="w-full h-full object-cover select-none pointer-events-none"
                   style={{
                     willChange: "transform",
-                    objectPosition: "center 15%",
+                    objectPosition: "center 20%",
                     filter: "saturate(1.35) contrast(1.08) brightness(1.04)",
                   }}
                   loading="eager"

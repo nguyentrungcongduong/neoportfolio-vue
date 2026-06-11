@@ -8,7 +8,8 @@ import FloatingPet from "@/components/FloatingPet";
 import {
   ArrowLeft, ExternalLink, Github, CheckCircle,
   Calendar, User, ArrowRight, ArrowLeftCircle, ArrowRightCircle,
-  ChevronLeft, ChevronRight, BookOpen, Trello, Users
+  ChevronLeft, ChevronRight, BookOpen, Trello, Users, LayoutDashboard,
+  Presentation, GraduationCap
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -105,6 +106,20 @@ const ProjectDetail = () => {
 
             <h1 className="text-3xl md:text-4xl font-black leading-tight">{project.title}</h1>
 
+            {/* Badge — e.g. Luận văn tốt nghiệp */}
+            {project.badge && (
+              <motion.div
+                className="inline-flex items-center gap-1.5 px-3 py-1 border-[2px] border-foreground bg-accent text-foreground text-xs font-black uppercase tracking-widest"
+                style={{ boxShadow: "3px 3px 0 #000" }}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.15 }}
+              >
+                <GraduationCap size={13} />
+                {project.badge}
+              </motion.div>
+            )}
+
             {/* Meta */}
             <div className="flex flex-wrap gap-3 text-sm font-bold">
               <span className="flex items-center gap-1 border-[2px] border-foreground/30 px-2 py-0.5">
@@ -151,6 +166,16 @@ const ProjectDetail = () => {
                   {project.inProcess ? "In Dev" : "Coming Soon"}
                 </NeoButton>
               )}
+              {/* Admin Panel */}
+              {project.adminLink && (
+                <motion.a href={project.adminLink} target="_blank" rel="noopener noreferrer"
+                  whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.95 }}>
+                  <NeoButton variant="outline" size="sm" className="gap-2">
+                    <LayoutDashboard size={14} />
+                    <span className="font-black text-purple-600">Admin</span>
+                  </NeoButton>
+                </motion.a>
+              )}
               {project.github ? (
                 <motion.a href={project.github} target="_blank" rel="noopener noreferrer"
                   whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.95 }}>
@@ -192,6 +217,17 @@ const ProjectDetail = () => {
                   title="View documentation">
                   <NeoButton variant="outline" size="sm" className="gap-2">
                     <BookOpen size={14} /> Docs
+                  </NeoButton>
+                </motion.a>
+              )}
+              {/* Slides / Presentation */}
+              {project.slides && (
+                <motion.a href={project.slides} target="_blank" rel="noopener noreferrer"
+                  whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.95 }}
+                  title="View presentation slides">
+                  <NeoButton variant="outline" size="sm" className="gap-2">
+                    <Presentation size={14} />
+                    <span className="font-black text-orange-600">Slides</span>
                   </NeoButton>
                 </motion.a>
               )}

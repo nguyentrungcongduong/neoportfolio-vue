@@ -1,14 +1,70 @@
 // ── Shared project data (used by AllProjects + ProjectDetail) ─────────────────
-import ecommerce1 from "@/assets/projects/ecommerce-1.png";
-import ecommerce2 from "@/assets/projects/ecommerce-2.png";
-import task1      from "@/assets/projects/task-1.png";
-import task2      from "@/assets/projects/task-2.png";
-import weather1   from "@/assets/projects/weather-1.png";
-import weather2   from "@/assets/projects/weather-2.png";
-import portfolio1 from "@/assets/projects/portfolio-1.png";
-import portfolio2 from "@/assets/projects/portfolio-2.png";
-import game1      from "@/assets/projects/game-1.png";
-import game2      from "@/assets/projects/game-2.png";
+import task1        from "@/assets/projects/task-1.png";
+import task2        from "@/assets/projects/task-2.png";
+import weather1     from "@/assets/projects/weather-1.png";
+import weather2     from "@/assets/projects/weather-2.png";
+import portfolio1   from "@/assets/projects/portfolio-1.png";
+import portfolio2   from "@/assets/projects/portfolio-2.png";
+import game1        from "@/assets/projects/game-1.png";
+import game2        from "@/assets/projects/game-2.png";
+
+// ── News Portal CMS ──
+import news1        from "@/assets/projects/news-portal-1.png";
+import news2        from "@/assets/projects/news-portal-2.png";
+import news3        from "@/assets/projects/news-portal-3.png";
+
+// ── Central Kitchen & Franchise Management ──
+import ckfms1       from "@/assets/projects/ckfms-1.png";
+import ckfms2       from "@/assets/projects/ckfms-2.png";
+import ckfms3       from "@/assets/projects/ckfms-3.png";
+
+// ── PlanBookAI ──
+import planAI1      from "@/assets/projects/planbookai-1.png";
+import planAI2      from "@/assets/projects/planbookai-2.png";
+import planAI3      from "@/assets/projects/planbookai-3.png";
+import planAI4      from "@/assets/projects/planbookai-4.png";
+
+// ── Veritas ──
+import veritas1     from "@/assets/projects/veritas-1.png";
+import veritas2     from "@/assets/projects/veritas-2.png";
+import veritas3     from "@/assets/projects/veritas-3.png";
+
+// ── Social Media Website ──
+import social1      from "@/assets/projects/social-1.png";
+import social2      from "@/assets/projects/social-2.png";
+import social3      from "@/assets/projects/social-3.png";
+import social4      from "@/assets/projects/social-4.png";
+
+// ── Template Ecommerce Next.js ──
+import template1    from "@/assets/projects/template-ecom-1.png";
+import template2    from "@/assets/projects/template-ecom-2.png";
+
+// ── Multiple-Choice Exam Website ──
+import exam1        from "@/assets/projects/exam-1.png";
+import exam2        from "@/assets/projects/exam-2.png";
+import exam3        from "@/assets/projects/exam-3.png";
+import exam4        from "@/assets/projects/exam-4.png";
+import exam5        from "@/assets/projects/exam-5.png";
+import exam6        from "@/assets/projects/exam-6.png";
+
+// ── No-Regret Exit ──
+import noRegret1    from "@/assets/projects/no-regret-1.png";
+import noRegret2    from "@/assets/projects/no-regret-2.png";
+import noRegret3    from "@/assets/projects/no-regret-3.png";
+
+// ── Mobile Programming (LT_Mobile) ──
+import mobile1      from "@/assets/projects/lt-mobile-1.png";
+import mobile2      from "@/assets/projects/lt-mobile-2.png";
+import mobile3      from "@/assets/projects/lt-mobile-3.png";
+import mobile4      from "@/assets/projects/lt-mobile-4.png";
+
+// ── Legal QA RAG System ──
+import legal1       from "@/assets/projects/legal-1.png";
+import legal2       from "@/assets/projects/legal-2.png";
+import legal3       from "@/assets/projects/legal-3.png";
+import legal4       from "@/assets/projects/legal-4.png";
+import legal5       from "@/assets/projects/legal-5.png";
+
 
 export interface Project {
   id: string;
@@ -19,11 +75,14 @@ export interface Project {
   color: string;
   images: string[];
   link?: string;      // undefined = not deployed
+  adminLink?: string; // Admin panel URL (separate from public site)
   github?: string;    // undefined = private repo
   jira?: string;      // Jira board URL
   jiraToastMsg?: string; // Optional toast message when clicking Jira
   docs?: string;      // Documentation URL (Notion, Google Docs, etc.)
   docsToastMsg?: string; // Optional toast message when clicking Docs
+  slides?: string;    // Presentation / slide deck URL
+  badge?: string;     // Custom highlight label e.g. "Luận văn tốt nghiệp"
   featured?: boolean;
   inProcess?: boolean;
   year: string;
@@ -65,8 +124,9 @@ export const allProjects: Project[] = [
       "A professional news content management system built on Decoupled/Headless CMS architecture. Laravel 12 backend provides a REST API secured by Sanctum with 3-level RBAC (Admin/Editor/Author) via Spatie Permission. The Admin frontend uses React + Ant Design with a TipTap rich-text editor; the public site uses Next.js 16 with Socket.IO for real-time Breaking News. Includes Service Pattern, article versioning (snapshotting), automatic spam detection for comments, dynamic Sitemap, and Cloudinary image optimization.",
     tags: ["Laravel", "React", "Next.js", "Redis", "Socket.IO"],
     color: "bg-primary",
-    images: [ecommerce1, ecommerce2],
+    images: [news1, news2, news3],
     link: "https://news-portal-public-gray.vercel.app",
+    adminLink: "https://news-portal-admin-4qjjxch1m-nguyentrungcongduongs-projects.vercel.app/login",
     github: undefined,
     docs: "https://docs.google.com/spreadsheets/d/1IB9uG0eEGp0-4kUrthaJzMvETIXYfg1u/edit?usp=drive_link&ouid=105379329389586303385&rtpof=true&sd=true",
     featured: true,
@@ -137,11 +197,13 @@ export const allProjects: Project[] = [
       "CKFMS replaces fragmented Excel/paper workflows in franchise chains with a unified, real-time platform. Franchise store staff place ingredient orders via a React web portal or Expo mobile app, which flow into a Laravel backend where coordinators confirm, kitchen staff plan production batches, and deliveries are tracked end-to-end. The system spans 5 distinct actor roles — Admin, Manager, Supply Coordinator, Kitchen Staff, and Store Staff — each with a dedicated role-based interface and scoped API routes.",
     tags: ["Laravel", "React", "Expo", "PostgreSQL", "NativeWind"],
     color: "bg-primary",
-    images: [portfolio1, portfolio2],
+    images: [ckfms1, ckfms2, ckfms3],
     link: undefined,
     github: "https://github.com/nguyentrungcongduong/CNPM_CS3.git",
     jira: "https://congduongnguyentrung.atlassian.net/jira/software/projects/KAN/boards/1?atlOrigin=eyJpIjoiMWY0NGFjNzI4ZjYwNDc0Nzk4MDkzZDg5YzgxYjgyZGMiLCJwIjoiaiJ9",
     jiraToastMsg: "Link private vì lý do bảo mật. Vui lòng gửi mail verify để được cấp quyền xem Jira nhé!",
+    docs: "https://drive.google.com/file/d/1nloVOOTf7KqZtA_YVY-QwR1_ZR_7pMsM/view?usp=sharing",
+    docsToastMsg: "Mở Google Drive để xem tài liệu dự án Central Kitchen & Franchise Management!",
     year: "2026",
     role: "Full Stack Developer",
     teamSize: 4,
@@ -162,11 +224,13 @@ export const allProjects: Project[] = [
       "PlanBookAI is a SaaS web app for K-12 teachers integrating Gemini AI to automatically generate lesson plans (E5/Backward Design curriculum standard), create exams from a question bank, and grade multiple-choice answer sheets via OCR. The system features 4-role access control (Admin, Manager, Staff, Teacher), a prompt template approval workflow, VNPay subscription payment, and multi-level analytics dashboards for student results, revenue, and user growth.",
     tags: ["React", "Spring Boot", "MySQL", "Docker"],
     color: "bg-secondary",
-    images: [ecommerce1, ecommerce2],
+    images: [planAI1, planAI2, planAI3, planAI4],
     link: undefined,
     github: "https://github.com/CongduongNT/JAVA.git",
     jira: "https://nguyentrungcongduong.atlassian.net/jira/software/projects/KAN/summary?atlOrigin=eyJpIjoiNmVlYTYxMTRkNTc5NGE4Y2FkY2ZmMDU0MzcxZGNkNjgiLCJwIjoiaiJ9",
     jiraToastMsg: "Dự án này có đầy đủ Docs được lưu trong Confluence đính kèm trên Jira!",
+    docs: "https://drive.google.com/file/d/1JOsM_V35TiZvDivU9m5KfsC0L-DMgj03/view?usp=sharing",
+    docsToastMsg: "Mở Google Drive để xem tài liệu dự án PlanBookAI!",
     year: "2026",
     role: "Full Stack Developer",
     teamSize: 4,
@@ -187,7 +251,7 @@ export const allProjects: Project[] = [
       "Veritas is a unique gamification web app where users play two opposing roles: Detective (solve cases, find contradictions in evidence) or Criminal (design cases, trap investigators). The system is built on Next.js + Laravel with a JudgmentService that validates clue–statement contradiction chains with 100% accuracy. Each day features a 'Daily Dossier' with x2 Fame reward, alongside an AI Watson assistant with 2-tier hints and corresponding penalties. The UI is inspired by 1940s noir newspaper aesthetics, featuring retinal scan login animation and TransitionOverlay mode-switching.",
     tags: ["Next.js", "Laravel", "PostgreSQL", "React Query", "Zustand"],
     color: "bg-accent",
-    images: [game1, game2],
+    images: [veritas1, veritas2, veritas3],
     link: "https://veritas-iota-mocha.vercel.app/",
     github: "https://github.com/nguyentrungcongduong/Veritas-.git",
     year: "2026",
@@ -209,7 +273,7 @@ export const allProjects: Project[] = [
       "Built a mini social-network application that allows users to register accounts, create posts (with images), like and comment, and follow other users. The interface is modern, optimized for user experience, and supports real-time content updates via Inngest background jobs.",
     tags: ["React", "TailwindCSS", "Node.js", "Clerk", "Inngest"],
     color: "bg-primary",
-    images: [ecommerce2, ecommerce1],
+    images: [social1, social2, social3, social4],
     link: "https://build-and-deploy-a-full-stack-socia-three.vercel.app/",
     github: "https://github.com/nguyentrungcongduong/Build-and-Deploy-a-Full-Stack-Social-Media-App.git",
     docs: "https://docs.google.com/document/d/1pfYCu52mCAD9pIiJVhSHZtTI_5SKDjrv/edit?usp=sharing&ouid=105379329389586303385&rtpof=true&sd=true",
@@ -254,7 +318,7 @@ export const allProjects: Project[] = [
       "Converted pre-built HTML/CSS e-commerce templates into a modern Next.js application. Applied Clerk authentication for secure user login and session management. Fully deployed on Vercel as a production-ready demo.",
     tags: ["Next.js", "Bootstrap", "Clerk"],
     color: "bg-info",
-    images: [weather2, weather1],
+    images: [template1, template2],
     link: "https://nextjs-first-seven-pied.vercel.app/",
     github: "https://github.com/nguyentrungcongduong/nextjs_first.git",
     year: "2025",
@@ -274,7 +338,7 @@ export const allProjects: Project[] = [
       "Developed an online multiple-choice testing website allowing users to log in, select exams by topic, take timed tests, and view results immediately after submission. Includes score statistics, ranking boards, and a full admin panel for question management.",
     tags: ["Spring Boot", "jQuery", "Thymeleaf", "Firebase"],
     color: "bg-primary",
-    images: [game2, game1],
+    images: [exam1, exam2, exam3, exam4, exam5, exam6],
     link: undefined,
     github: "https://github.com/nguyentrungcongduong/web_trac_nghiem.git",
     year: "2024",
@@ -296,7 +360,7 @@ export const allProjects: Project[] = [
       "No-Regret Exit is a micro-product built to validate a behavioral hypothesis: people pay not to succeed more, but to be less harsh on themselves after a difficult decision. Users write their resignation reasons while clear-headed; the system sends it back after 30 days for reflection. Built with minimalist tech (HTML/CSS/JS, Google Forms, Google Sheets, Gmail) — one-time purchase, no subscription.",
     tags: ["HTML", "CSS", "JavaScript", "Google Forms", "Google Sheets"],
     color: "bg-secondary",
-    images: [portfolio2, portfolio1],
+    images: [noRegret1, noRegret2, noRegret3],
     link: "https://no-regret-exit.vercel.app/",
     github: "https://github.com/nguyentrungcongduong/No-Regret-Exit",
     year: "2026",
@@ -339,13 +403,39 @@ export const allProjects: Project[] = [
     longDescription: "Mobile programming course project. Led a team of 4 to develop a native mobile application.",
     tags: ["Java", "Firebase"],
     color: "bg-secondary",
-    images: [ecommerce1, ecommerce2],
+    images: [mobile1, mobile2, mobile3, mobile4],
     github: "https://github.com/nguyentrungcongduong/LT_Mobile.git",
     jira: "https://congduongnguyentrung.atlassian.net/jira/software/projects/LM/boards/37?atlOrigin=eyJpIjoiMTQ4ZjkxZDVmZTIyNDAzZGI1NTRkMjY2MDc3NmVjMzAiLCJwIjoiaiJ9",
     jiraToastMsg: "Link private vì lý do bảo mật. Vui lòng gửi mail verify để được cấp quyền xem Jira nhé!",
+    docs: "https://drive.google.com/file/d/1uHyXUUb6WgKPvBvVeqzgbrRPuJW9Ukr9/view?usp=sharing",
+    docsToastMsg: "Mở Google Drive để xem tài liệu dự án Mobile Programming!",
     year: "2024",
     role: "Team Lead",
     teamSize: 4,
     highlights: ["Native Android Development", "Team leadership and task delegation", "Jira sprint tracking"],
+  },
+  {
+    id: "legal-qa-rag-system",
+    title: "Legal QA RAG System",
+    description: "A Vietnamese full-stack legal Q&A system powered by hybrid RAG retrieval.",
+    longDescription:
+      "A full-stack hybrid RAG (Retrieval-Augmented Generation) search system designed to analyze and answer complex queries on Vietnamese law. It features a responsive Vue.js UI, a Spring Boot API Gateway and Orchestration backend, and a Python FastAPI service performing dense vector search via Qdrant and sparse keyword search via BM25 Okapi.",
+    tags: ["Vue.js", "Spring Boot", "FastAPI", "PostgreSQL", "Qdrant", "Docker"],
+    color: "bg-info",
+    images: [legal1, legal2, legal3, legal4, legal5],
+    link: undefined,
+    github: "https://github.com/nguyentrungcongduong/Legal_QA.git",
+    docs: "https://docs.google.com/document/d/1AjYPSqn4ffV8oP5M3BMserXHrW1pfcg4/edit?usp=sharing&ouid=105379329389586303385&rtpof=true&sd=true",
+    slides: "https://docs.google.com/presentation/d/1sT33IEmxVuSG9ITELHrwABU3lrvkRZae/edit?usp=sharing&ouid=105379329389586303385&rtpof=true&sd=true",
+    badge: "Luận văn tốt nghiệp",
+    year: "2026",
+    role: "Full Stack Developer",
+    highlights: [
+      "Implemented a hybrid search pipeline combining dense vector embeddings and BM25 Okapi sparse retrieval merged via Reciprocal Rank Fusion (RRF)",
+      "Designed a smart document parser and hierarchical chunking engine in Python to map legal text by Article and Clause structure",
+      "Engineered secure microservices orchestration and API Gateway using Spring Boot with stateful JWT authentication",
+      "Optimized search latency using parallel worker warmups for BM25 background indexing and PostgreSQL connection pooling",
+      "Containerized the multi-service architecture using Docker Compose for streamlined local environment configuration and deployment",
+    ],
   },
 ];

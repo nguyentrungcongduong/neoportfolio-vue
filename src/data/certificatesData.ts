@@ -3,6 +3,9 @@ import cert2 from "@/assets/projects/Prepare Data for ML APIs on Google Cloud Sk
 import cert3 from "@/assets/projects/Set Up an App Dev Environment on Google Cloud Skill Badge.png";
 import cert4 from "@/assets/projects/Build a Secure Google Cloud Network Skill Badge.png";
 import cert5 from "@/assets/projects/Implement Load Balancing on Compute Engine Skill Badge.png";
+import cert6 from "@/assets/devops_for_fresher.jpg";
+import cert7 from "@/assets/english.jpg";
+import cert8 from "@/assets/thcp.jpg";
 
 export interface Certificate {
   name: string;
@@ -60,4 +63,29 @@ export const certificates: Certificate[] = [
     variant: "primary",
     badgeVariant: "primary",
   },
+  {
+    name: "DevOps for Freshers",
+    org: "DevOpsEdu.vn",
+    date: "03/2026",
+    imageUrl: cert6,
+    variant: "accent",
+    badgeVariant: "accent",
+  },
+  {
+    name: "English Communication Course — B2 CEFR",
+    org: "SunUni Academy",
+    date: "07/2025",
+    imageUrl: cert7,
+    variant: "info",
+    badgeVariant: "info",
+  },
+  {
+    name: "Ứng dụng Công nghệ Thông tin Cơ bản",
+    org: "ĐH Giao thông Vận tải TP.HCM",
+    date: "05/2024",
+    imageUrl: cert8,
+    variant: "secondary",
+    badgeVariant: "secondary",
+  },
 ];
+
