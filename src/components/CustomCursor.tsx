@@ -76,7 +76,7 @@ const CustomCursor = () => {
 
   return (
     <>
-      {/* Main cursor - Cute Carrot */}
+      {/* Main cursor - LoL cursor */}
       <motion.div
         className="fixed top-0 left-0 pointer-events-none z-[9999]"
         style={{
@@ -88,62 +88,36 @@ const CustomCursor = () => {
         <motion.div
           className="relative -translate-x-1/2 -translate-y-1/2"
           animate={{
-            scale: isClicking ? 0.7 : isHovering ? 1.3 : 1,
-            rotate: isClicking ? -20 : isHovering ? 15 : -10,
+            scale: isClicking ? 0.65 : isHovering ? 1.25 : 1,
+            rotate: isClicking ? 15 : 0,
           }}
           transition={{ type: 'spring', damping: 20, stiffness: 350 }}
           style={{ willChange: "transform" }}
         >
-          {/* Carrot emoji */}
-          <motion.span
-            className="text-3xl select-none drop-shadow-lg"
+          <motion.img
+            src="/lol_cursor.png"
+            alt=""
+            className="select-none"
+            style={{
+              width: isHovering ? 44 : 36,
+              height: isHovering ? 44 : 36,
+              willChange: "transform",
+              filter: isHovering
+                ? "drop-shadow(0 0 8px #c89b3c) drop-shadow(0 0 16px #f0c060) brightness(1.2)"
+                : isClicking
+                ? "drop-shadow(0 0 12px #fff) brightness(1.4)"
+                : "drop-shadow(0 0 3px rgba(200,155,60,0.6))",
+              transition: "width 0.15s, height 0.15s, filter 0.15s",
+            }}
             animate={{
-              rotate: isHovering ? [0, -10, 10, -10, 0] : 0,
+              rotate: isHovering ? [0, -8, 8, -8, 0] : 0,
             }}
             transition={{
-              duration: 0.5,
+              duration: 0.4,
               repeat: isHovering ? Infinity : 0,
-              repeatDelay: 0.3
+              repeatDelay: 0.5,
             }}
-          >
-            🥕
-          </motion.span>
-
-          {/* Sparkles when hovering */}
-          {isHovering && (
-            <>
-              <motion.span
-                className="absolute -top-2 -left-2 text-sm"
-                initial={{ opacity: 0, scale: 0 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.1 }}
-                style={{ willChange: "transform, opacity" }}
-              >
-                ✨
-              </motion.span>
-              <motion.span
-                className="absolute -top-1 -right-3 text-xs"
-                initial={{ opacity: 0, scale: 0 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.2 }}
-                style={{ willChange: "transform, opacity" }}
-              >
-                💫
-              </motion.span>
-            </>
-          )}
-
-          {/* Bite mark when clicking */}
-          {isClicking && (
-            <motion.span
-              className="absolute -bottom-1 right-0 text-xs"
-              initial={{ opacity: 0, scale: 0 }}
-              animate={{ opacity: 1, scale: 1.2 }}
-              style={{ willChange: "transform, opacity" }}
-            >
-              😋
-            </motion.span>
-          )}
+          />
         </motion.div>
 
         {/* Cursor text label */}
