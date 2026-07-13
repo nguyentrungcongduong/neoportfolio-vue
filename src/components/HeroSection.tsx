@@ -401,18 +401,18 @@ const HeroSection = () => {
             <div className="relative" style={{ transform: "rotate(3deg)" }}>
               <motion.div
                 className="w-64 md:w-72 lg:w-80 border-[4px] border-dashed border-primary overflow-hidden relative"
-                style={{ boxShadow: "10px 10px 0px 0px #000", willChange: "transform" }}
+                style={{ boxShadow: "10px 10px 0px 0px #000", willChange: "transform", aspectRatio: "1/1" }}
                 animate={{ y: [-8, 8, -8] }}
                 transition={{ duration: 4, repeat: Infinity }}
                 whileHover={{ scale: 1.05, rotate: -2 }}
               >
-                {/* Photo — vivid & saturated */}
                 <img
                   src={avatarUrl}
                   alt="Avatar"
-                  className="w-full h-auto block select-none pointer-events-none"
+                  className="w-full h-full object-cover select-none pointer-events-none"
                   style={{
                     willChange: "transform",
+                    objectPosition: "center 15%",
                     filter: "saturate(1.35) contrast(1.08) brightness(1.04)",
                   }}
                   loading="eager"
