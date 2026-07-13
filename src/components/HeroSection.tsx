@@ -3,6 +3,7 @@ import NeoButton from "./NeoButton";
 import NeoBadge from "./NeoBadge";
 import { Github, Facebook, Mail, ArrowDown, Sparkles, Code2, Briefcase, Award, Coffee, Download, ChevronDown, FileCode2, Code } from "lucide-react";
 import avatarImg from "../assets/projects/porofolio.jpg";
+const avatarUrl = "/cuto.jpg";
 import { allProjects } from "@/data/projects";
 import { certificates } from "@/data/certificatesData";
 import { useState, useRef, useEffect } from "react";
@@ -407,7 +408,7 @@ const HeroSection = () => {
               >
                 {/* Photo — vivid & saturated */}
                 <img
-                  src={avatarImg}
+                  src={avatarUrl}
                   alt="Avatar"
                   className="w-full h-full object-cover select-none pointer-events-none"
                   style={{
