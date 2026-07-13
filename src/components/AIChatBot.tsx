@@ -441,19 +441,18 @@ const AIChatBot = () => {
                     </p>
                   </div>
 
-                  <p className="text-[10px] font-bold mb-1.5 uppercase flex items-center gap-1">
+                  <p className="text-[10px] font-bold mb-1 uppercase flex items-center gap-1">
                     <Key size={10} />
-                    Groq API Key{" "}
-                    <a
-                      href="https://console.groq.com/keys"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="underline normal-case hover:opacity-70 transition-opacity"
-                    >
-                      (get yours free here ↗)
-                    </a>
+                    Groq API Key
                   </p>
-
+                  <a
+                    href="https://console.groq.com/keys"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 mb-2 px-3 py-1.5 text-xs font-bold border-[2px] border-foreground bg-background hover:bg-foreground hover:text-background transition-all duration-150"
+                  >
+                    🔑 Get yours free here ↗
+                  </a>
                   <div className="flex gap-2">
                     <div className="flex-1 flex border-[2px] border-foreground bg-background overflow-hidden">
                       <input
