@@ -150,7 +150,7 @@ export const allProjects: Project[] = [
     tags: ["Spring Boot", "React", "TypeScript", "Docker", "PostgreSQL"],
     color: "bg-secondary",
     images: [task1, task2],
-    link: "https://57.180.52.73",
+    link: "https://job-tracker-web-theta.vercel.app/dashboard",
     github: "https://github.com/nguyentrungcongduong/Job-Application-Tracker-Pro.git",
     featured: true,
     year: "2025",
@@ -294,7 +294,7 @@ export const allProjects: Project[] = [
     description: "Cash-on-delivery management for Shops, Shippers & Admins with reconciliation & fraud detection.",
     longDescription:
       "A comprehensive COD collection management and reconciliation system helping shops, shippers, and delivery companies manage COD cash flow efficiently. Three-role system: Shop owners track revenue & orders, Shippers manage deliveries & scan QR codes, Admins monitor the full system and detect fraud.",
-    tags: ["Java", "PostgreSQL", "React", "TypeScript", "Ant Design"],
+    tags: ["Spring Boot", "PostgreSQL", "React", "TypeScript", "Ant Design"],
     color: "bg-accent",
     images: [task2, task1],
     link: "https://cash-on-delivery-cod-collection-and-psi.vercel.app/login",

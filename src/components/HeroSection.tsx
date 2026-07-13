@@ -1,10 +1,11 @@
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import NeoButton from "./NeoButton";
 import NeoBadge from "./NeoBadge";
-import { Github, Facebook, Mail, ArrowDown, Sparkles, Code2, Briefcase, Award, Coffee } from "lucide-react";
+import { Github, Facebook, Mail, ArrowDown, Sparkles, Code2, Briefcase, Award, Coffee, Download, ChevronDown, FileCode2, Code } from "lucide-react";
 import avatarImg from "../assets/projects/porofolio.jpg";
 import { allProjects } from "@/data/projects";
 import { certificates } from "@/data/certificatesData";
+import { useState, useRef, useEffect } from "react";
 
 const uniqueTechnologiesCount = new Set(allProjects.flatMap(p => p.tags)).size;
 
@@ -31,6 +32,94 @@ const techStack = [
   { name: "Node.js", emoji: "🟢" },
   { name: "Tailwind", emoji: "🎨" },
 ];
+
+// ── CV Dropdown Component ──────────────────────────────────────
+const CV_OPTIONS = [
+  {
+    label: "Java Backend CV",
+    desc: "Spring Boot · Microservices · AWS",
+    file: "/cv_java_backend.pdf",
+    icon: "☕",
+    color: "bg-primary",
+  },
+  {
+    label: "PHP / Laravel CV",
+    desc: "Laravel · REST API · WebSocket",
+    file: "/cv_laravel_php.pdf",
+    icon: "🐘",
+    color: "bg-secondary",
+  },
+];
+
+const CVDropdown = () => {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClick = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+    };
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, []);
+
+  const handleDownload = (file: string, label: string) => {
+    const a = document.createElement("a");
+    a.href = file;
+    a.download = label.replace(/\s+/g, "_") + ".pdf";
+    a.click();
+    setOpen(false);
+  };
+
+  return (
+    <div ref={ref} className="relative">
+      <motion.button
+        whileHover={{ scale: 1.05, y: -5 }}
+        whileTap={{ scale: 0.95 }}
+        style={{ willChange: "transform" }}
+        onClick={() => setOpen((v) => !v)}
+        className="flex items-center gap-2 px-6 py-3 text-base font-bold border-[3px] border-foreground bg-background shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] transition-all hover-wobble"
+      >
+        <Download size={18} />
+        Download CV
+        <ChevronDown
+          size={16}
+          className={`transition-transform duration-200 ${open ? "rotate-180" : ""}`}
+        />
+      </motion.button>
+
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, y: -8, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -8, scale: 0.95 }}
+            transition={{ duration: 0.15 }}
+            className="absolute left-0 top-full mt-2 w-64 border-[3px] border-foreground bg-background shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] z-50"
+          >
+            {CV_OPTIONS.map((opt) => (
+              <button
+                key={opt.file}
+                onClick={() => handleDownload(opt.file, opt.label)}
+                className="w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-foreground hover:text-background transition-colors group border-b-[2px] border-foreground last:border-b-0"
+              >
+                <span className={`w-9 h-9 flex items-center justify-center text-lg border-[2px] border-foreground ${opt.color} flex-shrink-0`}>
+                  {opt.icon}
+                </span>
+                <div>
+                  <div className="font-bold text-sm leading-tight">{opt.label}</div>
+                  <div className="text-xs text-muted-foreground group-hover:text-background/70 leading-tight">{opt.desc}</div>
+                </div>
+                <Download size={14} className="ml-auto flex-shrink-0 opacity-50" />
+              </button>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+};
+// ─────────────────────────────────────────────────────────────
 
 const HeroSection = () => {
   return (
@@ -266,9 +355,8 @@ const HeroSection = () => {
               <motion.div whileHover={{ scale: 1.05, y: -5 }} whileTap={{ scale: 0.95 }} style={{ willChange: "transform" }}>
                 <NeoButton variant="primary" size="lg" className="hover-jello">View My Work</NeoButton>
               </motion.div>
-              <motion.div whileHover={{ scale: 1.05, y: -5 }} whileTap={{ scale: 0.95 }} style={{ willChange: "transform" }}>
-                <NeoButton variant="outline" size="lg" className="hover-wobble">Download CV</NeoButton>
-              </motion.div>
+              {/* Download CV Dropdown */}
+              <CVDropdown />
             </motion.div>
 
             <motion.div
