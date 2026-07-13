@@ -414,7 +414,7 @@ const AIChatBot = () => {
                 )}
                 <button
                   onClick={() => setShowApiInput((v) => !v)}
-                  className="text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 border border-white/50 hover:bg-white/20 transition-colors"
+                  className="text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 border border-white/50 transition-all duration-200 hover:bg-white hover:text-foreground hover:border-white hover:px-3"
                   title="Configure API Key"
                 >
                   API Key
@@ -441,24 +441,20 @@ const AIChatBot = () => {
                     </p>
                   </div>
 
-                  <p className="text-[11px] font-bold mb-0.5 uppercase flex items-center gap-1">
-                    <Key size={11} />
-                    Groq API Key
+                  <p className="text-[10px] font-bold mb-1.5 uppercase flex items-center gap-1">
+                    <Key size={10} />
+                    Groq API Key{" "}
+                    <a
+                      href="https://console.groq.com/keys"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline normal-case hover:opacity-70 transition-opacity"
+                    >
+                      (get yours free here ↗)
+                    </a>
                   </p>
-                  <a
-                    href="https://console.groq.com/keys"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-xs font-bold mb-2 px-2 py-1 bg-accent/20 border-[2px] border-accent text-accent hover:bg-accent hover:text-background transition-all"
-                  >
-                    🔑 Get your FREE Groq API key ↗
-                  </a>
 
-                  <div
-                    className="flex gap-2"
-                    onMouseEnter={() => setInputHovered(true)}
-                    onMouseLeave={() => setInputHovered(false)}
-                  >
+                  <div className="flex gap-2">
                     <div className="flex-1 flex border-[2px] border-foreground bg-background overflow-hidden">
                       <input
                         className="flex-1 text-xs px-2 py-1.5 font-mono bg-transparent outline-none"
@@ -478,11 +474,7 @@ const AIChatBot = () => {
                     </div>
                     <button
                       onClick={handleSaveKey}
-                      className={`px-3 py-1.5 text-xs font-black uppercase border-[2px] transition-all duration-200 ${
-                        inputHovered
-                          ? "bg-green-500 text-white border-green-600 scale-105"
-                          : "bg-foreground text-background border-foreground"
-                      }`}
+                      className="px-3 py-1.5 bg-foreground text-background text-xs font-black uppercase border-[2px] border-foreground hover:bg-green-500 hover:border-green-600 hover:text-white transition-all duration-200"
                     >
                       Save
                     </button>
