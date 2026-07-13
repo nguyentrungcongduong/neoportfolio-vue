@@ -92,26 +92,29 @@ const CVDropdown = () => {
       <AnimatePresence>
         {open && (
           <motion.div
-            initial={{ opacity: 0, y: -8, scale: 0.95 }}
+            initial={{ opacity: 0, y: 8, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -8, scale: 0.95 }}
+            exit={{ opacity: 0, y: 8, scale: 0.95 }}
             transition={{ duration: 0.15 }}
-            className="absolute left-0 top-full mt-2 w-64 border-[3px] border-foreground bg-background shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] z-50"
+            className="absolute left-0 bottom-full mb-2 w-72 border-[3px] border-foreground bg-background shadow-[6px_-6px_0px_0px_rgba(0,0,0,1)] z-[9998]"
           >
+            <div className="px-4 py-2 border-b-[3px] border-foreground bg-foreground text-background text-xs font-bold uppercase tracking-widest">
+              Chọn phiên bản CV
+            </div>
             {CV_OPTIONS.map((opt) => (
               <button
                 key={opt.file}
                 onClick={() => handleDownload(opt.file, opt.label)}
                 className="w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-foreground hover:text-background transition-colors group border-b-[2px] border-foreground last:border-b-0"
               >
-                <span className={`w-9 h-9 flex items-center justify-center text-lg border-[2px] border-foreground ${opt.color} flex-shrink-0`}>
+                <span className={`w-10 h-10 flex items-center justify-center text-xl border-[2px] border-foreground ${opt.color} flex-shrink-0`}>
                   {opt.icon}
                 </span>
-                <div>
+                <div className="flex-1 min-w-0">
                   <div className="font-bold text-sm leading-tight">{opt.label}</div>
-                  <div className="text-xs text-muted-foreground group-hover:text-background/70 leading-tight">{opt.desc}</div>
+                  <div className="text-xs text-muted-foreground group-hover:text-background/70 leading-tight mt-0.5">{opt.desc}</div>
                 </div>
-                <Download size={14} className="ml-auto flex-shrink-0 opacity-50" />
+                <Download size={16} className="flex-shrink-0 opacity-40 group-hover:opacity-100" />
               </button>
             ))}
           </motion.div>

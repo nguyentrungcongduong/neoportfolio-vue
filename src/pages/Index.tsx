@@ -10,6 +10,7 @@ import FloatingPet from "@/components/FloatingPet";
 import CustomCursor from "@/components/CustomCursor";
 import ScrollProgress from "@/components/ScrollProgress";
 import AIChatBot from "@/components/AIChatBot";
+import ScrollToTop from "@/components/ScrollToTop";
 
 const Index = () => {
   return (
@@ -28,6 +29,7 @@ const Index = () => {
         <ContactSection />
       </main>
       <Footer />
+      <ScrollToTop />
     </div>
   );
 };
