@@ -1,116 +1,113 @@
 import { useEffect, useRef } from 'react';
 
-const TRAIL_LENGTH = 12;
+const TRAIL_LENGTH = 8;           // giảm từ 12 → 8
 const EMOJIS = ['✨', '⭐', '💫'];
+const THROTTLE_MS = 40;           // tăng từ 30 → 40ms
+const IDLE_TIMEOUT_MS = 300;      // dừng RAF sau 300ms không move chuột
 
 interface Particle {
   x: number;
   y: number;
-  age: number; // 0 = newest, TRAIL_LENGTH - 1 = oldest
   emoji: string;
 }
 
 const CursorTrail = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const particlesRef = useRef<Particle[]>([]);
-  const mouseRef = useRef<{ x: number; y: number }>({ x: -200, y: -200 });
   const rafRef = useRef<number>(0);
   const lastAddedRef = useRef<number>(0);
+  const idleTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const isRunningRef = useRef(false);
 
   useEffect(() => {
-    // Only show on non-mobile
-    if (window.innerWidth <= 768) return;
+    if (window.innerWidth <= 768) return;          // skip mobile
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return; // respect a11y
 
     const canvas = canvasRef.current;
     if (!canvas) return;
-
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    // Resize canvas to fill viewport
     const resizeCanvas = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
     };
     resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
+    window.addEventListener('resize', resizeCanvas, { passive: true });
 
-    // Track mouse position and add new particle every ~30ms
-    const onMouseMove = (e: MouseEvent) => {
-      mouseRef.current = { x: e.clientX, y: e.clientY };
-
-      const now = performance.now();
-      if (now - lastAddedRef.current > 30) {
-        lastAddedRef.current = now;
-
-        const emoji = EMOJIS[Math.floor(Math.random() * EMOJIS.length)];
-
-        // Add slight random offset so particles don't all stack exactly
-        const offsetX = (Math.random() - 0.5) * 10;
-        const offsetY = (Math.random() - 0.5) * 10;
-
-        particlesRef.current.push({
-          x: e.clientX + offsetX,
-          y: e.clientY + offsetY,
-          age: 0,
-          emoji,
-        });
-
-        // Keep array length bounded
-        if (particlesRef.current.length > TRAIL_LENGTH) {
-          particlesRef.current.shift();
-        }
-      }
-    };
-    window.addEventListener('mousemove', onMouseMove);
-
-    // Animation loop
+    // Draw one frame and stop when particles are gone
     const draw = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       const particles = particlesRef.current;
+      const len = particles.length;
 
-      particles.forEach((p, i) => {
-        // Age goes from 0 (newest, at the end) to particles.length-1 (oldest)
-        // Re-map: newest particle index is particles.length - 1 in the array (last pushed)
-        const relativeAge = particles.length - 1 - i; // 0 = newest
-        const lifeFraction = relativeAge / TRAIL_LENGTH; // 0 = newest, 1 = oldest
+      if (len === 0) {
+        isRunningRef.current = false;
+        return;                                    // stop RAF when no particles
+      }
 
+      for (let i = 0; i < len; i++) {
+        const p = particles[i];
+        const relativeAge = len - 1 - i;          // 0 = newest
+        const lifeFraction = relativeAge / TRAIL_LENGTH;
         const opacity = Math.max(0, 1 - lifeFraction);
-        const scale = Math.max(0, 1 - lifeFraction * 0.7);
-        const fontSize = Math.round((14 + (1 - lifeFraction) * 4) * scale); // 12–18px
+        if (opacity <= 0.02) continue;
 
-        if (opacity <= 0 || fontSize <= 0) return;
-
+        const fontSize = Math.round((12 + (1 - lifeFraction) * 4));
         ctx.save();
         ctx.globalAlpha = opacity;
         ctx.font = `${fontSize}px serif`;
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
-
-        // Slight upward drift for older particles
-        const drift = lifeFraction * 8;
-        ctx.fillText(p.emoji, p.x, p.y - drift);
+        ctx.fillText(p.emoji, p.x, p.y - lifeFraction * 8);
         ctx.restore();
-      });
-
-      // Gradually age out & remove fully-faded particles
-      if (particles.length > 0) {
-        // Remove particle when it would be older than TRAIL_LENGTH slots
-        if (particles.length >= TRAIL_LENGTH) {
-          particles.shift();
-        }
       }
+
+      // Trim oldest particle each frame
+      if (particles.length >= TRAIL_LENGTH) particles.shift();
 
       rafRef.current = requestAnimationFrame(draw);
     };
 
-    rafRef.current = requestAnimationFrame(draw);
+    const startRAF = () => {
+      if (!isRunningRef.current) {
+        isRunningRef.current = true;
+        rafRef.current = requestAnimationFrame(draw);
+      }
+    };
+
+    const onMouseMove = (e: MouseEvent) => {
+      const now = performance.now();
+      if (now - lastAddedRef.current < THROTTLE_MS) return;
+      lastAddedRef.current = now;
+
+      particlesRef.current.push({
+        x: e.clientX + (Math.random() - 0.5) * 8,
+        y: e.clientY + (Math.random() - 0.5) * 8,
+        emoji: EMOJIS[Math.floor(Math.random() * EMOJIS.length)],
+      });
+
+      if (particlesRef.current.length > TRAIL_LENGTH) {
+        particlesRef.current.shift();
+      }
+
+      startRAF();
+
+      // Reset idle timer — stop adding but let RAF clear particles naturally
+      if (idleTimerRef.current) clearTimeout(idleTimerRef.current);
+      idleTimerRef.current = setTimeout(() => {
+        // don't add more; RAF will stop itself when particles drain
+      }, IDLE_TIMEOUT_MS);
+    };
+
+    window.addEventListener('mousemove', onMouseMove, { passive: true });
 
     return () => {
       window.removeEventListener('mousemove', onMouseMove);
       window.removeEventListener('resize', resizeCanvas);
       cancelAnimationFrame(rafRef.current);
+      if (idleTimerRef.current) clearTimeout(idleTimerRef.current);
     };
   }, []);
 
