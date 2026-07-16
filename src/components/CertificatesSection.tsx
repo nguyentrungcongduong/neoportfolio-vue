@@ -1,17 +1,19 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import NeoCard from "./NeoCard";
 import NeoBadge from "./NeoBadge";
-import { Award } from "lucide-react";
+import { Award, ZoomIn } from "lucide-react";
 import { certificates } from "@/data/certificatesData";
+import { Lightbox } from "./Lightbox";
 
 const INITIAL_DISPLAY = 3;
 
 const CertificatesSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const [lightboxSrc, setLightboxSrc] = useState<string | null>(null);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -87,7 +89,7 @@ const CertificatesSection = () => {
               >
                 <NeoCard className="h-full flex flex-col cursor-pointer group p-0 overflow-hidden bg-white dark:bg-card">
                   {/* Image Top Half */}
-                  <div className="relative w-full aspect-[4/3] border-b-3 border-foreground bg-gray-50 flex items-center justify-center p-6 overflow-hidden">
+                  <div className="relative w-full aspect-[4/3] border-b-3 border-foreground bg-gray-50 flex items-center justify-center p-6 overflow-hidden group/img">
                     <motion.img
                       src={cert.imageUrl}
                       alt={cert.name}
@@ -100,6 +102,14 @@ const CertificatesSection = () => {
                     <div className="absolute top-3 right-3 z-10 shadow-neo">
                       <NeoBadge variant={cert.badgeVariant}>{cert.date}</NeoBadge>
                     </div>
+                    {/* Zoom button */}
+                    <button
+                      onClick={(e) => { e.preventDefault(); e.stopPropagation(); setLightboxSrc(cert.imageUrl); }}
+                      className="absolute bottom-3 right-3 z-10 w-9 h-9 rounded-full bg-foreground/80 hover:bg-foreground text-background flex items-center justify-center opacity-0 group-hover/img:opacity-100 transition-all duration-200 hover:scale-110"
+                      title="Phóng to"
+                    >
+                      <ZoomIn size={16} />
+                    </button>
                     {/* Decorative overlay on hover */}
                     <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
                   </div>
@@ -135,6 +145,7 @@ const CertificatesSection = () => {
           </motion.div>
         )}
       </motion.div>
+      <Lightbox src={lightboxSrc} alt="Certificate" onClose={() => setLightboxSrc(null)} />
     </section>
   );
 };

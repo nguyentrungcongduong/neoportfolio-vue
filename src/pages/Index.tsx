@@ -11,10 +11,14 @@ import CustomCursor from "@/components/CustomCursor";
 import ScrollProgress from "@/components/ScrollProgress";
 import AIChatBot from "@/components/AIChatBot";
 import ScrollToTop from "@/components/ScrollToTop";
+import LoadingScreen from "@/components/LoadingScreen";
+import { useState } from "react";
 
 const Index = () => {
+  const [loaded, setLoaded] = useState(false);
   return (
     <div className="min-h-screen relative">
+      {!loaded && <LoadingScreen onDone={() => setLoaded(true)} />}
       <ScrollProgress />
       <CustomCursor />
       <FloatingPet />
