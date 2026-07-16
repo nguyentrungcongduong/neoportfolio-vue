@@ -87,7 +87,7 @@ export const ZoomableImage = ({ src, alt = "Image", className = "", style, loadi
 
   return (
     <>
-      <div className="relative group cursor-zoom-in" onClick={() => setLightbox(src)}>
+      <div className="relative group w-full h-full">
         <img
           src={src}
           alt={alt}
@@ -96,12 +96,18 @@ export const ZoomableImage = ({ src, alt = "Image", className = "", style, loadi
           loading={loading}
           decoding="async"
         />
-        {/* Zoom hint overlay */}
-        <div className="absolute inset-0 flex items-center justify-center bg-black/0 group-hover:bg-black/25 transition-all duration-200 opacity-0 group-hover:opacity-100">
-          <div className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center border border-white/40">
-            <ZoomIn size={18} className="text-white" />
+        {/* Zoom button — stops carousel drag from intercepting */}
+        <button
+          type="button"
+          className="absolute inset-0 w-full h-full flex items-center justify-center bg-black/0 group-hover:bg-black/30 transition-all duration-200 opacity-0 group-hover:opacity-100 cursor-zoom-in"
+          onPointerDown={(e) => e.stopPropagation()}
+          onClick={(e) => { e.stopPropagation(); setLightbox(src); }}
+          aria-label="Phóng to ảnh"
+        >
+          <div className="w-11 h-11 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center border-2 border-white/60 shadow-lg">
+            <ZoomIn size={20} className="text-white drop-shadow" />
           </div>
-        </div>
+        </button>
       </div>
       <Lightbox src={lightbox} alt={alt} onClose={() => setLightbox(null)} />
     </>
