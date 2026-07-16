@@ -21,7 +21,7 @@ const displayPosts = blogPosts.slice(0, 4);
 const BlogSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const { t } = useLang();
+  const { t, lang } = useLang();
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -156,12 +156,12 @@ const BlogSection = () => {
 
                   {/* Title */}
                   <h3 className="text-xl font-black mb-3 group-hover:text-primary transition-colors line-clamp-2">
-                    {post.title}
+                    {lang === "en" ? post.titleEn : post.title}
                   </h3>
 
                   {/* Excerpt */}
                   <p className="text-muted-foreground mb-4 line-clamp-2">
-                    {post.excerpt}
+                    {lang === "en" ? post.excerptEn : post.excerpt}
                   </p>
 
                   {/* Read More */}

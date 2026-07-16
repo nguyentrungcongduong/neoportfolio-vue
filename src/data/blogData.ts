@@ -11,7 +11,9 @@ import blog8 from "@/assets/projects/portfolio-2.png";
 export interface BlogPost {
   id: number;
   title: string;
+  titleEn: string;
   excerpt: string;
+  excerptEn: string;
   category: string;
   date: string;
   readTime: string;
@@ -25,7 +27,9 @@ export const blogPosts: BlogPost[] = [
   {
     id: 1,
     title: "Xây dựng Hybrid RAG: Dense + Sparse Search cho hệ thống Q&A Pháp lý Việt Nam",
+    titleEn: "Building Hybrid RAG: Dense + Sparse Search for Vietnamese Legal Q&A",
     excerpt: "Hành trình xây dựng luận văn tốt nghiệp: kết hợp Qdrant vector search + BM25 Okapi qua Reciprocal Rank Fusion để tạo hệ thống Q&A pháp lý thông minh.",
+    excerptEn: "My graduation thesis journey: combining Qdrant vector search + BM25 Okapi via Reciprocal Rank Fusion to build a smart Vietnamese legal Q&A system.",
     category: "AI / RAG",
     date: "15 Jun 2026",
     readTime: "12 min",
@@ -43,7 +47,9 @@ export const blogPosts: BlogPost[] = [
   {
     id: 2,
     title: "Xây dựng Collaborative Whiteboard Real-time với Yjs CRDT và Laravel Reverb",
+    titleEn: "Building a Real-time Collaborative Whiteboard with Yjs CRDT and Laravel Reverb",
     excerpt: "Cách mình build một Miro clone hỗ trợ nhiều người dùng cùng vẽ đồng thời mà không conflict — sử dụng Yjs CRDT và WebSocket thuần với Laravel Reverb.",
+    excerptEn: "How I built a Miro clone supporting concurrent multi-user drawing without conflicts — using Yjs CRDT and native WebSocket with Laravel Reverb.",
     category: "Real-time",
     date: "20 May 2026",
     readTime: "10 min",
@@ -61,7 +67,9 @@ export const blogPosts: BlogPost[] = [
   {
     id: 3,
     title: "Golang + Go/Gin: Tại sao mình chọn Go cho service xử lý thuật toán nặng",
+    titleEn: "Golang + Go/Gin: Why I Chose Go for Compute-Heavy Algorithm Services",
     excerpt: "Trong dự án 3D Container Load Planning, mình dùng Go/Gin để xử lý bin packing algorithms thay vì Spring Boot. Đây là lý do và benchmark thực tế.",
+    excerptEn: "In the 3D Container Load Planning project, I used Go/Gin instead of Spring Boot for bin packing algorithms. Here are the reasons and real benchmarks.",
     category: "Golang",
     date: "10 Apr 2026",
     readTime: "8 min",
@@ -79,7 +87,9 @@ export const blogPosts: BlogPost[] = [
   {
     id: 4,
     title: "Từ Sinh Viên Đến Junior Dev: 2 Năm Tự Học và Những Bài Học Xương Máu",
+    titleEn: "From Student to Junior Dev: 2 Years of Self-Learning and Hard-Won Lessons",
     excerpt: "Hành trình 2 năm của mình từ không biết gì về backend đến xây dựng hệ thống microservices, internship tại 3 công ty, và hoàn thành 14 dự án.",
+    excerptEn: "My 2-year journey from knowing nothing about backend to building microservice systems, 3 internships, and completing 14 projects.",
     category: "Career",
     date: "01 Jul 2026",
     readTime: "7 min",
