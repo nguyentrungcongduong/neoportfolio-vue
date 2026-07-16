@@ -12,8 +12,6 @@ import EasterEgg     from "@/components/EasterEgg";
 
 // ── Lazy: below-fold sections loaded on demand ────────────────
 const AboutSection       = lazy(() => import("@/components/AboutSection"));
-const SkillsSection      = lazy(() => import("@/components/SkillsSection"));
-const TimelineSection    = lazy(() => import("@/components/TimelineSection"));
 const CertificatesSection= lazy(() => import("@/components/CertificatesSection"));
 const ProjectsSection    = lazy(() => import("@/components/ProjectsSection"));
 const BlogSection        = lazy(() => import("@/components/BlogSection"));
@@ -57,12 +55,6 @@ const Index = () => {
         {/* Remaining sections are lazy */}
         <Suspense fallback={<SectionFallback />}>
           <AboutSection />
-        </Suspense>
-        <Suspense fallback={<SectionFallback />}>
-          <SkillsSection />
-        </Suspense>
-        <Suspense fallback={<SectionFallback />}>
-          <TimelineSection />
         </Suspense>
         <Suspense fallback={<SectionFallback />}>
           <CertificatesSection />
