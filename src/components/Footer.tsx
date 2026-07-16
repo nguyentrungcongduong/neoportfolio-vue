@@ -1,8 +1,10 @@
 import { motion } from "framer-motion";
 import { Github, Facebook, Twitter, Heart, Sparkles } from "lucide-react";
+import { useLang } from "@/context/LanguageContext";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const { t } = useLang();
 
   return (
     <footer className="bg-foreground text-background py-12 px-4">
@@ -53,7 +55,7 @@ const Footer = () => {
           viewport={{ once: true }}
         >
           <p className="flex items-center justify-center gap-2">
-            Made with{" "}
+            {t.footer.madeWith}{" "}
             <motion.span
               animate={{ scale: [1, 1.2, 1] }}
               transition={{ duration: 1, repeat: Infinity }}
@@ -63,7 +65,7 @@ const Footer = () => {
             in Vietnam 🇻🇳
           </p>
           <p className="text-background/60 mt-2">
-            © {currentYear} Nguyễn Trung Công Dưỡng. All rights reserved.
+            © {currentYear} {t.footer.rights}
           </p>
         </motion.div>
       </div>

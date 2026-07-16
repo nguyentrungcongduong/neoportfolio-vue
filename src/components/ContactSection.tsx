@@ -6,11 +6,13 @@ import NeoButton from "./NeoButton";
 import NeoInput from "./NeoInput";
 import NeoTextarea from "./NeoTextarea";
 import { Mail, MapPin, Phone, Send, Sparkles, CheckCircle, PartyPopper } from "lucide-react";
+import { useLang } from "@/context/LanguageContext";
 
 import emailjs from "@emailjs/browser";
 import { toast } from "sonner";
 
 const ContactSection = () => {
+  const { t } = useLang();
   const ref = useRef(null);
   const formRef = useRef<HTMLFormElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
@@ -18,9 +20,9 @@ const ContactSection = () => {
   const [isSending, setIsSending] = useState(false);
 
   const contactInfo = [
-    { icon: Mail, label: "Email", value: "congduongnguyentrung@gmail.com" },
-    { icon: Phone, label: "Phone", value: "+84 123 456 789" },
-    { icon: MapPin, label: "Location", value: "Ho Chi Minh City, Vietnam" },
+    { icon: Mail, label: t.contact.email, value: "congduongnguyentrung@gmail.com" },
+    { icon: Phone, label: t.contact.phone, value: "+84 123 456 789" },
+    { icon: MapPin, label: t.contact.location, value: "Ho Chi Minh City, Vietnam" },
   ];
 
   const containerVariants = {
@@ -76,7 +78,7 @@ const ContactSection = () => {
       );
 
       setIsSubmitted(true);
-      toast.success("Message sent successfully! 🚀");
+      toast.success(t.contact.successTitle);
       formRef.current.reset();
       setTimeout(() => setIsSubmitted(false), 5000);
     } catch (error) {
@@ -102,14 +104,14 @@ const ContactSection = () => {
           transition={{ type: "spring", stiffness: 100 }}
         >
           <motion.h2 className="text-4xl md:text-6xl font-bold mb-4">
-            Let's{" "}
+            {t.contact.title}{" "}
             <motion.span
               className="bg-primary px-2 inline-block text-shadow-neo"
               whileHover={{ rotate: -5, scale: 1.1 }}
               animate={isInView ? { rotate: [0, -3, 3, 0] } : {}}
               transition={{ delay: 0.3, duration: 0.5 }}
             >
-              Connect
+              {t.contact.titleHighlight}
             </motion.span>
             <motion.span
               className="inline-block ml-2"
@@ -125,7 +127,7 @@ const ContactSection = () => {
             animate={isInView ? { opacity: 1 } : {}}
             transition={{ delay: 0.4 }}
           >
-            Have a project in mind? Let's create something amazing together! 🚀
+            {t.contact.subtitle}
           </motion.p>
         </motion.div>
 
@@ -146,7 +148,7 @@ const ContactSection = () => {
                   transition={{ delay: 0.3 }}
                 >
                   <label className="block font-bold mb-2">Name</label>
-                  <NeoInput placeholder="Your name" name="from_name" required />
+                  <NeoInput placeholder={t.contact.namePlaceholder} name="from_name" required />
                 </motion.div>
                 <motion.div
                   initial={{ opacity: 0, x: -30 }}
@@ -154,7 +156,7 @@ const ContactSection = () => {
                   transition={{ delay: 0.4 }}
                 >
                   <label className="block font-bold mb-2">Email</label>
-                  <NeoInput type="email" placeholder="your@email.com" name="from_email" required />
+                  <NeoInput type="email" placeholder={t.contact.emailPlaceholder} name="from_email" required />
                 </motion.div>
                 <motion.div
                   initial={{ opacity: 0, x: -30 }}
@@ -162,7 +164,7 @@ const ContactSection = () => {
                   transition={{ delay: 0.5 }}
                 >
                   <label className="block font-bold mb-2">Message</label>
-                  <NeoTextarea placeholder="Tell me about your project..." name="message" required />
+                  <NeoTextarea placeholder={t.contact.messagePlaceholder} name="message" required />
                 </motion.div>
                 <motion.div
                   whileHover={{ scale: 1.02 }}
@@ -185,13 +187,13 @@ const ContactSection = () => {
                     ) : isSubmitted ? (
                       <>
                         <CheckCircle size={20} />
-                        Message Sent!
+                        {t.contact.successTitle}
                         <PartyPopper size={20} />
                       </>
                     ) : (
                       <>
                         <Send size={20} />
-                        Send Message
+                        {t.contact.send}
                       </>
                     )}
                   </NeoButton>
@@ -225,7 +227,7 @@ const ContactSection = () => {
                   </motion.div>
                   <div>
                     <div className="font-bold uppercase text-sm">{info.label}</div>
-                    {info.label === "Email" ? (
+                    {info.label === t.contact.email ? (
                       <a href={`mailto:${info.value}`} className="text-lg font-medium hover:text-primary transition-colors">
                         {info.value}
                       </a>

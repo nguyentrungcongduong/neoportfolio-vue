@@ -5,14 +5,9 @@ import NeoBadge from "./NeoBadge";
 import { Code, Award, Layers, Coffee } from "lucide-react";
 import { allProjects } from "@/data/projects";
 import { certificates } from "@/data/certificatesData";
+import { useLang } from "@/context/LanguageContext";
 
-const highlights = [
-  { icon: "🚀", text: "Building modern web & mobile applications end-to-end" },
-  { icon: "💻", text: "Full Stack dev — comfortable from UI to database layer" },
-  { icon: "🧠", text: "Designing scalable systems with modern frameworks" },
-  { icon: "🌐", text: "Interested in open-source & developer communities" },
-  { icon: "☕", text: "Fueled by coffee, curiosity, and clean code" },
-];
+
 
 const skillGroups = [
   {
@@ -55,12 +50,7 @@ const skillGroups = [
 
 const uniqueTechnologiesCount = new Set(allProjects.flatMap(p => p.tags)).size;
 
-const stats = [
-  { icon: Code,   label: "Projects Done",  value: `${allProjects.length}`, color: "bg-primary"   },
-  { icon: Layers, label: "Tech Stack",     value: `${uniqueTechnologiesCount}`, color: "bg-accent"    },
-  { icon: Award,  label: "Certificates",   value: `${certificates.length}`,  color: "bg-info"      },
-  { icon: Coffee, label: "Cups of Coffee", value: "∞",  color: "bg-secondary" },
-];
+
 
 const stickers = [
   { text: "Based in Vietnam 🇻🇳", rotate: -3, style: { top: "14%",  left: "0.3%"  } },
@@ -70,8 +60,21 @@ const stickers = [
 ];
 
 const AboutSection = () => {
+  const { t } = useLang();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+
+  const highlights = t.about.highlights.map((text, i) => ({
+    icon: ["🚀", "💻", "🧠", "🌐", "☕"][i],
+    text,
+  }));
+
+  const stats = [
+    { icon: Code,   label: t.stats.projects,     value: `${allProjects.length}`,      color: "bg-primary"   },
+    { icon: Layers, label: t.stats.techStack,     value: `${uniqueTechnologiesCount}`, color: "bg-accent"    },
+    { icon: Award,  label: t.stats.certificates,  value: `${certificates.length}`,     color: "bg-info"      },
+    { icon: Coffee, label: t.stats.coffee,        value: "∞",                          color: "bg-secondary" },
+  ];
 
   return (
     <section id="about" className="py-20 px-4 overflow-hidden relative" ref={ref}>
@@ -126,17 +129,17 @@ const AboutSection = () => {
           transition={{ type: "spring", stiffness: 100 }}
         >
           <h2 className="text-4xl md:text-6xl font-bold mb-4">
-            About{" "}
+            {t.about.title}{" "}
             <motion.span className="bg-accent px-2 inline-block text-shadow-neo"
               whileHover={{ rotate: 5, scale: 1.1 }}
               animate={isInView ? { rotate: [0, -5, 5, 0] } : {}}
               transition={{ delay: 0.5, duration: 0.5 }}
-            >Me</motion.span>
+            >{t.about.titleHighlight}</motion.span>
           </h2>
           <motion.p className="text-xl text-muted-foreground max-w-2xl mx-auto"
             initial={{ opacity: 0 }} animate={isInView ? { opacity: 1 } : {}} transition={{ delay: 0.3 }}
           >
-            A passionate developer who loves creating beautiful and functional web applications ❤️
+            {t.about.subtitle}
           </motion.p>
         </motion.div>
 
@@ -152,7 +155,7 @@ const AboutSection = () => {
             <div className="border-[3px] border-foreground p-6 space-y-5 h-full"
               style={{ boxShadow: "6px 6px 0 #000", transform: "rotate(-1deg)", background: "hsl(60 100% 97%)" }}
             >
-              <h3 className="text-2xl font-bold">Who I Am 🙋‍♂️</h3>
+              <h3 className="text-2xl font-bold">{t.about.whoIAm}</h3>
 
               {/* Bullet points instead of wall of text */}
               <ul className="space-y-3">
@@ -170,7 +173,7 @@ const AboutSection = () => {
 
               {/* Quick-fact tags */}
               <div className="flex flex-wrap gap-2 pt-3 border-t-[2px] border-foreground/20">
-                {["Ho Chi Minh City 📍", "Full-time & Freelance 💼", "Open Source ❤️"].map((tag) => (
+                {t.about.tags.map((tag) => (
                   <span key={tag}
                     className="text-[10px] font-black uppercase tracking-wide border-[2px] border-foreground/30 px-2 py-0.5 bg-secondary/30"
                   >{tag}</span>

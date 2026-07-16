@@ -6,6 +6,7 @@ import NeoBadge from "./NeoBadge";
 import NeoButton from "./NeoButton";
 import { Calendar, Clock, ArrowRight, BookOpen } from "lucide-react";
 import { blogPosts } from "@/data/blogData";
+import { useLang } from "@/context/LanguageContext";
 
 import {
   Carousel,
@@ -20,6 +21,7 @@ const displayPosts = blogPosts.slice(0, 4);
 const BlogSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { t } = useLang();
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -62,7 +64,7 @@ const BlogSection = () => {
           >
             <BookOpen className="w-8 h-8" />
             <NeoBadge variant="primary" className="text-lg">
-              Blog
+              {t.blog.title}
             </NeoBadge>
           </motion.div>
           
@@ -72,7 +74,7 @@ const BlogSection = () => {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: 0.3 }}
           >
-            Chia Sẻ <span className="text-primary">Kiến Thức</span> 📝
+            {t.blog.title} <span className="text-primary">{t.blog.titleHighlight}</span>
           </motion.h2>
           
           <motion.p
@@ -81,7 +83,7 @@ const BlogSection = () => {
             animate={isInView ? { opacity: 1 } : {}}
             transition={{ delay: 0.4 }}
           >
-            Những bài viết về công nghệ, tips & tricks, và kinh nghiệm phát triển web
+            {t.blog.subtitle}
           </motion.p>
         </motion.div>
 
@@ -167,7 +169,7 @@ const BlogSection = () => {
                     className="flex items-center gap-2 font-bold text-primary"
                     whileHover={{ x: 5 }}
                   >
-                    Đọc thêm
+                    {t.blog.readMore}
                     <motion.div
                       animate={{ x: [0, 5, 0] }}
                       transition={{ duration: 1.5, repeat: Infinity }}
@@ -195,7 +197,7 @@ const BlogSection = () => {
           >
             <Link to="/blog">
               <NeoButton variant="secondary" size="lg" className="hover-jello">
-                Xem tất cả bài viết 📚
+                {t.blog.viewAll}
               </NeoButton>
             </Link>
           </motion.div>

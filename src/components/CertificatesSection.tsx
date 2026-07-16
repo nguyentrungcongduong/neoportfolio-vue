@@ -7,6 +7,7 @@ import NeoBadge from "./NeoBadge";
 import { Award, ZoomIn, ExternalLink } from "lucide-react";
 import { certificates } from "@/data/certificatesData";
 import { Lightbox } from "./Lightbox";
+import { useLang } from "@/context/LanguageContext";
 
 const INITIAL_DISPLAY = 3;
 
@@ -14,6 +15,7 @@ const CertificatesSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [lightboxSrc, setLightboxSrc] = useState<string | null>(null);
+  const { t } = useLang();
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -49,7 +51,7 @@ const CertificatesSection = () => {
             transition={{ type: "spring", stiffness: 100 }}
             style={{ willChange: "transform, opacity" }}
           >
-            Chứng chỉ{" "}
+            {t.certificates.title}{" "}
             <motion.span
               className="bg-secondary px-2 inline-block text-shadow-neo"
               whileHover={{ rotate: 5, scale: 1.1 }}
@@ -57,14 +59,14 @@ const CertificatesSection = () => {
               transition={{ delay: 0.5, duration: 0.5 }}
               style={{ willChange: "transform" }}
             >
-              🏆
+              {t.certificates.titleHighlight}
             </motion.span>
           </motion.h2>
           <motion.p
             className="text-xl text-muted-foreground max-w-2xl mx-auto"
             variants={itemVariants}
           >
-            Những chứng chỉ mình đã đạt được trên hành trình học hỏi và phát triển
+            {t.certificates.subtitle}
           </motion.p>
         </motion.div>
 
@@ -123,7 +125,7 @@ const CertificatesSection = () => {
                           onClick={(e) => e.stopPropagation()}
                           className="flex items-center gap-1.5 text-xs font-black px-3 py-1.5 border-2 border-foreground bg-background hover:bg-foreground hover:text-background transition-all duration-150"
                         >
-                          Xem chứng chỉ <ExternalLink size={12} />
+                          {t.certificates.view} <ExternalLink size={12} />
                         </a>
                       )}
                     </div>
@@ -142,7 +144,7 @@ const CertificatesSection = () => {
                 whileTap={{ scale: 0.95 }}
                 style={{ willChange: "transform" }}
               >
-                Xem tất cả ({certificates.length}) →
+                {t.certificates.viewAll.replace("→", `(${certificates.length}) →`)}
               </motion.button>
             </Link>
           </motion.div>

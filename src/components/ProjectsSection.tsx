@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
 import { ZoomableImage } from "./Lightbox";
+import { useLang } from "@/context/LanguageContext";
 
 // Project images
 import ecommerce1 from "@/assets/projects/ecommerce-1.png";
@@ -152,6 +153,7 @@ const BrowserBar = ({ accentColor }: { accentColor: string }) => (
 );
 
 const ProjectsSection = () => {
+  const { t } = useLang();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
@@ -177,12 +179,12 @@ const ProjectsSection = () => {
           transition={{ type: "spring", stiffness: 100 }}
         >
           <h2 className="text-4xl md:text-6xl font-bold mb-4">
-            My{" "}
+            {t.projects.title}{" "}
             <motion.span className="bg-secondary px-2 inline-block text-shadow-neo"
               whileHover={{ rotate: 5, scale: 1.1 }}
               animate={isInView ? { rotate: [0, 5, -5, 0] } : {}}
               transition={{ delay: 0.3, duration: 0.5 }}
-            >Projects</motion.span>
+            >{t.projects.titleHighlight}</motion.span>
             <motion.span className="inline-block ml-2"
               animate={{ rotate: [0, 15, -15, 0] }}
               transition={{ duration: 1, repeat: Infinity }}
@@ -193,7 +195,7 @@ const ProjectsSection = () => {
           <motion.p className="text-xl text-muted-foreground max-w-2xl mx-auto"
             initial={{ opacity: 0 }} animate={isInView ? { opacity: 1 } : {}} transition={{ delay: 0.4 }}
           >
-            Here are some of my recent works that I'm proud of ✨
+            {t.projects.subtitle}
           </motion.p>
         </motion.div>
 
@@ -293,7 +295,7 @@ const ProjectsSection = () => {
                       <Link to={`/projects/${project.id}`} className="flex-1">
                         <motion.div whileHover={{ scale: 1.04, y: -2 }} whileTap={{ scale: 0.96 }}>
                           <NeoButton variant="outline" size="sm" className="w-full justify-center gap-2">
-                            🔍 Details
+                            🔍 {t.projects.details}
                           </NeoButton>
                         </motion.div>
                       </Link>
@@ -305,7 +307,7 @@ const ProjectsSection = () => {
                           className="flex-1"
                         >
                           <NeoButton variant="primary" size="sm" className="w-full justify-center gap-2">
-                            <ExternalLink size={14} /> Live Demo
+                            <ExternalLink size={14} /> {t.projects.viewDemo}
                           </NeoButton>
                         </motion.a>
                       ) : (
@@ -315,7 +317,7 @@ const ProjectsSection = () => {
                             disabled
                           >
                             <Clock size={14} />
-                            {project.inProcess ? "In Dev" : "Coming Soon"}
+                            {project.inProcess ? t.projects.inDev : t.projects.comingSoon}
                           </NeoButton>
                         </div>
                       )}
@@ -358,7 +360,7 @@ const ProjectsSection = () => {
           <Link to="/projects">
             <motion.div whileHover={{ scale: 1.08 }} whileTap={{ scale: 0.95 }}>
               <NeoButton variant="accent" size="lg" className="hover-jello">
-                View All Projects 🚀
+                {t.projects.viewAll}
               </NeoButton>
             </motion.div>
           </Link>

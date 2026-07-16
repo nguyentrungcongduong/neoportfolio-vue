@@ -9,15 +9,11 @@ import { certificates } from "@/data/certificatesData";
 import { useState, useRef, useEffect } from "react";
 import { Lightbox } from "./Lightbox";
 import { toast } from "sonner";
+import { useLang } from "@/context/LanguageContext";
 
 const uniqueTechnologiesCount = new Set(allProjects.flatMap(p => p.tags)).size;
 
-const stats = [
-  { icon: Briefcase, value: `${allProjects.length}`, label: "Projects Done", color: "bg-primary" },
-  { icon: Code2, value: `${uniqueTechnologiesCount}`, label: "Tech Stack", color: "bg-secondary" },
-  { icon: Award, value: `${certificates.length}`, label: "Certificates", color: "bg-accent" },
-  { icon: Coffee, value: "∞", label: "Cups of Coffee", color: "bg-info" },
-];
+
 
 const techStack = [
   { name: "React", emoji: "⚛️" },
@@ -55,6 +51,7 @@ const CV_OPTIONS = [
 ];
 
 const CVDropdown = () => {
+  const { t } = useLang();
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -72,7 +69,7 @@ const CVDropdown = () => {
     a.download = label.replace(/\s+/g, "_") + ".pdf";
     a.click();
     setOpen(false);
-    toast.success(`📄 Đang tải ${label}...`, { duration: 3000 });
+    toast.success(`📄 ${t.hero.downloadCV}: ${label}`, { duration: 3000 });
   };
 
   return (
@@ -85,7 +82,7 @@ const CVDropdown = () => {
         className="flex items-center gap-2 px-6 py-3 text-base font-bold border-[3px] border-foreground bg-background shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] transition-all hover-wobble"
       >
         <Download size={18} />
-        Download CV
+        {t.hero.downloadCV}
         <ChevronDown
           size={16}
           className={`transition-transform duration-200 ${open ? "rotate-180" : ""}`}
@@ -102,7 +99,7 @@ const CVDropdown = () => {
             className="absolute left-0 bottom-full mb-2 w-72 border-[3px] border-foreground bg-background shadow-[6px_-6px_0px_0px_rgba(0,0,0,1)] z-[9998]"
           >
             <div className="px-4 py-2 border-b-[3px] border-foreground bg-foreground text-background text-xs font-bold uppercase tracking-widest">
-              Chọn phiên bản CV
+              {t.hero.cvDropdownTitle}
             </div>
             {CV_OPTIONS.map((opt) => (
               <button
@@ -129,7 +126,15 @@ const CVDropdown = () => {
 // ─────────────────────────────────────────────────────────────
 
 const HeroSection = () => {
+  const { t } = useLang();
   const [avatarLightbox, setAvatarLightbox] = useState(false);
+
+  const stats = [
+    { icon: Briefcase, value: `${allProjects.length}`, label: t.stats.projects, color: "bg-primary" },
+    { icon: Code2, value: `${uniqueTechnologiesCount}`, label: t.stats.techStack, color: "bg-secondary" },
+    { icon: Award, value: `${certificates.length}`, label: t.stats.certificates, color: "bg-accent" },
+    { icon: Coffee, value: "∞", label: t.stats.coffee, color: "bg-info" },
+  ];
 
   return (
     <section className="flex flex-col px-4 pt-12 pb-0 overflow-hidden relative">
@@ -304,14 +309,14 @@ const HeroSection = () => {
               <motion.div whileHover={{ scale: 1.1, rotate: -3 }} whileTap={{ scale: 0.95 }} style={{ willChange: "transform" }}>
                 <NeoBadge variant="accent" className="flex items-center gap-1">
                   <Sparkles size={14} className="animate-pulsate" />
-                  Backend Developer
+                  {t.hero.badge1}
                 </NeoBadge>
               </motion.div>
               <motion.div whileHover={{ scale: 1.1, rotate: 3 }} whileTap={{ scale: 0.95 }} style={{ willChange: "transform" }}>
-                <NeoBadge variant="secondary">Frontend Developer</NeoBadge>
+                <NeoBadge variant="secondary">{t.hero.badge2}</NeoBadge>
               </motion.div>
               <motion.div whileHover={{ scale: 1.1, rotate: 3 }} whileTap={{ scale: 0.95 }} style={{ willChange: "transform" }}>
-                <NeoBadge variant="secondary">Mobile Developer</NeoBadge>
+                <NeoBadge variant="secondary">{t.hero.badge3}</NeoBadge>
               </motion.div>
             </motion.div>
 
@@ -322,7 +327,7 @@ const HeroSection = () => {
               transition={{ delay: 0.3 }}
               style={{ willChange: "transform, opacity" }}
             >
-              Hello, My name is{" "}
+              {t.hero.greeting}{" "}
               <motion.span
                 className="bg-primary px-2 inline-block text-shadow-neo"
                 initial={{ opacity: 0, scale: 0 }}
@@ -342,16 +347,15 @@ const HeroSection = () => {
               transition={{ delay: 0.4 }}
               style={{ willChange: "transform, opacity" }}
             >
-              I'm a{" "}
+              {t.hero.descPre}{" "}
               <motion.span className="bg-secondary px-1 inline-block font-bold" whileHover={{ scale: 1.1 }} style={{ willChange: "transform" }}>
-                software developer
+                {t.hero.descH1}
               </motion.span>{" "}
-              passionate about building{" "}
+              {t.hero.descMid}{" "}
               <motion.span className="bg-accent px-1 inline-block font-bold" whileHover={{ scale: 1.1 }} style={{ willChange: "transform" }}>
-                modern web applications
+                {t.hero.descH2}
               </motion.span>{" "}
-              with <span className="font-bold">clean code</span> and{" "}
-              <span className="font-bold">scalable architecture</span>.
+              {t.hero.descSuffix}
             </motion.p>
 
             <motion.div
@@ -362,7 +366,7 @@ const HeroSection = () => {
               style={{ willChange: "transform, opacity" }}
             >
               <motion.div whileHover={{ scale: 1.05, y: -5 }} whileTap={{ scale: 0.95 }} style={{ willChange: "transform" }}>
-                <NeoButton variant="primary" size="lg" className="hover-jello">View My Work</NeoButton>
+                <NeoButton variant="primary" size="lg" className="hover-jello">{t.hero.viewWork}</NeoButton>
               </motion.div>
               {/* Download CV Dropdown */}
               <CVDropdown />
