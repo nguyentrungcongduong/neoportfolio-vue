@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import NeoCard from "./NeoCard";
 import NeoBadge from "./NeoBadge";
-import { Award, ZoomIn } from "lucide-react";
+import { Award, ZoomIn, ExternalLink } from "lucide-react";
 import { certificates } from "@/data/certificatesData";
 import { Lightbox } from "./Lightbox";
 
@@ -81,19 +81,16 @@ const CertificatesSection = () => {
               whileTap={{ scale: 0.97 }}
               style={{ willChange: "transform, opacity" }}
             >
-              <a 
-                href={cert.link || "#"} 
-                target={cert.link ? "_blank" : "_self"} 
-                rel={cert.link ? "noopener noreferrer" : ""}
-                className="block h-full"
-              >
-                <NeoCard className="h-full flex flex-col cursor-pointer group p-0 overflow-hidden bg-white dark:bg-card">
-                  {/* Image Top Half */}
-                  <div className="relative w-full aspect-[4/3] border-b-3 border-foreground bg-gray-50 flex items-center justify-center p-6 overflow-hidden group/img">
+              <NeoCard className="h-full flex flex-col group p-0 overflow-hidden bg-white dark:bg-card">
+                  {/* Image — click to zoom */}
+                  <div
+                    className="relative w-full aspect-[4/3] border-b-3 border-foreground bg-gray-50 flex items-center justify-center p-6 overflow-hidden cursor-zoom-in group/img"
+                    onClick={() => setLightboxSrc(cert.imageUrl)}
+                  >
                     <motion.img
                       src={cert.imageUrl}
                       alt={cert.name}
-                      className="w-full h-full object-contain drop-shadow-sm"
+                      className="w-full h-full object-contain drop-shadow-sm pointer-events-none"
                       whileHover={{ scale: 1.08 }}
                       transition={{ type: "spring", stiffness: 200, damping: 20 }}
                       loading="lazy"
@@ -102,30 +99,36 @@ const CertificatesSection = () => {
                     <div className="absolute top-3 right-3 z-10 shadow-neo">
                       <NeoBadge variant={cert.badgeVariant}>{cert.date}</NeoBadge>
                     </div>
-                    {/* Zoom button */}
-                    <button
-                      onClick={(e) => { e.preventDefault(); e.stopPropagation(); setLightboxSrc(cert.imageUrl); }}
-                      className="absolute bottom-3 right-3 z-10 w-9 h-9 rounded-full bg-foreground/80 hover:bg-foreground text-background flex items-center justify-center opacity-0 group-hover/img:opacity-100 transition-all duration-200 hover:scale-110"
-                      title="Phóng to"
-                    >
-                      <ZoomIn size={16} />
-                    </button>
-                    {/* Decorative overlay on hover */}
-                    <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
+                    {/* Zoom hint */}
+                    <div className="absolute inset-0 flex items-center justify-center bg-black/0 group-hover/img:bg-black/20 transition-all duration-200">
+                      <div className="opacity-0 group-hover/img:opacity-100 transition-opacity w-11 h-11 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center border-2 border-white/60">
+                        <ZoomIn size={20} className="text-white" />
+                      </div>
+                    </div>
                   </div>
-                  
-                  {/* Content Bottom Half */}
+
+                  {/* Content */}
                   <div className="p-5 flex flex-col flex-1 gap-3">
-                    <h3 className="text-lg font-black leading-tight line-clamp-3 group-hover:text-primary transition-colors">{cert.name}</h3>
+                    <h3 className="text-lg font-black leading-tight line-clamp-3">{cert.name}</h3>
                     <div className="flex items-center justify-between mt-auto pt-3 border-t-2 border-dashed border-foreground/20">
                       <div className="flex items-center gap-2 text-muted-foreground">
                         <Award size={16} className={`text-${cert.variant}`} />
                         <span className="text-sm font-bold uppercase tracking-wider">{cert.org}</span>
                       </div>
+                      {cert.link && (
+                        <a
+                          href={cert.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={(e) => e.stopPropagation()}
+                          className="flex items-center gap-1.5 text-xs font-black px-3 py-1.5 border-2 border-foreground bg-background hover:bg-foreground hover:text-background transition-all duration-150"
+                        >
+                          Xem chứng chỉ <ExternalLink size={12} />
+                        </a>
+                      )}
                     </div>
                   </div>
                 </NeoCard>
-              </a>
             </motion.div>
           ))}
         </div>
