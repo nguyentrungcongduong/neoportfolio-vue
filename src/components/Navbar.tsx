@@ -30,10 +30,12 @@ const Navbar = () => {
   }, []);
 
   const navLinks = [
-    { href: "#about", label: "About" },
+    { href: "#about",    label: "About" },
+    { href: "#skills",   label: "Skills" },
+    { href: "#timeline", label: "Timeline" },
     { href: "#projects", label: "Projects" },
-    { href: "#blog", label: "Blog" },
-    { href: "#contact", label: "Contact" },
+    { href: "#blog",     label: "Blog" },
+    { href: "#contact",  label: "Contact" },
   ];
 
   const navVariants = {
