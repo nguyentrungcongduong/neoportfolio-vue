@@ -8,6 +8,7 @@ import { allProjects } from "@/data/projects";
 import { certificates } from "@/data/certificatesData";
 import { useState, useRef, useEffect } from "react";
 import { Lightbox } from "./Lightbox";
+import { toast } from "sonner";
 
 const uniqueTechnologiesCount = new Set(allProjects.flatMap(p => p.tags)).size;
 
@@ -71,6 +72,7 @@ const CVDropdown = () => {
     a.download = label.replace(/\s+/g, "_") + ".pdf";
     a.click();
     setOpen(false);
+    toast.success(`📄 Đang tải ${label}...`, { duration: 3000 });
   };
 
   return (
