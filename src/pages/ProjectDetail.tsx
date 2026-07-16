@@ -5,6 +5,8 @@ import { allProjects } from "@/data/projects";
 import NeoButton from "@/components/NeoButton";
 import CustomCursor from "@/components/CustomCursor";
 import FloatingPet from "@/components/FloatingPet";
+import { Lightbox } from "@/components/Lightbox";
+import { ZoomIn } from "lucide-react";
 import {
   ArrowLeft, ExternalLink, Github, CheckCircle,
   Calendar, User, ArrowRight, ArrowLeftCircle, ArrowRightCircle,
@@ -39,6 +41,7 @@ const ProjectDetail = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [activeImg, setActiveImg] = useState(0);
+  const [lightboxSrc, setLightboxSrc] = useState<string | null>(null);
 
   const projectIndex = allProjects.findIndex((p) => p.id === id);
   const project = allProjects[projectIndex];
@@ -247,19 +250,27 @@ const ProjectDetail = () => {
                   https://congduong.dev/{project.id}
                 </span>
               </div>
-              {/* Active image */}
-              <AnimatePresence mode="wait">
-                <motion.img
-                  key={activeImg}
-                  src={project.images[activeImg]}
-                  alt={`${project.title} screenshot ${activeImg + 1}`}
-                  className="w-full h-64 object-cover"
-                  initial={{ opacity: 0, x: 30 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -30 }}
-                  transition={{ duration: 0.25 }}
-                />
-              </AnimatePresence>
+              {/* Active image — click to zoom */}
+              <div className="relative group cursor-zoom-in" onClick={() => setLightboxSrc(project.images[activeImg])}>
+                <AnimatePresence mode="wait">
+                  <motion.img
+                    key={activeImg}
+                    src={project.images[activeImg]}
+                    alt={`${project.title} screenshot ${activeImg + 1}`}
+                    className="w-full h-64 object-cover"
+                    initial={{ opacity: 0, x: 30 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -30 }}
+                    transition={{ duration: 0.25 }}
+                  />
+                </AnimatePresence>
+                {/* Zoom hint */}
+                <div className="absolute inset-0 flex items-center justify-center bg-black/0 group-hover:bg-black/25 transition-all duration-200 opacity-0 group-hover:opacity-100 pointer-events-none">
+                  <div className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center border-2 border-white/60">
+                    <ZoomIn size={22} className="text-white" />
+                  </div>
+                </div>
+              </div>
             </div>
 
             {/* Thumbnail strip */}
@@ -352,6 +363,7 @@ const ProjectDetail = () => {
           ) : <div />}
         </motion.div>
       </div>
+      <Lightbox src={lightboxSrc} alt={`${project.title} screenshot`} onClose={() => setLightboxSrc(null)} />
     </div>
   );
 };
