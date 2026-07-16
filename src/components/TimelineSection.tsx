@@ -1,5 +1,6 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import { useLang } from "@/context/LanguageContext";
 
 const timelineEntries = [
   {
@@ -184,6 +185,7 @@ function CardContent({ entry }: { entry: (typeof timelineEntries)[number] }) {
 export default function TimelineSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const titleInView = useInView(sectionRef, { once: true });
+  const { t } = useLang();
 
   return (
     <section
@@ -207,11 +209,10 @@ export default function TimelineSection() {
           </span>
         </div>
         <h2 className="text-4xl md:text-5xl font-extrabold text-foreground mb-4">
-          Hành Trình 🚀
+          {t.timeline.title} 🚀
         </h2>
         <p className="text-muted-foreground text-lg max-w-xl">
-          Từ những bước đầu tiên trên giảng đường đến các dự án thực tế —
-          hành trình phát triển của tôi qua các vai trò và môi trường khác nhau.
+          {t.timeline.subtitle}
         </p>
       </motion.div>
 

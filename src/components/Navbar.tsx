@@ -3,6 +3,7 @@ import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-
 import NeoButton from "./NeoButton";
 import { Menu, X, Sparkles, Sun, Moon, Palette } from "lucide-react";
 import { useTheme, ACCENTS, AccentKey } from "@/context/ThemeContext";
+import { useLang } from "@/context/LanguageContext";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -11,6 +12,7 @@ const Navbar = () => {
   const paletteRef = useRef<HTMLDivElement>(null);
   const { scrollY } = useScroll();
   const { dark, toggleDark, accent, setAccent } = useTheme();
+  const { lang, toggleLang, t } = useLang();
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     const previous = scrollY.getPrevious() ?? 0;
@@ -30,12 +32,12 @@ const Navbar = () => {
   }, []);
 
   const navLinks = [
-    { href: "#about",    label: "About" },
-    { href: "#skills",   label: "Skills" },
-    { href: "#timeline", label: "Timeline" },
-    { href: "#projects", label: "Projects" },
-    { href: "#blog",     label: "Blog" },
-    { href: "#contact",  label: "Contact" },
+    { href: "#about",    label: t.nav.about },
+    { href: "#skills",   label: t.nav.skills },
+    { href: "#timeline", label: t.nav.timeline },
+    { href: "#projects", label: t.nav.projects },
+    { href: "#blog",     label: t.nav.blog },
+    { href: "#contact",  label: t.nav.contact },
   ];
 
   const navVariants = {
@@ -120,6 +122,18 @@ const Navbar = () => {
                 </AnimatePresence>
               </motion.button>
 
+              {/* Language toggle */}
+              <motion.button
+                onClick={toggleLang}
+                className="w-9 h-9 flex items-center justify-center border-[3px] border-foreground bg-background hover:bg-primary transition-colors font-black text-xs"
+                style={{ boxShadow: "2px 2px 0 var(--foreground)" }}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                title="Switch language"
+              >
+                {lang === "vi" ? "EN" : "VI"}
+              </motion.button>
+
               {/* Accent color picker */}
               <div className="relative" ref={paletteRef}>
                 <motion.button
@@ -177,7 +191,7 @@ const Navbar = () => {
             >
               <div style={{ filter: "drop-shadow(3px 3px 0px var(--foreground))" }}>
                 <NeoButton variant="primary" size="sm" className="hover-jello">
-                  Hire Me 🚀
+                  {t.nav.hire}
                 </NeoButton>
               </div>
             </motion.div>
@@ -256,7 +270,7 @@ const Navbar = () => {
                 </motion.div>
                 <motion.div variants={menuItemVariants}>
                   <NeoButton variant="primary" size="sm" className="w-full">
-                    Hire Me 🚀
+                    {t.nav.hire}
                   </NeoButton>
                 </motion.div>
               </div>

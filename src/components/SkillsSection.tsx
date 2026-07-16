@@ -1,5 +1,6 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import { useLang } from "@/context/LanguageContext";
 
 const skillGroups = [
   {
@@ -124,6 +125,7 @@ function SkillGroupCard({ label, emoji, skills, index }: SkillGroupCardProps) {
 export default function SkillsSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const titleInView = useInView(sectionRef, { once: true });
+  const { t } = useLang();
 
   return (
     <section
@@ -143,15 +145,14 @@ export default function SkillsSection() {
             className="text-xs font-extrabold uppercase tracking-widest px-3 py-1 border-[2px] border-foreground"
             style={{ background: "hsl(var(--accent))" }}
           >
-            Skills
+            {t.skills.title}
           </span>
         </div>
         <h2 className="text-4xl md:text-5xl font-extrabold text-foreground mb-4">
-          Kỹ năng 💻
+          {t.skills.title} 💻
         </h2>
         <p className="text-muted-foreground text-lg max-w-xl">
-          Các công nghệ và công cụ tôi sử dụng để xây dựng sản phẩm — từ
-          frontend đến backend, database và DevOps.
+          {t.skills.subtitle}
         </p>
       </motion.div>
 
