@@ -1,4 +1,5 @@
-import { useEffect, useCallback } from "react";
+import { useEffect, useCallback, useState } from "react";
+import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ZoomIn } from "lucide-react";
 
@@ -25,7 +26,7 @@ export const Lightbox = ({ src, alt = "Image", onClose }: LightboxProps) => {
     };
   }, [src, handleKey]);
 
-  return (
+  return createPortal(
     <AnimatePresence>
       {src && (
         <motion.div
@@ -66,7 +67,8 @@ export const Lightbox = ({ src, alt = "Image", onClose }: LightboxProps) => {
           </p>
         </motion.div>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body
   );
 };
 
@@ -79,7 +81,6 @@ interface ZoomableImageProps {
   loading?: "eager" | "lazy";
 }
 
-import { useState } from "react";
 
 export const ZoomableImage = ({ src, alt = "Image", className = "", style, loading = "lazy" }: ZoomableImageProps) => {
   const [lightbox, setLightbox] = useState<string | null>(null);
