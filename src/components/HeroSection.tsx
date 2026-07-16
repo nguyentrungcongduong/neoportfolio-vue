@@ -7,6 +7,7 @@ const avatarUrl = "/cuto.jpg";
 import { allProjects } from "@/data/projects";
 import { certificates } from "@/data/certificatesData";
 import { useState, useRef, useEffect } from "react";
+import { Lightbox } from "./Lightbox";
 
 const uniqueTechnologiesCount = new Set(allProjects.flatMap(p => p.tags)).size;
 
@@ -126,6 +127,8 @@ const CVDropdown = () => {
 // ─────────────────────────────────────────────────────────────
 
 const HeroSection = () => {
+  const [avatarLightbox, setAvatarLightbox] = useState(false);
+
   return (
     <section className="flex flex-col px-4 pt-12 pb-0 overflow-hidden relative">
       {/* ── Decorative Background Layer ──────────────────────────────── */}
@@ -412,7 +415,7 @@ const HeroSection = () => {
                 <img
                   src={avatarUrl}
                   alt="Avatar"
-                  className="w-full h-full object-cover select-none pointer-events-none"
+                  className="w-full h-full object-cover select-none cursor-zoom-in"
                   style={{
                     willChange: "transform",
                     objectPosition: "center 15%",
@@ -420,7 +423,11 @@ const HeroSection = () => {
                   }}
                   loading="eager"
                   decoding="async"
+                  onClick={() => setAvatarLightbox(true)}
                 />
+                {avatarLightbox && (
+                  <Lightbox src={avatarUrl} alt="Avatar" onClose={() => setAvatarLightbox(false)} />
+                )}
                 {/* Pop-art color wash — warm amber tint overlay */}
                 <div
                   className="absolute inset-0 pointer-events-none"

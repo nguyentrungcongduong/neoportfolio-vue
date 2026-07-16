@@ -12,6 +12,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
+import { ZoomableImage } from "./Lightbox";
 
 // Project images
 import ecommerce1 from "@/assets/projects/ecommerce-1.png";
@@ -249,14 +250,12 @@ const ProjectsSection = () => {
                         {project.images.map((img, imgIdx) => (
                           <CarouselItem key={imgIdx}>
                             <div className="relative h-56 overflow-hidden">
-                              <img
+                              <ZoomableImage
                                 src={img}
                                 alt={`${project.title} screenshot ${imgIdx + 1}`}
                                 className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-                                loading="lazy"
-                                decoding="async"
                               />
-                              <div className="absolute inset-0 bg-gradient-to-t from-background/30 to-transparent" />
+                              <div className="absolute inset-0 bg-gradient-to-t from-background/30 to-transparent pointer-events-none" />
                             </div>
                           </CarouselItem>
                         ))}
